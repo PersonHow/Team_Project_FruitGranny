@@ -58,16 +58,14 @@
                             <label for="">鄉</label>
                             <input type="checkbox" >
                             <label for="">鎮</label>
-                            <input type="checkbox" >
-                            <p></p>
-                            <input type="text" name="" id="" placeholder="ex: 斗六/仁德/虎尾/燕巢">
+                            
                             
                         </div>
-                        <button type="button" class="addBtn" id="addBtn">submit</button>
+                        <button type="button" class="addBtn" id="addBtn">確認上架</button>
                 </div>
 
                 <div class="ans">
-                    !!!
+                    <p>answer</p>
                 </div>
                 </div>
                 
@@ -86,7 +84,6 @@
                         </div>
                     </div>
                     <div class="ans">
-                    ~~~
                     </div>
                 </div>
                 
@@ -135,72 +132,72 @@
         
         
 
-        .tab-pane{
-            width: 100%;
-            height: 30rem;
-        }
+        // .tab-pane{
+        //     width: 100%;
+        //     height: 30rem;
+        // }
         
-        .add{
-            width: 100%;
-            height: 30rem;
-            // border: 1px solid black;
+        // .add{
+        //     width: 100%;
+        //     height: 30rem;
+        //     // border: 1px solid black;
 
-            .sellAddArea{
-                display: flex;
-                .input{
-                    width: 20%;
-                    height: 30rem;
-                    // border: 1px solid black;
-                    // border-right: 1px solid white;
-                    position:relative;
+        //     .sellAddArea{
+        //         display: flex;
+        //         .input{
+        //             width: 20%;
+        //             height: 30rem;
+        //             // border: 1px solid black;
+        //             // border-right: 1px solid white;
+        //             position:relative;
 
-                    .production{
-                        margin-top: 10%;
-                    }
+        //             .production{
+        //                 margin-top: 10%;
+        //             }
 
-                    .addBtn{
-                        position: absolute;
-                        bottom: 0;
-                        right: 0;
-                    }
-                }
+        //             .addBtn{
+        //                 position: absolute;
+        //                 bottom: 0;
+        //                 right: 0;
+        //             }
+        //         }
 
-                .ans{
-                    height: 30rem;
-                    width: 80%;
-                }
-            }
-        }
+        //         .ans{
+        //             height: 30rem;
+        //             width: 80%;
+        //         }
+        //     }
+        // }
             
-        .products{
-            width: 100%;
-            height: 30rem;
-            .sellProducts{
-                width: 100%;
-                height: 30rem;
-                .input{
-                width: 100%;
-                height: 10%;
-                // border: 1px solid black;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+        // .products{
+        //     width: 100%;
+        //     height: 30rem;
+        //     .sellProducts{
+        //         width: 100%;
+        //         height: 30rem;
+        //         .input{
+        //         width: 100%;
+        //         height: 10%;
+        //         // border: 1px solid black;
+        //         display: flex;
+        //         justify-content: space-between;
+        //         align-items: center;
 
-                    .classification{
-                        // margin-left: 5%;
-                        width: 15%;
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                }
+        //             .classification{
+        //                 // margin-left: 5%;
+        //                 width: 15%;
+        //                 display: flex;
+        //                 justify-content: space-between;
+        //             }
+        //         }
 
-                .ans{
-                width:100%;
-                height: 90%;
-                // border: 1px solid white;
-                }
-            }
-        }
+        //         .ans{
+        //         width:100%;
+        //         height: 90%;
+        //         // border: 1px solid white;
+        //         }
+        //     }
+        // }
 
         }
     }
