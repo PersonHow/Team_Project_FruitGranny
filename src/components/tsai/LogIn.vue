@@ -2,20 +2,49 @@
     import { RouterLink, RouterView } from 'vue-router'
     // import Header 
     export default {
-            
-            data() {
-                return {
+        props: ["user_account"],
+        data() {
+            return {
+                email: null,
+                pwd: null,
+                account: null
+            }
+        },
+        methods: {
+            login() {
+                let body = {
+                    "email": this.email,
+                    "password": this.pwd
                 }
-            },
-            methods: {
-                message() {
-                    alert("Hello! Welcome~")
-                }
-            },
-            mounted() {
+                fetch("http://localhost:8080/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "Application/json",
+                    },
+                    body: JSON.stringify(body)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    localStorage.setItem("email", this.email)
+                    localStorage.setItem("password", this.pwd)
+                    localStorage.setItem("user_name", data.member.account)
+                    alert(data.message)
+                    if (data.message === "登入成功! HELLO!") {
+                        this.account = data.member.account;
+                        this.$emit('success', this.account);
+                        this.$router.push('/');
+                        console.log(this.account)
+                    }
+                })
+                .catch(err => {
 
-            } 
-        }
+                })
+            }
+        },
+        mounted() {
+        } 
+    }
 </script>
 
 
@@ -27,27 +56,22 @@
             <h1>登入</h1>
             <p>Hello!!</p>
             <form>
-                <div>
-                    <i class="fa-regular fa-user"></i>
-                    <label for="userName">　</label>
-                    <input type="text" id="userName" placeholder="User Name">
-                </div>
 
                <div>
                     <i class="fa-solid fa-at"></i>
                    <label for="email">　</label>
-                   <input type="text" id="email" placeholder="E-mail">
+                   <input type="text" id="email" placeholder="E-mail" v-model="email">
                </div>
                 
                <div>
                    <i class="fa-solid fa-unlock-keyhole"></i>
                    <label for="password">　</label>
-                   <input type="password" id="password" placeholder="Password">
+                   <input type="password" id="password" placeholder="Password" v-model="pwd">
                </div>
                 
             </form>
 
-            <button type="start" class="loginBtn" @click="message">登入</button>
+            <button type="start" class="loginBtn" @click="login">登入</button>
 
             <h2 class="message">
                 <p>還沒有帳號嗎？
@@ -66,13 +90,11 @@
     .login-box{
         width: 650px;
         .login{
-            // position: relative;
             text-align: center;
             padding: 30px;
             color: #444;
             background: white;
             border-radius: 20px;
-            // overflow: auto;
 
             h1{
                 font-size: 18pt;

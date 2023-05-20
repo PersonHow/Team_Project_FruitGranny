@@ -27,7 +27,7 @@ export default {
     .downView{
         display: flex;
         justify-content: center;
-        padding: 70px;
+        padding: 30px 70px;
         background-color: #cfcece;
     }
 </style>

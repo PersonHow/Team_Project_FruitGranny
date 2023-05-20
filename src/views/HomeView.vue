@@ -14,8 +14,6 @@ import HomeBody from "../components/tsai/HomeBody.vue";
 
 <template>
     <div class="body">
-        <!-- <HeaderView />
-        <RouterLink to="/log-in">log</RouterLink> -->
         <hr>
         <HomeBody />
         
