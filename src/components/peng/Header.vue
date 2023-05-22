@@ -1,5 +1,33 @@
 <script>
+export default{
+    data(){
+        return{
+            orderList:[],
+        }
+    },
+    methods:{
+            transforOrder(){
+                let arr = JSON.parse(localStorage.getItem("chartList"));
+                let orderArr = [];
+                console.log(arr);
+                    for(let i = 0; i < arr.length; i++){
+                        if(arr[i].condition === true ){
+                            orderArr.push(arr[i])
+                        }
+                    }
 
+                
+                return localStorage.setItem("orderList", JSON.stringify(orderArr));
+            }
+    },
+    mounted(){
+    //     // if (localStorage.getItem("chartList") === null) {                   // 假使內容為空，我就新增資料進來，目的使刪除購物車時不會回朔
+    //         localStorage.setItem("orderList", JSON.stringify(this.orderList));
+    // //     // }
+
+    //         this.orderList = JSON.parse(localStorage.getItem("orderList"));
+    }
+}
 </script>
 
 <template>
@@ -11,7 +39,7 @@
             </div>
         </div>
         <div class="purchase">
-            <button type="button" class="btnP">結帳</button>
+            <button type="button" class="btnP" @click="transforOrder">結帳</button>
         </div>
     </div>
     
@@ -69,31 +97,6 @@ display: flex;
     }
     }
 }
-    // .header{
-    //     width: 50%;
-    //     background-color: #666;
-    //     padding: 1rem;
-    //     display: block;
-    //     margin: auto;
-
-    //     .search{
-    //         width: 50%;
-    //         display: flex;
-    //         justify-content: center;
-    //         align-items: center;
-    //         padding-left: 50%;
-            
-    //         .btnS{
-    //             width: 150px;
-    //             height: 50px;
-    //             margin: 1rem;
-    //         }
-            
-            
-            
-    //     }
-
-
-    // }
+    
 
 </style>
