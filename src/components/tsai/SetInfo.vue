@@ -95,6 +95,9 @@ export default {
 
             <button type="button" class="setBtn" @click="setInfo">確認修改</button>
 
+            <h2 class="message">
+                <RouterLink to="/">返回主頁</RouterLink>
+            </h2>
         </div>
     </div>
 
@@ -170,8 +173,12 @@ export default {
                     scale: 0.95;
                 }
             }
+
+            .message{
+                font-size: 10pt;
+                text-align: right;
+                color: rgba(47, 54, 64, 1.0);
+            }
         }
-
-
     }
 </style>

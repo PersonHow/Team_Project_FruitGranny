@@ -1,4 +1,18 @@
 <script>
+export default {
+    data(){
+        return {
+
+        }
+    },
+    methods: {
+    },
+    mounted() {
+        
+    }
+    
+}
+
 </script>
 
 <template>
@@ -38,24 +52,29 @@
     <div class="chooseArea">
     
         <div class="chooseCard">
-            <!-- <button type="button" class="chooseBtn">供應商</button> -->
-            <RouterLink to="/seller" class="chooseBtn">供應商</RouterLink>
+            <RouterLink to="/seller" class="custom-btn btn-5">供應商</RouterLink>
             <div class="pic">
-                <img src="https://t4.ftcdn.net/jpg/04/42/11/53/360_F_442115393_umFt4eV1asDjcvpG4g7hylxuw7nCD8Oo.jpg" alt="">
+                <img src="https://t4.ftcdn.net/jpg/04/42/11/53/360_F_442115393_umFt4eV1asDjcvpG4g7hylxuw7nCD8Oo.jpg" alt="seller">
             </div>
 
         </div>
             
         <div class="chooseCard">
-            <!-- <button type="button" class="chooseBtn">消費者</button> -->
-            <RouterLink to="/buyer" class="chooseBtn">消費者</RouterLink>
+            <RouterLink to="/buyer" class="custom-btn btn-5">消費者</RouterLink>
             <div class="pic">
-                <img src="https://www.prakati.in/wp-content/uploads/2021/06/Featured-Image-Reusable-Vegetable-Storage-Bags-markus-spiske-unsplash.jpg" alt="">
+                <img src="https://www.prakati.in/wp-content/uploads/2021/06/Featured-Image-Reusable-Vegetable-Storage-Bags-markus-spiske-unsplash.jpg" alt="buyer">
             </div>
         </div>
-
+        
     </div>
     
+    <!-- move box -->
+    <div class="move-box">
+        <img src="https://shoplineimg.com/61aee0defaf6dc003221bdfe/62296315aa9fc20032e2ab8c/800x.png?" alt="生產履歷">
+        <p>生產履歷</p>
+        
+    </div>
+
 </template>
 
 
@@ -69,6 +88,7 @@
         align-items: center;
         // margin: 0 60px;
         border-bottom: inset;
+        padding: 7px 0 26px 0;
         .picArea{
             width: 80vw;
 
@@ -82,31 +102,68 @@
         margin-bottom: 50px;
         display: flex;
         justify-content: space-evenly;
+        
         .chooseCard{
 
-            .chooseBtn{
-                // width: 450px;
-                height: 95px;
+            .custom-btn {
                 font-size: 25pt;
-                color: white;
-                background-color: #999;
-                border: none;
-                border-radius: 15px;
-                transition: 0.3s;
-                box-shadow: 8px 8px 8px #666;
-                text-decoration: none;
-                display: block;
-                padding: 1rem;
                 text-align: center;
+                text-decoration: none;
+                color: #fff;
+                border-radius: 5px;
+                font-family: 'Lato', sans-serif;
+                // cursor: pointer;
+                transition: all 0.3s ease;
+                position: relative;
+                display: inline-block;
+                box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+                7px 7px 20px 0px rgba(0,0,0,.1),
+                4px 4px 5px 0px rgba(0,0,0,.1);
+                outline: none;
 
-                &:hover{
-                    background: #222;
-                    border: 2px solid white;
-                }
+                
 
                 &:active{
                     scale: 0.95;
                 }
+
+            }
+
+            .btn-5 {
+                width: 450px;
+                height: 70px;
+                padding: 10px;
+                border: none;
+                background: linear-gradient(0deg, #3dc4b0 0%, #fbb97c 100%);
+            }
+            .btn-5:hover {
+                color: #2a9a89;
+                background: transparent;
+                box-shadow: none;
+            }
+            .btn-5:before, .btn-5:after{
+            content:'';
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 2px;
+                width: 0;
+                background: #2a9a89;
+                box-shadow:
+                -1px -1px 5px 0px #fff,
+                7px 7px 20px 0px #0003,
+                4px 4px 5px 0px #0002;
+                transition: 400ms ease all;
+            }
+            .btn-5:after{
+                right:inherit;
+                top:inherit;
+                left:0;
+                bottom:0;
+            }
+            .btn-5:hover:before, .btn-5:hover:after{
+                width:100%;
+                transition:800ms ease all;
             }
 
             .pic{
@@ -117,10 +174,36 @@
                     height: 380px;
                     box-shadow: 8px 8px 8px #666;
                     border-radius: 10px;
-
+                    opacity: 0.8;
                 }
             }
         }
     }
+
+    .move-box{
+        width: 120px;
+        height: 150px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px #333;
+        position: fixed;
+        bottom: 50px;
+        right: 40px;
+        z-index: 100;
+    
+        img{
+            width: 120px;
+        }
+
+        p{
+            text-align: center;
+            font-size: 15px;
+            background-color: #555;
+            color: white;
+            border-radius: 5px;
+        }
+    }
+
+
 
 </style>
