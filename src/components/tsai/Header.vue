@@ -1,9 +1,7 @@
 <script>
     import { RouterLink, RouterView } from 'vue-router'
-    import LoginTitle from './LoginTitle.vue';
     export default {
         components: {
-            LoginTitle
         },
         data() {
             return {
@@ -14,15 +12,19 @@
         methods: {
             signOut(){
                 localStorage.clear();
-                location.reload();
-            },
-            getAccount(user){
-                this.user_account = user;
+                this.$router.push('/');
+                
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+                
             }
+            // getAccount(user){
+            //     this.user_account = user;
+            // }
         },
         mounted() {
             this.user_name = localStorage.getItem("user_name");
-            // console.log(this.user_name)
         } 
     }
 </script>
@@ -42,8 +44,6 @@
                 <div v-if="user_name" class="userBtn-area">
 
                     <p class="user" 
-                    :user_account="user_account"
-                    @success="getAccount"
                     >Hi,　{{ user_name }}　｜
                 
                     <button type="button" @click="signOut"
@@ -51,11 +51,7 @@
                     >登出</button>
 
                     </p>
-                    
-                    <!-- <LoginTitle :user_account="user_account"
-                    @success="getAccount" /> -->
-
-
+            
                     <RouterLink to="/set-info" class="setInfo  btn btn-outline-secondary">
                     <i class="fa-solid fa-user-pen"></i>　修改個人資料</RouterLink>
                 </div>

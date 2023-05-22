@@ -1,4 +1,18 @@
 <script>
+export default {
+    data(){
+        return {
+
+        }
+    },
+    methods: {
+    },
+    mounted() {
+        
+    }
+    
+}
+
 </script>
 
 <template>
@@ -40,7 +54,7 @@
         <div class="chooseCard">
             <RouterLink to="/seller" class="custom-btn btn-5">供應商</RouterLink>
             <div class="pic">
-                <img src="https://t4.ftcdn.net/jpg/04/42/11/53/360_F_442115393_umFt4eV1asDjcvpG4g7hylxuw7nCD8Oo.jpg" alt="">
+                <img src="https://t4.ftcdn.net/jpg/04/42/11/53/360_F_442115393_umFt4eV1asDjcvpG4g7hylxuw7nCD8Oo.jpg" alt="seller">
             </div>
 
         </div>
@@ -48,7 +62,7 @@
         <div class="chooseCard">
             <RouterLink to="/buyer" class="custom-btn btn-5">消費者</RouterLink>
             <div class="pic">
-                <img src="https://www.prakati.in/wp-content/uploads/2021/06/Featured-Image-Reusable-Vegetable-Storage-Bags-markus-spiske-unsplash.jpg" alt="">
+                <img src="https://www.prakati.in/wp-content/uploads/2021/06/Featured-Image-Reusable-Vegetable-Storage-Bags-markus-spiske-unsplash.jpg" alt="buyer">
             </div>
         </div>
         
@@ -88,7 +102,9 @@
         margin-bottom: 50px;
         display: flex;
         justify-content: space-evenly;
+        
         .chooseCard{
+
             .custom-btn {
                 font-size: 25pt;
                 text-align: center;
@@ -104,6 +120,8 @@
                 7px 7px 20px 0px rgba(0,0,0,.1),
                 4px 4px 5px 0px rgba(0,0,0,.1);
                 outline: none;
+
+                
 
                 &:active{
                     scale: 0.95;
@@ -156,7 +174,7 @@
                     height: 380px;
                     box-shadow: 8px 8px 8px #666;
                     border-radius: 10px;
-
+                    opacity: 0.8;
                 }
             }
         }
@@ -186,70 +204,6 @@
         }
     }
 
-    // .custom-btn {
-    //     // width: 130px;
-    //     // height: 40px;
-    //     font-size: 25pt;
-    //     text-align: center;
-    //     text-decoration: none;
-    //     // display: flex;
-    //     // align-items: center;
-
-    //     color: #fff;
-    //     border-radius: 5px;
-    //     // padding: 10px 25px;
-    //     font-family: 'Lato', sans-serif;
-    //     font-weight: 500;
-    //     background: transparent;
-    //     cursor: pointer;
-    //     transition: all 0.3s ease;
-    //     position: relative;
-    //     display: inline-block;
-    //     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    //     7px 7px 20px 0px rgba(0,0,0,.1),
-    //     4px 4px 5px 0px rgba(0,0,0,.1);
-    //     outline: none;
-
-    // }
-
-    // .btn-5 {
-    //     width: 450px;
-    //     height: 70px;
-    //     line-height: 42px;
-    //     padding: 0;
-    //     border: none;
-    //     background: rgb(255,27,0);
-    //     background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
-    // }
-    // .btn-5:hover {
-    //     color: #f0094a;
-    //     background: transparent;
-    //     box-shadow:none;
-    // }
-    // .btn-5:before, .btn-5:after{
-    // content:'';
-    //     position:absolute;
-    //     top:0;
-    //     right:0;
-    //     height:2px;
-    //     width:0;
-    //     background: #f0094a;
-    //     box-shadow:
-    //     -1px -1px 5px 0px #fff,
-    //     7px 7px 20px 0px #0003,
-    //     4px 4px 5px 0px #0002;
-    //     transition:400ms ease all;
-    // }
-    // .btn-5:after{
-    //     right:inherit;
-    //     top:inherit;
-    //     left:0;
-    //     bottom:0;
-    // }
-    // .btn-5:hover:before, .btn-5:hover:after{
-    //     width:100%;
-    //     transition:800ms ease all;
-    // }
 
 
 </style>

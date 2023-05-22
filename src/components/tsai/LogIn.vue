@@ -34,7 +34,10 @@
                         this.account = data.member.account;
                         this.$emit('success', this.account);
                         this.$router.push('/');
-                        console.log(this.account)
+                        
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 100);
                     }
                 })
                 .catch(err => {
@@ -89,6 +92,8 @@
 <style lang="scss" scoped>
     .login-box{
         width: 650px;
+        height: 60vh;
+        margin-top: 50px;
         .login{
             text-align: center;
             padding: 30px;

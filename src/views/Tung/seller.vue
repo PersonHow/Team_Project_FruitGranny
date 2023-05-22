@@ -1,4 +1,13 @@
 <script>
+export default {
+
+    mounted() {
+        if (localStorage.getItem("email") === null) {
+            alert("請先登入")
+            this.$router.push('/log-in');
+        }
+    }
+}
 
 </script>
 
