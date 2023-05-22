@@ -6,7 +6,8 @@ export default {
     },
     data() {
         return {
-            TotalPrice: null
+            orderList : JSON.parse(localStorage.getItem("orderList")),
+            TotalPrice: 0
         }
     },
     methods: {
@@ -19,7 +20,9 @@ export default {
     // 生命週期
     mounted() {
         // this.fn();
-
+        for(let i = 0; i < this.orderList.length; i++){
+            this.TotalPrice += parseInt(this.orderList[i].total);
+        }
 
     }
 }
@@ -30,50 +33,24 @@ export default {
 
 <template>
     <div class="total-area ">
-        <div class="total-area-detail">
-
-            <p class="fw-bold">總計 : </p>
-            <div class="TotalPriceArea text-danger">
-                <p class="fw-bold"> 999 {{ TotalPrice }}</p>
-
-            </div>
-
-        </div>
+        <p class="fw-bold">總計 : </p>
+        <p class="fw-bold money"> $  {{ this.TotalPrice }} 元</p>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .total-area {
-
     display: flex;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
-    width: 81%;
-    height: 12vh;
-    font-size: 14px;
-    // margin-top: 30px;
-
+    width: 80%;
+    font-size: 28px;
+    margin-top: 2%;
     border-radius: 3px;
-    background-color: #efe8e8;
-    margin-bottom: -31px;
-    margin-right: 3px;
-
-    // position: relative;
-    // left:-10px;
-    // overflow: auto;
-    .total-area-detail {
-        width: 40vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        // margin-right: 1px;
-    }
-
-    .TotalPriceArea {
-        p {
-            position: relative;
-            left: 132px;
-        }
+    
+    .money{
+        margin-left: 5%;
+        color: red;
     }
 }
 </style>

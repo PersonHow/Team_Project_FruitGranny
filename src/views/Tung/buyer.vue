@@ -79,19 +79,6 @@ export default{
             <!-- 購物車 -->
             <div class="products tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="sellProducts">
-                    <!-- <div class="input">
-                        <div class="classification">
-                            <button type="button"> 蔬菜 </button>
-                            <button type="button"> 水果 </button>
-                        </div>
-                        <div class="search">
-                            <input type="text" placeholder="搜尋產品">
-                            <button type="button" id="productSearch">Search</button>
-                        </div>
-                    </div>
-                    <div class="ans">
-                    ~~~
-                    </div> -->
                     <HeaderView />
                     <ResultView />
                 </div>
@@ -222,6 +209,16 @@ export default{
 
         .order{
             width: 100%;
+            height: 30rem;
+            background-color: #efe8e8;
+
+
+            .sellOrder{
+                width: 100%;
+                height: 30rem;
+                background-color: #efe8e8;
+                // overflow: auto;
+            }
         }
         }
     }

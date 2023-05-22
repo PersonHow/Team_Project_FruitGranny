@@ -9,14 +9,16 @@ export default {
             productName: "",
             singlePrice: null,
             ItemNum: null,
-            ItemTotal: null
+            ItemTotal: null,
+            orderList : JSON.parse(localStorage.getItem("orderList")),
             
 
         }
     },
     methods: {
         price() {
-
+            const img = document.querySelector(".xxxImg")
+            console.log(typeof(img.alt))
 
         }
     },
@@ -34,64 +36,60 @@ export default {
 
 <template>
     <div class="item-area">
+        <li v-for="(item, index) in orderList" :key="index" class="item-List">
         <div class="item-area-detail">
-
+            <!-- 圖片區 -->
             <div class="photoExhibit">
-                <img src="../../../public/shan/img/tomotoFruit.jpg" alt="">
+                <img src="" alt="xxx" class="xxxImg">
+                <button @click="price">xxx</button>
             </div>
 
+            <!-- 產品內容區 -->
             <div class="ckeckInfo">
-                <div class="textLayout">
-                    <p>商品名稱 :  </p>
-                    <p class="text-primary mx-2"> 聖女番茄{{ productName }}</p>
-                </div>
-                <div class="textLayout">
-                    <p>單價 : </p>
-                    <p class="text-primary mx-2"> 99 {{ singlePrice }}</p>
-                </div>
-
+                    <p>商品名稱： <sapn class="text-primary mx-2"> {{ item.text }}</sapn></p>
+                    
+                    <p>單價：<sapn class="text-primary mx-2"> {{ item.price }}</sapn> </p>
+                    
+                    <p>賣家：<sapn class="text-primary mx-2"> {{ item.seller }}</sapn></p>
             </div>
 
+            <!-- 產品數量 -->
             <div class="BuyInfoNum text-primary">
-                <p> * 1 {{ ItemNum }}</p>
+                <p>數量</p>
+                <p> {{ item.number }}</p>
             </div>
-
+            <!-- 產品總價 -->
             <div class="BuyInfoPrice text-primary">
-                <p> 99 {{ ItemTotal }}</p>
+                <p>總價</p>
+                <p>  {{ item.total }}</p>
             </div>
         </div>
         
-
+        </li>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .item-area {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     width: 100%;
     height: 10vw;
-    font-size: 14px;
+    font-size: 2.5vmin;
     margin-top: 15px;
-    
     border-radius: 3px;
-    border-bottom: 2px solid rgb(87, 85, 85);
     background-color: #efe8e8;
+    list-style:none;
     // overflow: auto;
 
     .item-area-detail {
-        width: 80%;
+        width: 100%;
+        border-bottom: 2px solid rgb(87, 85, 85);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        
         margin-bottom: 12px;
 
         .photoExhibit {
-            width: 10vw;
+            width: 40%;
             height: 10vw;
             background-repeat: no-repeat;
             background-size: cover;
@@ -102,25 +100,21 @@ export default {
                 height: 10vw;
                 margin-right: 5px;
 
-
             }
 
         }
 
         .ckeckInfo {
-            font-size: 12px;
-
-            flex-direction: column;
-            display: flex;
-            justify-content: center;
-
-
-            .textLayout {
-                display: flex;
-            }
+            width: 40%;
         }
 
-
+        .BuyInfoNum{
+            width: 10%;
+        }
+        
+        .BuyInfoPrice{
+            width: 10%;
+        }
     }
 }
 </style>
