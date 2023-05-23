@@ -8,16 +8,82 @@ export default {
   },
   data() {
     return {
-
+        name:"",        // 與收件人欄位連接
+        phone:"",       // 與收件人電話欄位連接
+        adress:"",      // 與寄件地址欄位連接
     }
   },
   methods: {
     fn() {
 
-
     },
     alertmsg() {
-      alert("下訂成功!!! \n商品將於三天內出貨，請留意 \n\n (1) 簡訊通知出貨時間  \n (2) 簡訊通知到貨時間 \n (3) 宅急便電話取貨。 \n \n食品為低溫宅配商品，目前為指定18:00送達。  \n如有特殊時間送達需求請下訂24小時內撥電詢問。 \nTel: 06-2345678 (王小姐)");
+      
+      // alert("下訂成功!!! \n商品將於三天內出貨，請留意 \n\n (1) 簡訊通知出貨時間  \n (2) 簡訊通知到貨時間 \n (3) 宅急便電話取貨。 \n \n食品為低溫宅配商品，目前為指定18:00送達。  \n如有特殊時間送達需求請下訂24小時內撥電詢問。 \nTel: 06-2345678 (王小姐)");
+      // 取得購物車相關資料
+      let ary = JSON.parse(localStorage.getItem(localStorage.getItem("email")));
+      console.log(ary);
+
+      
+      let newaa = [];                               // newaa 用於後續訂單內容轉變
+      let sellers = "";                             // sellers 放賣家名稱
+      let content = "";                             // content 放訂單內容編號
+
+
+      let result="";                                // 訂單碼(亂數)
+      let charts = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      for(let i =0 ; i< 5; i++){
+        result += charts.charAt(Math.floor(Math.random() * charts.length));
+      }
+      
+      for(let i = 0; i < ary.length; i++){          //根據購物車內容多寡填入相對應資訊
+        newaa.push(ary[i]);
+        
+        if(sellers === ""){                         // 使賣家形成字串
+          sellers = ary[i].seller;
+        }else if(!sellers.includes(ary[i].seller)){
+          sellers = sellers.concat(",",ary[i].seller);
+        }
+
+        if(content === ""){                         // 使訂單內容編碼形成字串
+          content = (result + "-" +(i+1));
+        }else{
+          content = content.concat("," , (result + "-" +(i+1)));
+        }
+
+      }
+      
+      console.log(content);                         // 訂單內容編碼
+
+      
+      let orderObj = {                              // 轉成可以與後端對接的型態
+        "order_id":result,                            // 訂單區，填入與資料庫相對應欄位
+        "seller_account":sellers,
+        "buyer_account":this.name,
+        "buyer_phone":this.phone,
+        "sent_adress":this.adress,
+        "content":content,
+        "condition":"未出貨",
+      }
+
+      let contentArr = [];                          // 訂單內容區，填入與資料庫相對應欄位
+
+      for(let j = 0; j< newaa.length; j++){
+        let orderContent = {
+        "num_id":(result + "-" + (j+1)),
+        "item_name":newaa[j].text,
+        "item_number":newaa[j].number,
+        "item_price":newaa[j].price,
+        "total_price":newaa[j].total,
+        "seller_account":newaa[j].seller
+        }
+        contentArr.push(orderContent);
+      }
+
+      console.log(contentArr);                      // 查看訂單"內容"是否理想
+      console.log(orderObj);                        // 查看訂單"資訊"是否理想
+      
+      
 
     }
   },
@@ -39,32 +105,34 @@ export default {
       <h3 class="fw-bold">寄送資訊</h3>
       <div class="logistic-detail">
 
+        <!-- 收件人 -->
         <div class="logistic-detail-input">
           <label for="name"> <i class="fa-solid fa-user"> 收件人</i></label>
           <input class="name" id="name" type="text" placeholder=" 請輸入領貨人姓名，e.g. 王曉明"
-            onclick="document.getElementById('name').value=''">
+            onclick="document.getElementById('name').value=''" v-model="this.name">
         </div>
 
+        <!-- 連絡電話 -->
         <div class="logistic-detail-input">
           <label for="phone"> <i class="fa-solid fa-mobile-screen-button"> 連絡電話</i></label>
-          <input class="phone" id="phone" type="number" placeholder=" 請輸入連絡電話 ，e.g. 0912345678">
+          <input class="phone" id="phone" type="number" placeholder=" 請輸入連絡電話 ，e.g. 0912345678" v-model="this.phone">
         </div>
 
+        <!-- 寄送地址 -->
         <div class="logistic-detail-input">
           <label for="adress"> <i class="fa-solid fa-map-location-dot"> 寄送地址</i> </label>
-          <input class="adress" id="adress" type="text" placeholder=" 請輸入寄送地址(須提供郵遞區號)，e.g. 704-台南市北區 林森路三段">
+          <input class="adress" id="adress" type="text" placeholder=" 請輸入寄送地址(須提供郵遞區號)，e.g. 704-台南市北區 林森路三段" v-model="this.adress">
         </div>
       </div>
-      <!-- <div class="alert alert-danger fs-6 my-3" role="alert">
-        <strong> 寄送資訊</strong> 請填正確，再點選 <strong> 商品結帳</strong> 送出訂購資訊。
-      </div> -->
 
+      <!-- 結帳按鈕 -->
       <div class="bottom">
-          <button type="button" class="requestCheckBtn" v-on:click="alertmsg">
+          <button type="button" class="requestCheckBtn" v-on:click="alertmsg()">
             <i class="fa-regular fa-money-bill-1"> 商品結帳</i>
           </button>
       </div>
   </div>
+
   <div class="card-area"> 
     <div class="buyinfo">
       <!-- 購買區 -->
@@ -73,6 +141,7 @@ export default {
         <BuyItem />
       </div>
     </div>
+    <!-- 價格區 -->
     <div class="priceinfo"> 
       <!-- 總價計算 -->
       <div class="total">

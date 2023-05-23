@@ -3,9 +3,11 @@ export default{
     data(){
         return{
             orderList:[],
+            account:"",
         }
     },
     methods:{
+            // checkbox 的勾選狀態，若勾選則加入購物車
             transforOrder(){
                 let arr = JSON.parse(localStorage.getItem("chartList"));
                 let orderArr = [];
@@ -16,8 +18,10 @@ export default{
                         }
                     }
 
+                const acc = localStorage.getItem("email");
+                console.log(acc);   
                 
-                return localStorage.setItem("orderList", JSON.stringify(orderArr));
+                return localStorage.setItem(acc, JSON.stringify(orderArr));
             }
     },
     mounted(){

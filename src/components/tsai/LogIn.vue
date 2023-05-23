@@ -11,38 +11,41 @@
             }
         },
         methods: {
-            login() {
-                let body = {
-                    "email": this.email,
-                    "password": this.pwd
-                }
-                fetch("http://localhost:8080/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "Application/json",
-                    },
-                    body: JSON.stringify(body)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    localStorage.setItem("email", this.email)
-                    localStorage.setItem("password", this.pwd)
-                    localStorage.setItem("user_name", data.member.account)
-                    alert(data.message)
-                    if (data.message === "登入成功! HELLO!") {
-                        this.account = data.member.account;
-                        this.$emit('success', this.account);
-                        this.$router.push('/');
+            // login() {
+            //     let body = {
+            //         "email": this.email,
+            //         "password": this.pwd
+            //     }
+            //     fetch("http://localhost:8080/login", {
+            //         method: "POST",
+            //         headers: {
+            //             "Content-Type": "Application/json",
+            //         },
+            //         body: JSON.stringify(body)
+            //     })
+            //     .then(res => res.json())
+            //     .then(data => {
+            //         console.log(data)
+            //         localStorage.setItem("email", this.email)
+            //         localStorage.setItem("password", this.pwd)
+            //         localStorage.setItem("user_name", data.member.account)
+            //         alert(data.message)
+            //         if (data.message === "登入成功! HELLO!") {
+            //             this.account = data.member.account;
+            //             this.$emit('success', this.account);
+            //             this.$router.push('/');
                         
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 100);
-                    }
-                })
-                .catch(err => {
+            //             setTimeout(() => {
+            //                 window.location.reload();
+            //             }, 100);
+            //         }
+            //     })
+            //     .catch(err => {
 
-                })
+            //     })
+            // },
+            login(){
+                localStorage.setItem("email",this.email);
             }
         },
         mounted() {
@@ -60,17 +63,17 @@
             <p>Hello!!</p>
             <form>
 
-               <div>
+                <div>
                     <i class="fa-solid fa-at"></i>
-                   <label for="email">　</label>
-                   <input type="text" id="email" placeholder="E-mail" v-model="email">
-               </div>
+                    <label for="email">　</label>
+                    <input type="text" id="email" placeholder="E-mail" v-model="email">
+                </div>
                 
-               <div>
-                   <i class="fa-solid fa-unlock-keyhole"></i>
-                   <label for="password">　</label>
-                   <input type="password" id="password" placeholder="Password" v-model="pwd">
-               </div>
+                <div>
+                    <i class="fa-solid fa-unlock-keyhole"></i>
+                    <label for="password">　</label>
+                    <input type="password" id="password" placeholder="Password" v-model="pwd">
+                </div>
                 
             </form>
 

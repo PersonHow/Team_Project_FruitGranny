@@ -10,16 +10,14 @@ export default {
             singlePrice: null,
             ItemNum: null,
             ItemTotal: null,
-            orderList : JSON.parse(localStorage.getItem("orderList")),
+            orderList:JSON.parse(localStorage.getItem(localStorage.getItem("email"))),
             
 
         }
     },
     methods: {
         price() {
-            const img = document.querySelector(".xxxImg")
-            console.log(typeof(img.alt))
-
+            
         }
     },
     // 生命週期
@@ -36,12 +34,12 @@ export default {
 
 <template>
     <div class="item-area">
-        <li v-for="(item, index) in orderList" :key="index" class="item-List">
+        <!-- <button type="button" class="btnn" @click="price">xxx</button> -->
+        <li v-for="(item, index) in this.orderList" :key="index" class="item-List">
         <div class="item-area-detail">
             <!-- 圖片區 -->
             <div class="photoExhibit">
-                <img src="" alt="xxx" class="xxxImg">
-                <button @click="price">xxx</button>
+                <img src="" alt="" class="xxxImg">
             </div>
 
             <!-- 產品內容區 -->
