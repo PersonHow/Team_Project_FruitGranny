@@ -16,6 +16,8 @@ export default {
 </script>
 
 <template>
+     <!-- Animate.css v3.5.2 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet"  />
 
     <div class="homeBody">
         
@@ -46,15 +48,15 @@ export default {
                 </button>
             </div>
         </div>
-        <!-- chooseArea -->
     </div>
     
+    <!-- chooseArea -->
     <div class="chooseArea">
     
         <div class="chooseCard">
             <RouterLink to="/seller" class="custom-btn btn-5">供應商</RouterLink>
             <div class="pic">
-                <img src="https://t4.ftcdn.net/jpg/04/42/11/53/360_F_442115393_umFt4eV1asDjcvpG4g7hylxuw7nCD8Oo.jpg" alt="seller">
+                <img class="animate flipInY" src="https://t4.ftcdn.net/jpg/04/42/11/53/360_F_442115393_umFt4eV1asDjcvpG4g7hylxuw7nCD8Oo.jpg" alt="seller">
             </div>
 
         </div>
@@ -62,7 +64,7 @@ export default {
         <div class="chooseCard">
             <RouterLink to="/buyer" class="custom-btn btn-5">消費者</RouterLink>
             <div class="pic">
-                <img src="https://www.prakati.in/wp-content/uploads/2021/06/Featured-Image-Reusable-Vegetable-Storage-Bags-markus-spiske-unsplash.jpg" alt="buyer">
+                <img class="animate flipInY" src="https://www.prakati.in/wp-content/uploads/2021/06/Featured-Image-Reusable-Vegetable-Storage-Bags-markus-spiske-unsplash.jpg" alt="buyer">
             </div>
         </div>
         
@@ -121,8 +123,6 @@ export default {
                 4px 4px 5px 0px rgba(0,0,0,.1);
                 outline: none;
 
-                
-
                 &:active{
                     scale: 0.95;
                 }
@@ -175,6 +175,11 @@ export default {
                     box-shadow: 8px 8px 8px #666;
                     border-radius: 10px;
                     opacity: 0.8;
+
+                    // :hover{
+                        animation-duration: 4s;
+                        animation-iteration-count: 3;
+                    // }
                 }
             }
         }
