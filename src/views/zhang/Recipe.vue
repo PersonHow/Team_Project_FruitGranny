@@ -38,8 +38,8 @@ export default{
         // {val:"G",item:'蘋果'},
         // {val:"H",item:'哈密瓜'},
         ],
-      veg : '',
-      veglists : [
+        veg : '',
+        veglists : [
         // {val:"A",item:'九層塔'},
         // {val:"B",item:'番茄'},
         // {val:"C",item:'高麗菜'},
@@ -56,7 +56,9 @@ export default{
         "/S__99057666.jpg",
         "/S__s99057667.jpg"
         ],
-      imgNum:false
+      imgNum:false,
+
+      
 
 }
 

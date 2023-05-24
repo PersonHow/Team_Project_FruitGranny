@@ -10,7 +10,7 @@ export default {
     return {
         name:"",        // 與收件人欄位連接
         phone:"",       // 與收件人電話欄位連接
-        adress:"",      // 與寄件地址欄位連接
+        address:"",      // 與寄件地址欄位連接
     }
   },
   methods: {
@@ -61,9 +61,9 @@ export default {
         "seller_account":sellers,
         "buyer_account":this.name,
         "buyer_phone":this.phone,
-        "sent_adress":this.adress,
+        "sent_address":this.address,
         "content":content,
-        "condition":"未出貨",
+        "order_condition":"未出貨",
       }
 
       let contentArr = [];                          // 訂單內容區，填入與資料庫相對應欄位
@@ -82,7 +82,30 @@ export default {
 
       console.log(contentArr);                      // 查看訂單"內容"是否理想
       console.log(orderObj);                        // 查看訂單"資訊"是否理想
-      
+
+      let sentReq = {
+        "order":orderObj,
+        "contentList":contentArr
+      };
+      console.log(sentReq);
+
+      fetch("http://localhost:8080/addOrder",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(sentReq)
+    })
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+        console.log(data)
+    })
+    .catch(function(error){
+        console.log(error)
+    })
+
       
 
     }
@@ -121,7 +144,7 @@ export default {
         <!-- 寄送地址 -->
         <div class="logistic-detail-input">
           <label for="adress"> <i class="fa-solid fa-map-location-dot"> 寄送地址</i> </label>
-          <input class="adress" id="adress" type="text" placeholder=" 請輸入寄送地址(須提供郵遞區號)，e.g. 704-台南市北區 林森路三段" v-model="this.adress">
+          <input class="adress" id="adress" type="text" placeholder=" 請輸入寄送地址(須提供郵遞區號)，e.g. 704-台南市北區 林森路三段" v-model="this.address">
         </div>
       </div>
 

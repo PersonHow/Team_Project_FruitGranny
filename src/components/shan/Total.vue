@@ -6,7 +6,27 @@ export default {
     data() {
         return {
             orderList:JSON.parse(localStorage.getItem(localStorage.getItem("email"))),  // 取出與該帳號的訂單資訊
-            TotalPrice: 0                                                               // 宣告整數型態的容器
+            TotalPrice: 0,                                                              // 宣告整數型態的容器
+            type:[
+                {
+                    "name":"水果",
+                    "item":[
+                        {
+                            "fruitname":"香蕉",
+                            "dish":["香蕉煎餅","香蕉牛奶","香蕉"]
+                        },
+                        {
+                            "fruitname":"草莓",
+                            "dish":["草莓大福","草莓蛋捲","草莓蛋糕"]
+                        },
+                        {
+                            "fruitname":"番茄",
+                            "dish":[""]
+                        }
+                    ]
+            },
+            
+            ]
         }
     },
     methods: {
