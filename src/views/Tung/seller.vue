@@ -340,8 +340,13 @@ export default{
         height: 480px;
         overflow-y: auto;
         padding: 20px;
-        font-family: DFKai-sb;
+        font-family: "Cormorant Garamond", serifc;
         font-weight: bold;
+        font-size: 24px;
+
+        input{
+            margin-bottom: 30px;
+        }
         .hs_code{
             padding: 10px;
         }
@@ -354,7 +359,6 @@ export default{
 
         .seller_account{
             padding: 10px;
-
             input{
                 cursor:default;
             }
@@ -367,8 +371,9 @@ export default{
         .type{
             padding: 10px;
             select{
-                width: 176px;
-                height: 30px;
+                width: 298px;
+                height: 42px;
+                margin-bottom: 30px;
             }
             
         }
@@ -376,8 +381,9 @@ export default{
         .place{
             padding: 10px;
             select{
-                width: 176px;
-                height: 30px;
+                width: 298px;
+                height: 42px;
+                margin-bottom: 30px;
             }
         }
 
@@ -399,12 +405,13 @@ export default{
 
         .addBtn{
             margin-top: 10px;
-            padding-left: 50px;
+            padding-left: 95px;
             border: none;
             button{
                 border: none;
                 border-radius: 4px;
                 padding: 4px;
+
             }
 
         }
@@ -414,8 +421,9 @@ export default{
     .sellProducts{
         height: 480px;
         overflow-y: auto;
-        font-family: DFKai-sb;
+        font-family: "Cormorant Garamond", serif;
         font-weight: bold;
+        font-size: 24px;
 
         .search{
             padding: 20px;
@@ -430,6 +438,7 @@ export default{
                     border: none;
                     border-radius: 4px;
                     padding: 4px;
+                    font-size: 24px;
                 }
             }
 
