@@ -52,9 +52,6 @@
                 .catch(err => {
 
                 })
-            },
-            login(){
-                localStorage.setItem("email",this.email);
             }
         },
         mounted() {
