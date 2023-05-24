@@ -11,39 +11,48 @@
             }
         },
         methods: {
-            // login() {
-            //     let body = {
-            //         "email": this.email,
-            //         "password": this.pwd
-            //     }
-            //     fetch("http://localhost:8080/login", {
-            //         method: "POST",
-            //         headers: {
-            //             "Content-Type": "Application/json",
-            //         },
-            //         body: JSON.stringify(body)
-            //     })
-            //     .then(res => res.json())
-            //     .then(data => {
-            //         console.log(data)
-            //         localStorage.setItem("email", this.email)
-            //         localStorage.setItem("password", this.pwd)
-            //         localStorage.setItem("user_name", data.member.account)
-            //         alert(data.message)
-            //         if (data.message === "登入成功! HELLO!") {
-            //             this.account = data.member.account;
-            //             this.$emit('success', this.account);
-            //             this.$router.push('/');
-                        
-            //             setTimeout(() => {
-            //                 window.location.reload();
-            //             }, 100);
-            //         }
-            //     })
-            //     .catch(err => {
+            login() {
+                let body = {
+                    "email": this.email,
+                    "password": this.pwd
+                }
+                fetch("http://localhost:8080/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "Application/json",
+                    },
+                    body: JSON.stringify(body)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    alert(data.message);
 
-            //     })
-            // },
+                    // 將資料存入localStorage
+                    localStorage.setItem("email", this.email);
+                    localStorage.setItem("password", this.pwd);
+                    localStorage.setItem("user_name", data.member.account);
+                    localStorage.setItem("phone", data.member.phone);
+                    localStorage.setItem("address", data.member.address);
+
+                    if (data.message === "登入成功! HELLO!") {
+                        // 把account設值
+                        this.account = data.member.account;
+                        // this.$emit('success', this.account);
+
+                        // 回首頁
+                        this.$router.push('/');
+                        
+                        // 設定延遲更新
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 100);
+                    }
+                })
+                .catch(err => {
+
+                })
+            },
             login(){
                 localStorage.setItem("email",this.email);
             }

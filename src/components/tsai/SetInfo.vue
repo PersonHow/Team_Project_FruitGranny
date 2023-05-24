@@ -9,17 +9,19 @@ export default {
             conPwd: null,
             email: null,
             phone: null,
-            address: null
+            address: null,
+            autocomplete: 'off'
         }
     },
     methods: {
 
         setInfo() {
+            
             let body = {
+                "email": this.email,
                 "account": this.userName,
                 "password": this.pwd,
                 "confirm_password": this.conPwd,
-                "email": this.email,
                 "phone": this.phone,
                 "address": this.address
             }
@@ -33,38 +35,47 @@ export default {
             .then(res => res.json())
             .then(data => {
                 alert(data.message);
+                // this.$router.push('/');
             })
             .catch(err => {
 
             })
         }
+    },
+    mounted(){
+        this.email = localStorage.getItem("email");
     }
 }
 </script>
 
 
 <template>
+    <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <div class="setInfo-box">
 
         <div class="set-info">
-            <h1>修改個人資料</h1>
-            <p>1、輸入E-mail　2、輸入欲更改的項目</p>
+            <h1>個人資料變更</h1>
+            <p>請輸入欲更改的項目</p>
+
+            <!-- 帶入指定的email -->
             <form class="email-area">
                 <div>
                     <i class="fa-solid fa-at"></i>
                    <label for="email">　</label>
-                   <input type="text" id="email" placeholder="E-mail" v-model="email">
+                   <input type="text" id="email" v-model="email" 
+                   readonly>
                </div>
                
             </form>
             <hr>
+            <!-- 手動輸入區域 -->
             <form class="input-area">
                 <div>
                     <i class="fa-regular fa-user"></i>
                     <label for="userName">　</label>
-                    <input type="text" id="userName" placeholder="User Name" v-model="userName">
+                    <input type="text" id="userName" placeholder="User Name" v-model="userName" :autocomplete="autocomplete">
                 </div>
                 
                <div>
@@ -82,21 +93,23 @@ export default {
                <div>
                     <i class="fa-solid fa-mobile-screen-button"></i>
                     <label for="phontNumber">　</label>
-                    <input type="text" id="phontNumber" placeholder="Phone Number" v-model="phone">
+                    <input type="text" id="phontNumber" placeholder="Phone Number" v-model="phone" :autocomplete="autocomplete">
                </div>
             
                <div>
                     <i class="fa-regular fa-address-card"></i>
                     <label for="address">　</label>
-                    <input type="text" id="address" placeholder="Address" v-model="address">
+                    <input type="text" id="address" placeholder="Address" 
+                    v-model="address" :autocomplete="autocomplete">
                </div>
 
             </form>
 
+            <!-- 修改按鈕 -->
             <button type="button" class="setBtn" @click="setInfo">確認修改</button>
 
             <h2 class="message">
-                <RouterLink to="/">返回主頁</RouterLink>
+                <RouterLink to="/original-info">返回前頁</RouterLink>
             </h2>
         </div>
     </div>
@@ -132,10 +145,7 @@ export default {
                     border: 0;
                     border-bottom: 2px solid rgba(0,0,0,.1);
                     outline: none;
-
-                    &:focus{
-                        border-bottom: 2px solid rgba(238, 33, 33, 0.791); 
-                        }
+                    color: rgba(81, 80, 80, 0.791);
                 }
                 
             }

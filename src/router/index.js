@@ -25,6 +25,11 @@ const router = createRouter({
       component: () => import('../components/tsai/SetInfo.vue')
     },
     {
+      path: '/original-info',
+      name: 'OriginalInfo',
+      component: () => import('../components/tsai/OriginalInfo.vue')
+    },
+    {
       path:'/seller',
       name:'seller',
       component:() => import('../views/Tung/seller.vue')

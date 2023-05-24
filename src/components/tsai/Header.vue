@@ -10,10 +10,13 @@
             }
         },
         methods: {
+
             signOut(){
+                // 清除localStorage裡的資料
                 localStorage.clear();
+                // 導向首頁
                 this.$router.push('/');
-                
+                // 重整頁面
                 setTimeout(() => {
                     window.location.reload();
                 }, 100);
@@ -24,6 +27,7 @@
             // }
         },
         mounted() {
+            // get出 localStorage 的 user_name
             this.user_name = localStorage.getItem("user_name");
         } 
     }
@@ -37,6 +41,16 @@
         <div class="logo">
             <RouterLink to="/" class="link"><img src="../../../public/tsai/img/Logo.png" alt=""></RouterLink>
         </div>
+
+        <RouterLink to="/" rel="stylesheet" class="link">
+            <div class="wrapper">
+                <a href=""></a>
+                <a href=""></a>
+                <a href=""></a>
+                <a href=""></a>
+                <span class="fill-text" data-text="Welcome">Welcome</span>
+            </div>
+        </RouterLink>
 
         <nav>
             <div class="all-area">
@@ -52,8 +66,8 @@
 
                     </p>
             
-                    <RouterLink to="/set-info" class="setInfo  btn btn-outline-secondary">
-                    <i class="fa-solid fa-user-pen"></i>　修改個人資料</RouterLink>
+                    <RouterLink to="/original-info" class="setInfo  btn btn-outline-secondary">
+                    <i class="fa-solid fa-user-pen"></i>　個人資料</RouterLink>
                 </div>
 
                 <div v-else>
@@ -94,22 +108,136 @@
                 padding-top: 10px;
             }
         }
-
-        .link {
-            // display: block;
+        .link{
             padding: 8px;
-            // // width: 30px;
-            // font-size: 30pt;
-            // height: 20px;
-            // border-radius: 5px;
-            // color: white;
-            // text-decoration: none;
-            // // background-color: rgb(64,90,134);
-            
-            &:hover{
-                cursor: pointer;
-            }
+            text-decoration: none;
         }
+
+        .wrapper {
+            --text-color: #1a1a1a;
+            position: relative;
+            
+            a {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                
+                &:nth-child(1) { // top triangle
+                -webkit-clip-path: polygon(0 0, 100% 0, 50% 50%);
+                clip-path: polygon(0 0, 100% 0, 50% 50%);
+                }
+                
+                &:nth-child(2) { // right triangle
+                -webkit-clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+                clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+                }
+                
+                &:nth-child(3) { // bottom triangle
+                -webkit-clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+                clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+                }
+                
+                &:nth-child(4) { // left triangle
+                -webkit-clip-path: polygon(0 0, 50% 50%, 0 100%);
+                clip-path: polygon(0 0, 50% 50%, 0 100%);
+                }
+                
+                &:hover {
+                -webkit-clip-path: none;
+                clip-path: none;
+                z-index: 2;
+                }
+                
+                &:nth-child(1):hover ~ .fill-text { // top triangle
+                
+                &:before {
+                    --fill-from: circle(0% at 50% 0%);
+                    --fill-to: circle(150% at 0% 50%);
+                    animation: fill-text 1s forwards;
+                }
+                
+                &:after {
+                    --hover-text: "Aloha！";
+                }
+                }
+                
+                &:nth-child(2):hover ~ .fill-text { // right triangle
+                
+                &:before {
+                    --fill-from: circle(0% at 150% 50%);
+                    --fill-to: circle(100% at 50% 50%);
+                    animation: fill-text 1s forwards;
+                }
+                
+                &:after {
+                    --hover-text: "こんにちは！";
+                }
+                }
+                
+                &:nth-child(3):hover ~ .fill-text { // bottom triangle
+                
+                &:before {
+                    --fill-from: circle(0% at 50% 100%);
+                    --fill-to: circle(150% at 0% 50%);
+                    animation: fill-text 1s forwards;
+                }
+                
+                &:after {
+                    --hover-text: "Hi！";
+                }
+                }
+                
+                &:nth-child(4):hover ~ .fill-text { // left triangle
+                
+                &:before {
+                    --fill-from: circle(0% at 0% 50%);
+                    --fill-to: circle(150% at 0% 50%);
+                    animation: fill-text 1s forwards;
+                }
+                
+                &:after {
+                    --hover-text: "你好！";
+                }
+                }
+            }
+            }
+
+            @keyframes fill-text {
+                0% {
+                    clip-path: var(--fill-from);
+                }
+                
+                100% {
+                    clip-path: var(--fill-to);
+                    color: var(--text-color);
+                }
+            }
+
+            .fill-text {
+                color: transparent;
+                -webkit-text-stroke: 1px var(--text-color);
+                font-size: 150px;
+                font-family: 'cardo', serif;
+            
+            &:before {
+                content: attr(data-text);
+                position: absolute;
+            }
+            
+            &:after {
+                --hover-text: "to Fruit Granny";
+                content: var(--hover-text);
+                -webkit-text-stroke: initial;
+                font: 2.5vw/1.5 verdana;
+                color: #999;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translatex(-50%);
+                white-space: nowrap;
+            }
+            }
 
         .all-area{
             .userBtn-area{
