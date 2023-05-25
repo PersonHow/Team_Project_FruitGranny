@@ -160,10 +160,12 @@ export default{
             this.typeOptions = ["蔬菜","水果"];
 
         // 從 Localstorage 取得值並代入到 賣家帳號
-        const saveSellerAccount = localStorage.getItem('email');
-        if(saveSellerAccount){
-            this.sellerAccount = saveSellerAccount;
-        }
+        // const saveSellerAccount = localStorage.getItem('email');
+        // console.log(saveSellerAccount);
+        
+        // if(!localStorage.getItem('email') === null){
+            this.sellerAccount = localStorage.getItem('email');
+        // }
     },
 }
 </script>

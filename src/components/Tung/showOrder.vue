@@ -57,7 +57,11 @@ export default{
             console.log(error);
         })
 
+        
+        //
         this.order_num = this.showList.orderList;
+        //
+
         this.order_num_content = this.showList.contentList;
         console.log(this.order_num)
         console.log(this.order_num_content)
