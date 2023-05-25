@@ -275,10 +275,6 @@ export default {
 
     .olArea {
         width: 100%;
-<<<<<<< HEAD
-        padding: 0;
-
-=======
         background-color: white;
         height: 30rem; 
         overflow: auto;
@@ -288,7 +284,6 @@ export default {
             width:100%;
             height: 30rem; 
             padding: 0;
->>>>>>> Tung3
         .item-List {
             border: 2px solid white;
             background-color: #666;
@@ -375,5 +370,6 @@ export default {
 
     }
 
+}
 }
 </style>
