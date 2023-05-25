@@ -40,7 +40,7 @@ export default {
     mounted() {
         // this.fn();
         if(this.orderList === null){
-            this.orderList  = 0;
+            this.orderList = 0;
         }else{
         for(let i = 0; i < this.orderList.length; i++){
             this.TotalPrice += parseInt(this.orderList[i].total);

@@ -41,7 +41,7 @@ export default{
  
     
   .choose{
-    height: 600px;
+    height: 500px;
     width: 870px;
     margin-top: -137px;
     font-size: 25px;
