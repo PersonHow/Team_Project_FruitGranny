@@ -159,13 +159,13 @@ export default {
       <style lang="scss" scoped>
       .app{
         height: 500px;
-        width: 850px;
+        width: 1100px;
        
       .btnn{
         font-size: 30px; 
         font-weight: bold;
         display: flex;
-        margin: -150px;
+        margin: -250px;
         justify-content:space-around;
         
       }
@@ -179,11 +179,12 @@ export default {
       }
       
        .fb{
+        width: 900px;
         display: flex;
         flex-wrap: wrap;
-        height: 300px;
+        height: 200px;
         overflow-y:auto;
-        margin:180px 100px 60px;
+        margin:300px 100px 60px;
         
         button {
             margin: 30px;

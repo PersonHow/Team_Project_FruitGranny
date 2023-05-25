@@ -77,14 +77,14 @@ export default{
     overflow-y:auto;
     width: 800px;
     h2{
-        font-size: 40px;
+        font-size: 50px;
         font-weight: bold;
     }
     h3{
-        font-size: 20px;
+        font-size: 30px;
     }
     h5{
-        font-size: 8px;
+        font-size: 15px;
     }
     @import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
 
@@ -137,12 +137,12 @@ export default{
         padding: 2rem;
         text-align: center;
         .closebtn{
-            height:30px;
-            width:40px;
+            height:50px;
+            width:50px;
             border-radius:50%;
             background-color:rgb(255, 255, 255);
             color:rgb(89, 128, 89);
-            font-size:20px;
+            font-size:30px;
             font-weight:bolder;
             box-shadow: 4px 4px #85c596;
         }
