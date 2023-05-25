@@ -99,58 +99,154 @@ export default{
                 arr[index].condition = !arr[index].condition;
                 console.log( arr[index].condition);
                 return localStorage.setItem("chartList", JSON.stringify(arr));
+            },
+            getShoppingCar() {//獲取資料
+            let body = {
+                "buyerAccount": "A124" //需要localstorage資料
             }
-    },
-    mounted(){
-        // if (localStorage.getItem("chartList") === null) {                   // 假使內容為空，我就新增資料進來，目的使刪除購物車時不會回朔
-            localStorage.setItem("chartList", JSON.stringify(this.chartList));
-        // }
+            fetch("http://localhost:8080/get_shopping_data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+                .then(response => {
+                    //vue不能用fetch+function 要用箭頭
+                    //從JSON格式轉回Js物件
+                    return response.json()
+                })
+                .then(data => {
 
-            this.chartList = JSON.parse(localStorage.getItem("chartList"));
+                    let SearchArr = [];
+                    console.log(data);
+                    SearchArr = data.Shopping_Detail_List;
+                    alert(data.msg);
+                    console.log(SearchArr);
+                    this.searchResultArr = SearchArr;
+
+                })
+        },
+        updateData(index) { //modify
+            let body = {
+                "shoppingCode": this.searchResultArr[index].shoppingNumber,
+                "number": this.searchResultArr[index].itemNum,
+                "buyerAccount": "A124" //localstorage
+            }
+            fetch("http://localhost:8080/modi_data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+                .then(response => {
+                    //vue不能用fetch+function 要用箭頭
+                    //從JSON格式轉回Js物件
+                    return response.json()
+                })
+                .then(data => {
+
+                    let SearchArr = [];
+                    console.log(data);
+                    SearchArr = data.Shopping_Detail_List;
+                    alert(data.msg);
+                    console.log(SearchArr);
+                    this.searchResultArr = SearchArr;
+
+                })
+                setTimeout(() => {
+                    this.getShoppingCar();
+                }, 1000);
+                
+        },
+        deleteDate(index){
+            let body = {
+                "shoppingCode": this.searchResultArr[index].shoppingNumber,
+                "buyerAccount": "A124" //localstorage
+            }
+            fetch("http://localhost:8080/delete_data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+                .then(response => {
+                    //vue不能用fetch+function 要用箭頭
+                    //從JSON格式轉回Js物件
+                    return response.json()
+                })
+                .then(data => {
+
+                    let SearchArr = [];
+                    console.log(data);
+                    SearchArr = data.Shopping_Detail_List;
+                    alert(data.msg);
+                    console.log(SearchArr);
+                    this.searchResultArr = SearchArr;
+
+                })
+                setTimeout(() => {
+                    this.getShoppingCar();
+                }, 1000);
+        }
+    },
+    mounted() {
+        // if (localStorage.getItem("chartList") === null) {   // 假使內容為空，我就新增資料進來，目的使刪除購物車時不會回朔
+        // localStorage.setItem("chartList", JSON.stringify(this.chartList));
+        // // // }
+
+        // this.chartList = JSON.parse(localStorage.getItem("chartList"));
+    
+        this.getShoppingCar();
+    
     }
 }
 </script>
 
 <template>
-    <div class="main">
-
-        <ol class="olArea">
-            <li v-for="(item, index) in chartList" :key="index" class="item-List">
-                    <!-- 商品資訊 -->
-                    <div class="information">
-                        <input class="checkInput" type="checkbox" @click="clicked(index, number)">
-                        <h2>{{ index+1 }}</h2>
-                        <p>{{ item.img }} </p>
-                        <div class="productContent">
+    <div class="main" >
+        <!-- <button @click="getShoppingCar" v-bind:searchResultArr="searchResultArr">try</button> -->
+        <ol class="olArea" >
+            <li v-for="(item, index) in searchResultArr" :key="index" class="item-List">
+                <!-- 商品資訊 -->
+               
+                <div class="information">
+                    <input class="checkInput" type="checkbox" @click="clicked(index, number)">
+                    <h2>{{ index + 1 }}</h2>
+                    <p> {{ item.img }} </p>
+                    <div class="productContent">
                         <p>商品ID: {{ item.itemId }} </p>
-                        <p>品名: {{ item.text }} </p>
-                        <p>賣家: {{item.seller}}</p>
-                        </div>
-                        
-                        
-                    </div>
-                    <!-- 數量區 -->
-                    <div class="numberBlock">
-                        <div class="price">
-                            <p>單價</p>
-                            <p>{{ item.price }}</p>
-                        </div>
-                        <div class="num">
-                            <p>數量</p>
-                        <input id="numberInput" type="number" v-model="item.number" >
-                        </div>
+                        <p>品名: {{ item.itemName }} </p>
+                        <p>賣家: {{ item.sellAccount }}</p>
                     </div>
 
-                    <div class="price_content">
-                        <p>總價: {{ item.total }} </p>
-                        <p>備註: {{ item.content }} </p>
+
+                </div>
+                <!-- 數量區 -->
+                <div class="numberBlock">
+                    <div class="price">
+                        <p>單價</p>
+                        <p>{{ item.itemPrice }}</p>
                     </div>
-                    <div class="btn-Area">
-                        <button class="button-function" @click="addItem(index, item.number)"><i class="fa-solid fa-plus"> 
-                                更動數量</i></button>
-                        <button class="button-function" @click="deleteItem(index)"><i class="fa-solid fa-x">
-                                移除購物車</i></button>
+                    <div class="num">
+                        <p>數量</p>
+
+                        <input id="numberInput" type="number" v-model="item.itemNum">
                     </div>
+                </div>
+
+                <div class="price_content">
+                    <p>總價: {{ item.itemNum * item.itemPrice }} </p>
+                    <p>備註: {{ item.discription }} </p>
+                </div>
+                <div class="btn-Area">
+                    <button class="button-function" @click="updateData(index)"><i class="fa-solid fa-plus">
+                            更動數量</i></button>
+                    <button class="button-function" @click="deleteDate(index)"><i class="fa-solid fa-x">
+                            移除購物車</i></button>
+                </div>
             </li>
         </ol>
     </div>
