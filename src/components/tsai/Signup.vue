@@ -98,7 +98,12 @@
             <button type="button" class="addBtn" @click="addInfo">確認註冊</button>
 
             <h2 class="message">
-                <RouterLink to="/log-in">返回登入</RouterLink>
+                <RouterLink to="/log-in">
+                    <button type="button" class="homeBtn">
+                        返回登入
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </RouterLink>
             </h2>
         </div>
 
@@ -147,9 +152,7 @@
         }
 
         .addBtn{
-            // display: block;
-            margin: 0 auto 20px auto;
-            // outline: none;
+            margin: 0 auto 20px auto; 
             padding: 12px 35px;
             border-radius: 20px;
             border: none;
@@ -166,10 +169,16 @@
             }
         }
         .message{
-                font-size: 10pt;
-                // font-weight: normal;
+                font-size: 10px;
                 text-align: right;
                 color: rgba(47, 54, 64, 1.0);
+
+                .homeBtn{
+                    border: 1px solid #999;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    background-color: #fff;
+                }
             }
     }        
 }

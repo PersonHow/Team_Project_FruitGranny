@@ -109,7 +109,12 @@ export default {
             <button type="button" class="setBtn" @click="setInfo">確認修改</button>
 
             <h2 class="message">
-                <RouterLink to="/original-info">返回前頁</RouterLink>
+                <RouterLink to="/original-info">
+                    <button type="button" class="homeBtn">
+                        回前頁
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </RouterLink>
             </h2>
         </div>
     </div>
@@ -146,6 +151,7 @@ export default {
                     border-bottom: 2px solid rgba(0,0,0,.1);
                     outline: none;
                     color: rgba(81, 80, 80, 0.791);
+                    cursor: default;
                 }
                 
             }
@@ -185,9 +191,16 @@ export default {
             }
 
             .message{
-                font-size: 10pt;
+                font-size: 10px;
                 text-align: right;
                 color: rgba(47, 54, 64, 1.0);
+
+                .homeBtn{
+                    border: 1px solid #999;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    background-color: #fff;
+                }
             }
         }
     }

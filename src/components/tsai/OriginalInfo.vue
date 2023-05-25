@@ -77,7 +77,12 @@ export default {
             </button></RouterLink>
 
             <h2 class="message">
-                <RouterLink to="/">返回主頁</RouterLink>
+                <RouterLink to="/">
+                    <button type="button" class="homeBtn">
+                        回主頁
+                        <i class="fa-solid fa-house"></i>
+                    </button>
+                </RouterLink>
             </h2>
         </div>
     </div>
@@ -139,9 +144,16 @@ export default {
             }
 
             .message{
-                font-size: 10pt;
+                font-size: 10px;
                 text-align: right;
                 color: rgba(47, 54, 64, 1.0);
+
+                .homeBtn{
+                    border: 1px solid #999;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    background-color: #fff;
+                }
             }
         }
     }
