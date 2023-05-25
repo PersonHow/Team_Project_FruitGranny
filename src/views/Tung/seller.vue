@@ -110,7 +110,7 @@ export default{
 
         generateHsCode(){
             const randomNum = Math.floor(Math.random() * 900000) + 100000;
-            return this.sellerAccount ? this.sellerAccount + '-' + randomNum : null;
+            return this.sellerAccount ? randomNum + '-' + randomNum : null;
         },
 
         async addProduct(){
@@ -157,13 +157,12 @@ export default{
             alert("請先登入")
             this.$router.push('/log-in');
         }
-
             this.placeOptions = ['臺北市','新北市','桃園市','臺中市','臺南市','高雄市','宜蘭縣','新竹縣','苗栗縣','彰化縣','南投縣','雲林縣','嘉義縣','屏東縣','花蓮縣','臺東縣','基隆市','新竹市'];
 
             this.typeOptions = ["蔬菜","水果"];
 
         // 從 Localstorage 取得值並代入到 賣家帳號
-        const saveSellerAccount = localStorage.getItem('sellerAccount');
+        const saveSellerAccount = localStorage.getItem('email');
         if(saveSellerAccount){
             this.sellerAccount = saveSellerAccount;
         }
@@ -198,11 +197,11 @@ export default{
         <div class="sellSystem tab-content" id="nav-tabContent">
             <div class="add tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <form @submit.prevent="addProduct" class="form">
-                    <div class="hs_code">
+                    <!-- <div class="hs_code">
                         <label for="">商品編碼</label>
                         <p></p>
                         <input placeholder="新增成功會自動生成" type="text" :value="hs_code" readonly>
-                    </div>
+                    </div> -->
                     <div class="seller_account">
                         <label for="">賣家帳號</label>
                         <p></p>
