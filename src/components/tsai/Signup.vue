@@ -152,9 +152,7 @@
         }
 
         .addBtn{
-            // display: block;
-            margin: 0 auto 20px auto;
-            // outline: none;
+            margin: 0 auto 20px auto; 
             padding: 12px 35px;
             border-radius: 20px;
             border: none;
@@ -172,7 +170,6 @@
         }
         .message{
                 font-size: 10px;
-                // font-weight: normal;
                 text-align: right;
                 color: rgba(47, 54, 64, 1.0);
 
