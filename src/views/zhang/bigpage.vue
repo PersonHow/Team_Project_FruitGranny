@@ -1,27 +1,67 @@
 <script>
 export default{
     props:[
-        "title",
-        "content",
-        "cook1",
-        "cook2",
-        "cook3",
-        "cook4",
-        "isShow"
+        // foodname: data.dishList.name,
+          // needed: data.dishList.needed,
+          // cooking: data.dishList.cooking
     ],
+
     methods:{
         changeShowOutside(){
             this.$emit("switch")
+
+            
+        },
+        
+    },
+    mounted(){
+        const button = document.querySelector("#btn1");
+
+
+        button.addEventListener("click", () => {
+  
+        let leftdata = [];
+        const img = document.querySelector("#imgarea");
+        const title =document.querySelector("#title");
+        const title2 =document.querySelector("#title2");
+        const title3 =document.querySelector("#title3");
+        var imageElement = document.getElementById("image");
+      
+        console.log(img.alt);
+        this.name = img.alt;
+        let body = {
+          "name": this.name
         }
+        fetch("http://localhost:8080/show-info",{
+          method: "POST",
+          headers: {
+            "Content-Type": "Application/json"
+          },
+          body: JSON.stringify(body)
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          leftdata = data;
+          title.innerText =leftdata.dishList.name;
+          title2.innerText =leftdata.dishList.needed;
+          title3.innerText =leftdata.dishList.cooking;
+          var newImagePath = "../../../public/zhang/Img/" +leftdata.dishList.name + ".png";
+          imageElement.src = newImagePath;
+            let foodname=leftdata.dishList.name;
+            let needed=leftdata.dishList.needed;
+            let cooking=leftdata.dishList.cooking;
+            // window.alert(leftdata.dishList.name+leftdata.dishList.needed+leftdata.dishList.cooking);
+        //    img(src="../../../public/zhang/Img/"+leftdata.dishList.name+'.png');
+           
+          
+        })
+        .catch(err => {
+
+        });
+
+})
     }
-    // mounted(){
-    //     if(isShow){
-    //         setTimeout(()=>{
-    //             const modal = document.getElementById("#modal");
-    //             modal.setAttribute("class","modal Show"),1000
-    //         })
-    //     }
-    // }
 }
 </script>
 
@@ -31,15 +71,10 @@ export default{
         
         <!-- Modal Card -->
         <div class="cardd">
-            <h2>{{ title }}</h2>    
-            <img src="/Img/草莓蛋塔.png" class="d-block w-30" alt="...">
-            <!-- {{ isShow }} -->
-            <p>{{ content }}</p>
-            <p>{{ cook1 }}</p>
-            <p>{{ cook2 }}</p>
-            <p>{{ cook3 }}</p>
-            <p>{{ cook4 }}</p>
-        
+            
+            <button class="btn1" id="btn1" style="button">點我查看</button>
+            <img id="image" :src="imageSrc" class="d-block w-30" alt="...">
+            <div class="textcard"><h1 id ="title" class ="title"></h1><p>需要食材:</p><h3 id ="title2" class ="title2"></h3><p>製作方法:</p><h5 id ="title3" class ="title3"></h5></div>
             <button class="closebtn"  id="closebtn" type="button" @click="changeShowOutside" >Close</button>
         
         </div>
@@ -60,9 +95,30 @@ export default{
     top:0px;
     left:0px;
     transition: 2s;
+    
+    .btn1{
+        height:200px;
+        width:60px;
+        border-radius:20px;
+        background-color:rgb(54, 139, 74);
+        color:white;
+        font-size:20px;
+        font-weight:bolder;
+        }
+    .textcard{
+    height: 350px;
+    overflow-y:auto;
+    width: 900px;
+    h3{
+        font-size: 10px;
+    }
+    h5{
+        font-size: 8px;
+    }
+    }
     img{
-        width: 400px;
-        height: 400px;
+        width: 300px;
+        height: 300px;
         background-color: transparent;     
         }
     .cardd{
