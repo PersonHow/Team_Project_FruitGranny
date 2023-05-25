@@ -7,7 +7,8 @@ export default {
     },
     data() {
         return {
-            searchResult:null
+            searchResult:null,
+            account:null
     }},
     props: [
         "searchResultcode",
@@ -29,7 +30,8 @@ export default {
        
             let body = {
                 "product":this.searchResult,
-                "buyerAccount":"A325" //需要localstorage
+                "buyerAccount": this.account
+                // "buyerAccount":"A325" //需要localstorage
             }
             fetch("http://localhost:8080/add_shopping_car", {
                 method: "POST",
@@ -60,6 +62,8 @@ export default {
     // 生命週期}
     mounted() {
         // this.fn();
+        // 從 Localstorage 取得值並代入到 帳號
+        this.account = localStorage.getItem('email');
 
 
     }

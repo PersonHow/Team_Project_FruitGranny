@@ -1,5 +1,5 @@
 <script>
-// import SearchBar from '../SearchBar.vue';
+// import SearchBar from '../../components/shan/SearchBar.vue'; 不用使用
 import layoutView from '../../components/shan/layout.vue';
 export default {
     components: {
@@ -32,6 +32,7 @@ export default {
 
 <template>
     <div class="background">
+        <!-- <SearchBar/> -->
 
         <layoutView v-bind:searchResultArrChild="searchResultArr" />
     </div>

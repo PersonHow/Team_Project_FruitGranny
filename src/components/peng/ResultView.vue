@@ -2,6 +2,7 @@
 export default {
     data() {
         return {
+            account:null,
             isShow: false,
             chartList: [
                 {
@@ -103,7 +104,7 @@ export default {
         },
         getShoppingCar() {//獲取資料
             let body = {
-                "buyerAccount": "A124" //需要localstorage資料
+                "buyerAccount": this.account //需要localstorage資料
             }
             fetch("http://localhost:8080/get_shopping_data", {
                 method: "POST",
@@ -162,9 +163,11 @@ export default {
                 
         },
         deleteDate(index){
+            
             let body = {
                 "shoppingCode": this.searchResultArr[index].shoppingNumber,
-                "buyerAccount": "A124" //localstorage
+                "buyerAccount": this.account
+                // "buyerAccount": "A124" //localstorage
             }
             fetch("http://localhost:8080/delete_data", {
                 method: "POST",
@@ -204,7 +207,10 @@ export default {
         // // // }
 
         // this.chartList = JSON.parse(localStorage.getItem("chartList"));
-    
+
+        // 從 Localstorage 取得值並代入到 帳號
+        this.account = localStorage.getItem('email');
+
         this.getShoppingCar();
     
     }
