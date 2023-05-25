@@ -52,10 +52,10 @@ export default {
     <div class="Card">
       <div class="card" @click="handleClick">
         <img class="img" :src="imgData" :alt="title" />
-        <button type="button" class="btn" id="btn">
-          PICK ME
+        <button type="button" class="btn" id="btn"  style="width: 200px;height: 40px;">
+          <p>PICK ME</p>
         </button>
-        <h2>{{ title }}</h2>
+        <h2 style="font-size: 20px;">{{ title }}</h2>
         <dishdetail
           v-show="isShow"
           v-on:switch="changeShow"
@@ -69,19 +69,72 @@ export default {
   
   <style lang="scss" scoped>
   .Card {
-    height: 300px;
+    height: 285px;
     width: 200px;
     background-color: transparent;
     display: block;
     justify-content: center;
-  
+    margin: 0 30px;
+    box-shadow: 5px 5px 5px #7694aa;
+    .card{
+     display: block;
+     justify-content: center;
     .img {
       height: 200px;
       width: 200px;
     }
-    .button {
-      height: 50px;
-      width: 100px;
+
+    .btn{
+    font-size: 20px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    line-height: 40px;
+    color: #283640;
+    font-weight: bolder;
+    background-color: transparent;
+    border: 1px solid transparent;
+    position: relative;
+    transition: all .3s linear;
+    }
+    .btn > p{
+        position: relative;
+        z-index: 1;
+    }
+    .btn::before{
+        content: "";
+        width: 100%;
+        height: 0%;
+        display: block;
+        background-color: #6bb2d5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all .3s ease;
+       
+    }
+    .btn:hover{
+        color: #fff;
+    }
+    .btn:hover::before{
+        height: 100%;
+    }
+
+    h2{
+    
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color:#415b78;
+         
+    }
+    
+     
     }
   }
   </style>
