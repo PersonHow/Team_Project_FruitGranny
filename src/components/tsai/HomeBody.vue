@@ -176,11 +176,9 @@ export default {
                     box-shadow: 8px 8px 8px #666;
                     border-radius: 10px;
                     opacity: 0.8;
-
-                    // :hover{
-                        animation-duration: 4s;
-                        animation-iteration-count: 3;
-                    // }
+                    animation-duration: 4s;
+                    animation-iteration-count: 3;
+                    
                 }
             }
         }
