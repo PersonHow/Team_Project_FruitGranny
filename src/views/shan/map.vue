@@ -502,8 +502,10 @@ export default {
     }
 
     .moved {
-        width: 40vw;
-        height: 40vw;
+       width: 450px;
+       height: 450px;
+       display: flex;
+       justify-content: center;
 
 
     }

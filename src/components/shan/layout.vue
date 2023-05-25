@@ -73,10 +73,10 @@ export default {
             <button type="button" class="searchReqBtn" @click="getProductInfo">
                 <i class="fa-solid fa-magnifying-glass">搜尋</i>
             </button>
-            <button type="button" class="searchReqBtn" @click="">
+            <!-- <button type="button" class="searchReqBtn" @click="">
                 <i class="fa-solid fa-pen-to-square">購物車</i>
                 
-            </button>
+            </button> -->
         </div>
 
 
@@ -155,7 +155,7 @@ label {
 input {
     text-align: center;
     border: none;
-    width: 50vw;
+    width: 45vw;
     height: 2vw;
     // margin-right: 50px;
 }
@@ -166,8 +166,8 @@ input {
     color: rgb(223, 226, 224);
     transition: 0.6s;
     width: 120px;
-    padding: 6px;
-    margin-left: 15px;
+    padding: 3px;
+   
 }
 
 .searchReqBtn:hover {

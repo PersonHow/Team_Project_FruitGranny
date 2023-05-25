@@ -16,6 +16,8 @@ export default{
         ShoppingBrowser,
         MapView
     },
+    
+
     mounted() {
         if (localStorage.getItem("email") === null) {
             alert("請先登入")

@@ -88,26 +88,26 @@ export default {
 <template>
   <div class="city-block">
     <!-- 北部 -->
-    <div class="north-block" v-if="getNorth">
+    <div class="direction-block " v-if="getNorth">
       <!-- <h5>北部</h5> -->
       <button type="button" class="cityBtn" v-for="(item, index) in  northCity" @click="throwCityNameNorth(index)">
         <p>{{ item.name }} </p>
       </button>
     </div>
     <!-- 南部 -->
-    <div class="mid-block" v-if="getMid">
+    <div class="direction-block " v-if="getMid">
       <!-- <h5>中部</h5> -->
       <button type="button" class="cityBtn" v-for="(item, index) in  midCity" @click=" throwCityNameMid(index)">
         <p>{{ item.name }} </p>
       </button>
     </div>
-    <div class="sourth-block" v-if="getSourth">
+    <div class="direction-block " v-if="getSourth">
       <!-- <h5>南部</h5> -->
       <button type="button" class="cityBtn" v-for="(item, index) in  sourthCity" @click=" throwCityNameSourth(index)">
         <p>{{ item.name }} </p>
       </button>
     </div>
-    <div class="sourth-block" v-if="geteast">
+    <div class="direction-block " v-if="geteast">
       <!-- <h5>東部</h5> -->
       <button type="button" class="cityBtn" v-for="(item, index) in  eastCity"  @click="throwCityNameEast(index)" >
         <p>{{ item.name }} </p>
@@ -127,11 +127,17 @@ p {
   margin-top: 0rem;
   margin-bottom: 0rem;
 }
+.direction-block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .city-block {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 10px;
 }
 
 .cityBtn {

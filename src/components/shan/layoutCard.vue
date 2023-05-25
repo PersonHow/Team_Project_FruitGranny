@@ -52,9 +52,13 @@ export default {
                     this.searchResultArr = data;
                     alert(data.msg);
                     console.log(this.searchResultArr);
+                    if(data.msg==="成功加入"){
+                    alert('請更新頁面，再到【購物車】做購物數量調整及確認');}
 
 
                 })
+
+                
         }
         
         

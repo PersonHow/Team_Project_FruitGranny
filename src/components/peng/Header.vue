@@ -36,12 +36,12 @@ export default{
 
 <template>
     <div class="pengTitle">
-        <div class="header">
-            <input type="text">
+        <!-- <div class="header"> -->
+            <!-- <input type="text">
             <div class="btnS">
                 <button type="button">搜尋</button>
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
         <div class="purchase">
             <button type="button" class="btnP" @click="transforOrder">結帳</button>
         </div>
@@ -53,6 +53,7 @@ export default{
 .pengTitle{
 width:100%;
 display: flex;
+justify-content: center;
 
 
     .header{
@@ -83,16 +84,19 @@ display: flex;
     }
 
     .purchase{
-        width:50%;
-        background-color: #666;
+        width:100%;
+        height: 3vw;
+        background-color: rgb(142, 162, 152);
         display: flex;
         align-items: center;
         position: relative;
 
         .btnP{
+        border-radius: 5px;
         width: 100px;
         height: 30px;
-        background-color: gray;
+        border: 2px solid #fff;
+        background-color: rgb(54, 71, 65);
         // margin-top: 3rem;
         color: white;
         position: absolute;

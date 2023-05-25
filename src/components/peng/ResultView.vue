@@ -103,6 +103,8 @@ export default {
             return localStorage.setItem("chartList", JSON.stringify(arr));
         },
         getShoppingCar() {//獲取資料
+
+          
             let body = {
                 "buyerAccount": this.account //需要localstorage資料
             }
@@ -133,7 +135,7 @@ export default {
             let body = {
                 "shoppingCode": this.searchResultArr[index].shoppingNumber,
                 "number": this.searchResultArr[index].itemNum,
-                "buyerAccount": "A124" //localstorage
+                "buyerAccount": this.account //localstorage
             }
             fetch("http://localhost:8080/modi_data", {
                 method: "POST",
@@ -194,7 +196,8 @@ export default {
                 setTimeout(() => {
                     this.getShoppingCar();
                 }, 1000);
-        }
+        },
+      
 
 
 
@@ -209,9 +212,15 @@ export default {
         // this.chartList = JSON.parse(localStorage.getItem("chartList"));
 
         // 從 Localstorage 取得值並代入到 帳號
-        this.account = localStorage.getItem('email');
+        
 
+        this.account = localStorage.getItem('email');
+             
         this.getShoppingCar();
+        
+     
+
+       
     
     }
 }
@@ -255,7 +264,7 @@ export default {
                 </div>
                 <div class="btn-Area">
                     <button class="button-function" @click="updateData(index)"><i class="fa-solid fa-plus">
-                            更動數量</i></button>
+                            更 動 數 量</i></button>
                     <button class="button-function" @click="deleteDate(index)"><i class="fa-solid fa-x">
                             移除購物車</i></button>
                 </div>
@@ -270,7 +279,7 @@ export default {
     background-color: white;
     height: 30rem;
     overflow: auto;
-    color: white;
+    color: rgb(207, 229, 224);
     font-size: 2.5vmin;
 
     .olArea {
@@ -279,7 +288,7 @@ export default {
 
         .item-List {
             border: 2px solid white;
-            background-color: #666;
+            background-color: #445d59;
             width: 100%;
             height: 10rem;
             display: flex;
@@ -342,7 +351,7 @@ export default {
                 .button-function {
                     margin: 2px;
                     border-radius: 5px;
-                    font-size: 2.5vmin;
+                    font-size: 2.0vmin;
                     transition: 0.3s;
 
                     &:hover {
