@@ -66,13 +66,14 @@ export default {
             <div class="pic">
                 <img class="animate flipInY" src="https://www.prakati.in/wp-content/uploads/2021/06/Featured-Image-Reusable-Vegetable-Storage-Bags-markus-spiske-unsplash.jpg" alt="buyer">
             </div>
-        </div>
-        
+        </div>    
     </div>
     
     <!-- move box -->
     <div class="move-box">
-        <img src="https://shoplineimg.com/61aee0defaf6dc003221bdfe/62296315aa9fc20032e2ab8c/800x.png?" alt="生產履歷">
+        <RouterLink to="/buyer">
+            <img src="https://shoplineimg.com/61aee0defaf6dc003221bdfe/62296315aa9fc20032e2ab8c/800x.png?" alt="生產履歷">
+        </RouterLink>   
         <p>生產履歷</p>
         
     </div>
