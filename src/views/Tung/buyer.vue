@@ -3,14 +3,43 @@ import HeaderView from '../../components/peng/Header.vue'
 import ResultView from "../../components/peng/ResultView.vue";
 import Purchase from "../../components/peng/Purchase.vue";
 import Recipe from "../zhang/Recipe.vue";
-import Checkout from "../shan/Checkout.vue"
+import Checkout from "../shan/Checkout.vue";
+import buyerOrder from "../../components/Tung/buyerOrder.vue";
 export default{
+    data(){
+        return{
+            user:{
+                "buyerAccount":localStorage.getItem("email"),
+            },
+        }
+    },
     components:{
         HeaderView,
         ResultView,
         Purchase,
         Recipe,
-        Checkout
+        Checkout,
+        buyerOrder
+    },
+    methods:{
+        getOrder(){
+            fetch("http://localhost:8080/buyer_Order",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(this.user)
+        })
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            localStorage.setItem("buyerOrder",JSON.stringify(data))
+        })
+        .then(function(error){
+            console.log(error);
+        })
+        }
     },
     mounted() {
         if (localStorage.getItem("email") === null) {
@@ -43,7 +72,7 @@ export default{
                     履歷查詢
                 </button>
 
-                <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false">
+                <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false" @click="getOrder">
                     訂單
                 </button>
             </div>
@@ -111,8 +140,7 @@ export default{
             <!-- 訂單 -->
             <div class="orderform tab-pane fade" id="nav-orderformInfo" role="tabpanel" aria-labelledby="nav-orderformInfo-tab">
                 <div class="orderformDiv">
-                    
-                    orderform
+                    <buyerOrder />
                 </div>
             
             </div>

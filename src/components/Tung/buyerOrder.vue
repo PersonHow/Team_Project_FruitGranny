@@ -2,23 +2,21 @@
 export default{
     data(){
         return{
-            // 回傳的資料存在 localStorage 的 show
-            showList:JSON.parse(localStorage.getItem("show")),
-            // 取得賣家帳號，並轉成物件供 Api 使用
-            user:{
-                "sellerAccount":localStorage.getItem("email"),
-            },
-            order_num:[],
-            order_num_content:[],
+            buyerOrderList:JSON.parse(localStorage.getItem("buyerOrder")),
+            order_num:JSON.parse(localStorage.getItem("buyerOrder")).orderList,
+            order_num_content:JSON.parse(localStorage.getItem("buyerOrder")).contentList,
+            getGoods:false,
         }
     },
     methods:{
-        check(id){
+        changeCondition(id){
+            window.confirm("有收到貨物了嗎??");
+            if(confirm("有收到貨物了嗎??") == true){
             let order_id ={
                 "order_id":id
             }
 
-            fetch("http://localhost:8080/shippedOrder",{
+            fetch("http://localhost:8080/doneOrder",{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
@@ -34,44 +32,21 @@ export default{
             .catch(function(error){
                 console.log(error)
             })
+
+            this.getGoods = !this.getGoods;
+            console.log(this.getGoods)
+        }
+
         }
     },
     mounted(){
-        fetch("http://localhost:8080/seller_Order",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(this.user)
-        })
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            // console.log(data);
-            // if(!data === null){
-            localStorage.setItem("show",JSON.stringify(data))
-            // }
-        })
-        .then(function(error){
-            console.log(error);
-        })
-
-        this.order_num = this.showList.orderList;
-        this.order_num_content = this.showList.contentList;
-        console.log(this.order_num)
-        console.log(this.order_num_content)
-        
     }
-}
+    }
+
 </script>
 
 <template>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet"  />
-<!-- 顯示區域 -->
 <div class="showArea">
-
     <div class="accordion " id="accordionExample">
         <div class="accordion-item title" v-for="elements in this.order_num">
         <!-- 訂單編號區 -->
@@ -79,12 +54,11 @@ export default{
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <i class="fa-solid fa-truck-fast Bouncing exits bounceOutRight"></i>
                 <h1>訂單編號：{{ elements.order_id }}</h1>
-                <h2 class="buyer">買家：{{elements.buyer_account}}</h2>
                 <h2 class="condition">訂單狀態：{{elements.order_condition}}</h2>
                 
             </button>
             <!-- 更改狀態的按鈕 -->
-            <button class="checkBtn" type="button" @click="check(elements.order_id)">xxx</button>
+            <button class="checkBtn" type="button" @click="changeCondition(elements.order_id)" :disabled="elements.order_condition === '已完成'">xxx</button>
         </h2>
         
         <!-- 訂單內容區 -->
@@ -101,12 +75,9 @@ export default{
             </div>
         </div>
     </div>
-
-
 </div>
 
 </template>
-
 
 <style lang="scss" scoped>
 .showArea{
@@ -129,7 +100,7 @@ export default{
         -webkit-background-clip: text;
 
             i{
-            animation-duration: 50s;
+            animation-duration: 5s;
             animation-iteration-count: 1;
             font-size: 25pt;            
             } 
@@ -151,9 +122,9 @@ export default{
                 padding: 15px;
             }
 
-            .buyer{
-                position: absolute;
-                left: 30% ;
+            .showd{
+                opacity: 0.5;
+                z-index: -1;
             }
             .condition{
                 position: absolute;
@@ -201,7 +172,6 @@ export default{
                 -webkit-background-clip: text;
                 }
     }
-    
 }
 
 </style>
