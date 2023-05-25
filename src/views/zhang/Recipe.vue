@@ -42,12 +42,12 @@ export default{
     
   .choose{
     height: 500px;
-    width: 870px;
-    margin-top: -137px;
+    width: 1100px;
+    margin-top: -150px;
     font-size: 25px;
     display: block;
     justify-content: center;
-    background-color: #E4FFF7;
+    // background-color: #E4FFF7;
     $background: #E4FFF7;
 
     @function textShadow($precision, $size, $color){
@@ -112,7 +112,7 @@ export default{
     }
 
     h1 {
-      font-size: 65px;
+      font-size: 75px;
       text-transform: uppercase;
       font-family: "Archivo Black", "Archivo", sans-serif;
       font-weight: normal;

@@ -74,7 +74,7 @@ export default {
     background-color: transparent;
     display: block;
     justify-content: center;
-    margin: 0 30px;
+    margin: 100px 30px;
     box-shadow: 5px 5px 5px #7694aa;
     .card{
      display: block;
