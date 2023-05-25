@@ -1,6 +1,14 @@
 <script>
+import showOrder from '../../components/Tung/showOrder.vue';
 export default {
+    components:{
+        showOrder,
+    },
+    data(){
+        return{
 
+        }
+    },
     mounted() {
         if (localStorage.getItem("email") === null) {
             alert("請先登入")
@@ -34,8 +42,8 @@ export default {
 
 
 <div class="content">
-    <!-- 賣家上架系統 -->
         <div class="sellSystem tab-content" id="nav-tabContent">
+        <!-- 賣家上架系統 -->
             <div class="add tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="sellAddArea">
                     <div class="input">
@@ -81,7 +89,7 @@ export default {
                 </div>
                 
             </div>
-<!-- 賣家已上架商品 -->
+        <!-- 賣家已上架商品 -->
             <div class="products tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="sellProducts">
                     <div class="input">
@@ -101,10 +109,11 @@ export default {
                 
 
             </div>
-<!-- 賣家訂單 -->
+        <!-- 賣家訂單 -->
             <div class="order tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div class="sellOrder">
-                    My order
+                    <showOrder />
+                
                 </div>
             
 

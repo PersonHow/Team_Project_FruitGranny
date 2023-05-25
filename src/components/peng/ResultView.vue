@@ -166,6 +166,7 @@ export default{
         font-size: 2.5vmin;
         .olArea{
             width:100%;
+            height: 30rem; 
             padding: 0;
         .item-List {
             border: 2px solid white;
