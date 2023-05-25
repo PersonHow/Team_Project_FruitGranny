@@ -39,10 +39,13 @@ export default {
     // 生命週期
     mounted() {
         // this.fn();
+        if(this.orderList === null){
+            this.orderList = 0;
+        }else{
         for(let i = 0; i < this.orderList.length; i++){
             this.TotalPrice += parseInt(this.orderList[i].total);
         }
-
+    }
     }
 }
 
