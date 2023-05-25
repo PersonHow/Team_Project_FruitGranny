@@ -21,7 +21,7 @@ export default {
       
       // alert("下訂成功!!! \n商品將於三天內出貨，請留意 \n\n (1) 簡訊通知出貨時間  \n (2) 簡訊通知到貨時間 \n (3) 宅急便電話取貨。 \n \n食品為低溫宅配商品，目前為指定18:00送達。  \n如有特殊時間送達需求請下訂24小時內撥電詢問。 \nTel: 06-2345678 (王小姐)");
       // 取得購物車相關資料
-      let ary = JSON.parse(localStorage.getItem(localStorage.getItem("email")));
+      let ary = JSON.parse(localStorage.getItem("searchArr"));
       console.log(ary);
 
       
@@ -40,9 +40,9 @@ export default {
         newaa.push(ary[i]);
         
         if(sellers === ""){                         // 使賣家形成字串
-          sellers = ary[i].seller;
-        }else if(!sellers.includes(ary[i].seller)){
-          sellers = sellers.concat(",",ary[i].seller);
+          sellers = ary[i].sellAccount;
+        }else if(!sellers.includes(ary[i].sellAccount)){
+          sellers = sellers.concat(",",ary[i].sellAccount);
         }
 
         if(content === ""){                         // 使訂單內容編碼形成字串
@@ -71,11 +71,11 @@ export default {
       for(let j = 0; j< newaa.length; j++){
         let orderContent = {
         "num_id":(result + "-" + (j+1)),
-        "item_name":newaa[j].text,
-        "item_number":newaa[j].number,
-        "item_price":newaa[j].price,
-        "total_price":newaa[j].total,
-        "seller_account":newaa[j].seller
+        "item_name":newaa[j].itemName,
+        "item_number":newaa[j].itemNum,
+        "item_price":newaa[j].itemPrice,
+        "total_price":(newaa[j].itemNum *newaa[j].itemPrice),
+        "seller_account":newaa[j].sellAccount
         }
         contentArr.push(orderContent);
       }

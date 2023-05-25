@@ -73,10 +73,10 @@ export default {
             <button type="button" class="searchReqBtn" @click="getProductInfo">
                 <i class="fa-solid fa-magnifying-glass">搜尋</i>
             </button>
-            <button type="button" class="searchReqBtn" @click="">
+            <!-- <button type="button" class="searchReqBtn" @click="">
                 <i class="fa-solid fa-pen-to-square">購物車</i>
                 
-            </button>
+            </button> -->
         </div>
 
 
@@ -173,7 +173,7 @@ input {
 .searchReqBtn:hover {
     background-color: rgb(253, 253, 253);
     color: rgb(72, 78, 74);
-    scale: 1.3;
+    scale: 1.2;
 }
 
 .searchReqBtn:active {

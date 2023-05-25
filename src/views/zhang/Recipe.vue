@@ -28,7 +28,13 @@ export default{
       <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
 
         <h1 class="playful" aria-label="Wash your hands">
-          <span aria-hidden="true">C</span><span aria-hidden="true">H</span><span aria-hidden="true">O</span><span aria-hidden="true">O</span><span aria-hidden="true">S</span><span aria-hidden="true">E</span><span aria-hidden="true"> </span>
+          <span aria-hidden="true">C</span>
+          <span aria-hidden="true">H</span>
+          <span aria-hidden="true">O</span>
+          <span aria-hidden="true">O</span>
+          <span aria-hidden="true">S</span>
+          <span aria-hidden="true">E</span>
+          <span aria-hidden="true"> </span>
         </h1>
       <!-- <h2>WELCOME!! 請選擇蔬果類型!!!</h2> -->
       <textt />
@@ -41,28 +47,28 @@ export default{
  
     
   .choose{
-    height: 600px;
-    width: 870px;
-    margin-top: -137px;
+    height:30rem;
+    width: 100%;
+    // margin-top: -137px;
     font-size: 25px;
     display: block;
     justify-content: center;
     background-color: #E4FFF7;
     $background: #E4FFF7;
 
-    @function textShadow($precision, $size, $color){
-      $value: null;
-      $offset: 0;
-      $length: $size * (1 / $precision) - 1;
+    // @function textShadow($precision, $size, $color){
+    //   $value: null;
+    //   $offset: 0;
+    //   $length: $size * (1 / $precision) - 1;
 
-      @for $i from 0 through $length {
-        $offset: $offset + $precision;
-        $shadow: $offset + px $offset + px $color;
-        $value: append($value, $shadow, comma);
-      }
+    //   @for $i from 0 through $length {
+    //     $offset: $offset + $precision;
+    //     $shadow: $offset + px $offset + px $color;
+    //     $value: append($value, $shadow, comma);
+    //   }
 
-      @return $value;
-    }
+    //   @return $value;
+    // }
 
     .playful span {
       position: relative;

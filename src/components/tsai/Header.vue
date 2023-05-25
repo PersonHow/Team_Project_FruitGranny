@@ -39,7 +39,7 @@
     <div class="headerArea">
 
         <div class="logo">
-            <RouterLink to="/" class="link"><img src="../../../public/tsai/img/Logo.png" alt=""></RouterLink>
+            <RouterLink to="/" class="link"><img src="../../../public/tsai/img/Logo.png" alt="" class="logoLink"></RouterLink>
         </div>
 
         <RouterLink to="/" rel="stylesheet" class="link">
@@ -107,10 +107,31 @@
                 height: 150px;
                 padding-top: 10px;
             }
+
+            .logoLink{
+                animation: rotation 5s infinite linear;
+                // transition: 2s;
+
+                &:hover{
+                    animation: rotation 0s infinite linear;
+                }
+            }
+            @keyframes rotation {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(359deg);
+                }
+            }
+
+            
         }
         .link{
             padding: 8px;
             text-decoration: none;
+
+            
         }
 
         .wrapper {

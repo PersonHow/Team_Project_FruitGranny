@@ -3,7 +3,7 @@
 
 export default {
     components: {
-       
+    
     },
     data() {
         return {
@@ -27,7 +27,7 @@ export default {
         tryAdd(){
             this.searchResult=this.searchResultcode;
             console.log(this.searchResult);
-       
+    
             let body = {
                 "product":this.searchResult,
                 "buyerAccount": this.account
@@ -79,7 +79,7 @@ export default {
 <div class="card">
 <div class="explainAndBtn">
     <img src="../../../public/shan/img/sweet-potato-600x400.jpg" alt="">
-     <div class="explain">
+    <div class="explain">
         <p >編號： {{ searchResultcode }}</p>
         <p>產品分類： {{type}} </p>
         <p>產品敘述： {{description}} </p>
@@ -89,8 +89,8 @@ export default {
         <p>生產日期： {{date}} </p>
         <p>生產產地： {{place}} </p>
         
-       
-     </div>
+    
+    </div>
 
     <button type="button" class="addCartBTN" @click="tryAdd"  >
     <i class="fa-solid fa-basket-shopping">　加入購物車</i>
@@ -99,7 +99,7 @@ export default {
 </div>
 
 
-  
+
 </template>
 
 

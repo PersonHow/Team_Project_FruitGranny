@@ -55,6 +55,9 @@ export default {
             searchGet: null,
             afterChange: null,
             searchResultArr: [],//資料庫fetch出來之購物車資料
+            shopArr:[],
+
+            condition:false
         }
     },
     methods: {
@@ -97,10 +100,12 @@ export default {
             return localStorage.setItem("chartList", JSON.stringify(arr));
         },
         clicked(index) {
-            let arr = JSON.parse(localStorage.getItem("chartList"));
+            // console.log(this.searchResultArr);
+            // localStorage.setItem("chartList",JSON.stringify(this.searchResultArr));
+            let arr = JSON.parse(localStorage.getItem("searchArr"));
             arr[index].condition = !arr[index].condition;
             console.log(arr[index].condition);
-            return localStorage.setItem("chartList", JSON.stringify(arr));
+            return localStorage.setItem("searchArr", JSON.stringify(arr));
         },
         getShoppingCar() {//獲取資料
             let body = {
@@ -122,12 +127,15 @@ export default {
 
                     let SearchArr = [];
                     console.log(data);
-                    SearchArr = data.Shopping_Detail_List;
                     alert(data.msg);
+                    SearchArr = data.Shopping_Detail_List
                     console.log(SearchArr);
-                    this.searchResultArr = SearchArr;
-
+                    this.searchResultArr =  SearchArr;
+                    console.log(this.searchResultArr);
+                    localStorage.setItem("searchArr",JSON.stringify(this.searchResultArr));
                 })
+
+                
         },
         updateData(index) { //modify
             let body = {
@@ -155,6 +163,7 @@ export default {
                     alert(data.msg);
                     console.log(SearchArr);
                     this.searchResultArr = SearchArr;
+                    localStorage.setItem("searchArr",JSON.stringify(this.searchResultArr));
 
                 })
                 setTimeout(() => {
@@ -213,6 +222,7 @@ export default {
 
         this.getShoppingCar();
     
+    
     }
 }
 </script>
@@ -221,17 +231,17 @@ export default {
     <div class="main" >
         <!-- <button @click="getShoppingCar" v-bind:searchResultArr="searchResultArr">try</button> -->
         <ol class="olArea" >
-            <li v-for="(item, index) in searchResultArr" :key="index" class="item-List">
+            <li v-for="(item, index) in this.searchResultArr" :key="index" class="item-List">
                 <!-- 商品資訊 -->
-               
+            
                 <div class="information">
                     <input class="checkInput" type="checkbox" @click="clicked(index, number)">
                     <h2>{{ index + 1 }}</h2>
                     <p> {{ item.img }} </p>
                     <div class="productContent">
-                        <p>商品ID: {{ item.itemId }} </p>
-                        <p>品名: {{ item.itemName }} </p>
-                        <p>賣家: {{ item.sellAccount }}</p>
+                        <p>商品ID： {{ item.itemId }} </p>
+                        <p>品名： {{ item.itemName }} </p>
+                        <p>賣家： {{ item.sellAccount }}</p>
                     </div>
 
 
@@ -250,12 +260,12 @@ export default {
                 </div>
 
                 <div class="price_content">
-                    <p>總價: {{ item.itemNum * item.itemPrice }} </p>
-                    <p>備註: {{ item.discription }} </p>
+                    <p>總價： {{ item.itemNum * item.itemPrice }} </p>
+                    <p>備註： {{ item.discription }} </p>
                 </div>
                 <div class="btn-Area">
                     <button class="button-function" @click="updateData(index)"><i class="fa-solid fa-plus">
-                            更動數量</i></button>
+                            更 動 數 量</i></button>
                     <button class="button-function" @click="deleteDate(index)"><i class="fa-solid fa-x">
                             移除購物車</i></button>
                 </div>
@@ -275,23 +285,18 @@ export default {
 
     .olArea {
         width: 100%;
-<<<<<<< HEAD
         padding: 0;
 
-=======
         background-color: white;
         height: 30rem; 
         overflow: auto;
         color: white;
         font-size: 2.5vmin;
-        .olArea{
-            width:100%;
-            height: 30rem; 
-            padding: 0;
->>>>>>> Tung3
+        padding: 0 0;
+        
         .item-List {
             border: 2px solid white;
-            background-color: #666;
+            background-color: rgb(52, 68, 57);
             width: 100%;
             height: 10rem;
             display: flex;
