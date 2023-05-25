@@ -8,6 +8,7 @@ export default {
     data() {
         return {
             searchResultArr: [],
+            searchData:null
             // emitIndex: null,
             // getIndex:null
          
@@ -19,7 +20,7 @@ export default {
         getProductInfo() {
            
 
-            let body = {
+            let body = { //產品名稱
                 "name": this.searchData
             }
 
@@ -65,10 +66,10 @@ export default {
 <template>
     <div class="search-area">
         <div class="searchbar">
-           
+       
             <label for="searchBar">商品</label>
             <input class="searchBar" type="text" name="" id="searchBar" placeholder="關鍵字搜尋"
-                v-model="searchData">
+                v-model="this.searchData">
             <button type="button" class="searchReqBtn" @click="getProductInfo">
                 <i class="fa-solid fa-magnifying-glass">搜尋</i>
             </button>
