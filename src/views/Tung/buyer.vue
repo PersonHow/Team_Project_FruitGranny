@@ -6,7 +6,15 @@ import Recipe from "../zhang/Recipe.vue";
 import Checkout from "../shan/Checkout.vue";
 import ShoppingBrowser from "../shan/shoppingBrowser.vue";
 import MapView from "../shan/map.vue";
+import buyerOrder from "../../components/Tung/buyerOrder.vue";
 export default{
+    data(){
+        return{
+            user:{
+                "buyerAccount":localStorage.getItem("email"),
+            },
+        }
+    },
     components:{
         HeaderView,
         ResultView,
@@ -14,7 +22,28 @@ export default{
         Recipe,
         Checkout,
         ShoppingBrowser,
-        MapView
+        MapView,
+        buyerOrder,
+    },
+    methods:{
+        getOrder(){
+            fetch("http://localhost:8080/buyer_Order",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(this.user)
+        })
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            localStorage.setItem("buyerOrder",JSON.stringify(data))
+        })
+        .then(function(error){
+            console.log(error);
+        })
+        }
     },
     mounted() {
         if (localStorage.getItem("email") === null) {
@@ -51,6 +80,13 @@ export default{
                     結帳
                 </button>              
 
+                <button class="nav-link" id="nav-goodsInfo-tab" data-bs-toggle="tab" data-bs-target="#nav-goodsInfo" type="button" role="tab" aria-controls="nav-goodsInfo" aria-selected="false">
+                    履歷查詢
+                </button>
+
+                <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false" @click="getOrder">
+                    訂單
+                </button>
             </div>
         </nav>
     </div>
@@ -120,18 +156,20 @@ export default{
                     </div>
                 </div>
             </div>  
+            </div>
+            <!-- 訂單 -->
+            <div class="orderform tab-pane fade" id="nav-orderformInfo" role="tabpanel" aria-labelledby="nav-orderformInfo-tab">
+                <div class="orderformDiv">
+                    <buyerOrder />
+                </div>
+            
+            </div>
         </div>
         
 
 <!-- content尾巴 -->
 </div>
 
-
-
-
-
-<!-- area尾巴 -->
-</div>
 
 </template>
 
@@ -148,7 +186,7 @@ export default{
     }
     .content{
         width: 100%;
-        height: 30rem;
+        height: 32.5rem;
         background-color: rgba(138, 173, 238, 0.6);
         // border: 1px solid black;
         
@@ -193,43 +231,22 @@ export default{
             
         .products{
             width: 100%;
-            height: 30rem;
-            .sellProducts{
-                width: 100%;
-                height: 30rem;
-                .input{
-                width: 100%;
-                height: 10%;
-                // border: 1px solid black;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                    .classification{
-                        // margin-left: 5%;
-                        width: 15%;
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                }
-
-                .ans{
-                width:100%;
-                height: 90%;
-                // border: 1px solid white;
-                }
-            }
+            height:  32.5rem;
+            // .sellProducts{
+            //     width: 100%;
+            //     height: 30rem;
+            // }
         }
 
         .order{
             width: 100%;
-            height: 30rem;
+            height:  32.5rem;
             background-color: #efe8e8;
 
 
             .sellOrder{
                 width: 100%;
-                height: 30rem;
+                height:  32.5rem;
                 background-color: #efe8e8;
                 // overflow: auto;
             }

@@ -1,24 +1,22 @@
 <script>
+import showOrder from '../../components/Tung/showOrder.vue';
 export default{
     components:{
-
+        showOrder,
     },
     data() {
         return {
-         hs_code:null,
-         sellerAccount:null,
-         name:null,
-         type:null,
-         place:null,
-         number:null,
-         date:null,
-         price:null,
-         description:null,
-         
-         searchAllRes:[],
-         
-
-         
+        hs_code:null,
+        sellerAccount:null,
+        name:null,
+        type:null,
+        place:null,
+        number:null,
+        date:null,
+        price:null,
+        description:null,
+        
+        searchAllRes:[],
         }
     },
     methods: {
@@ -193,8 +191,8 @@ export default{
 
 
 <div class="content">
-    <!-- 賣家上架系統 -->
         <div class="sellSystem tab-content" id="nav-tabContent">
+        <!-- 賣家上架系統 -->
             <div class="add tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <form @submit.prevent="addProduct" class="form">
                     <!-- <div class="hs_code">
@@ -251,7 +249,7 @@ export default{
                     </div>
                 </form>
             </div>
-    <!-- 賣家已上架商品 -->
+        <!-- 賣家已上架商品 -->
             <div class="products tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="sellProducts">
                     <div class="seller_account">
@@ -300,6 +298,17 @@ export default{
                         </div>
                     </div>
                 </div>
+                
+
+            </div>
+        <!-- 賣家訂單 -->
+            <div class="order tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div class="sellOrder">
+                    <showOrder />
+                
+                </div>
+            
+
             </div>
         </div>
     <!-- 賣家訂單 -->

@@ -95,16 +95,16 @@ export default {
             "Content-Type":"application/json"
         },
         body:JSON.stringify(sentReq)
-    })
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(data){
-        console.log(data)
-    })
-    .catch(function(error){
-        console.log(error)
-    })
+        })
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            console.log(data)
+        })
+        .catch(function(error){
+            console.log(error)
+        })
 
       
 
