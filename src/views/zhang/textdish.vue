@@ -43,7 +43,7 @@ export default{
         <h3> 食材: </h3><h5>{{ needed }}</h5>
         <h3> 製作方法: </h3><h5>{{ cooking }}</h5>
         </div>
-        <button class="closebtn" id="closebtn" type="button" @click="changeShowOutside">Close</button>
+        <button class="closebtn" id="closebtn" type="button" @click="changeShowOutside">X</button>
       </div>
       <div class="bg"></div>
     </div>
@@ -75,12 +75,48 @@ export default{
     .textbox{
     height: 350px;
     overflow-y:auto;
-    width: 900px;
+    width: 800px;
+    h2{
+        font-size: 40px;
+        font-weight: bold;
+    }
     h3{
-        font-size: 10px;
+        font-size: 20px;
     }
     h5{
         font-size: 8px;
+    }
+    @import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
+
+    body {
+      background-color: #ffb7b0;
+      min-height: 70vh;
+      padding: 40vh 30vw;
+      color: hsl(210, 2%, 22%);
+      font-family: 'Gochi Hand', cursive;
+      text-align: left;
+      font-size: 130%;  
+    }
+
+    h5 {
+      line-height: 1.5;
+      display: inline;
+      background-image: linear-gradient(
+            transparent 50%,
+            #edf9c1 50%,
+            #c3fdbc 85%,
+            transparent 85%,
+            transparent 100%
+        );
+        background-repeat: no-repeat;
+        background-size: 0% 100%;
+        animation: animatedBackground 2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.5s forwards;
+    }
+
+    @keyframes animatedBackground {
+        to {
+            background-size: 100% 100%;
+        }
     }
     }
     img{
@@ -101,13 +137,18 @@ export default{
         padding: 2rem;
         text-align: center;
         .closebtn{
-            height:200px;
-            width:100px;
-            border-radius:20px;
-            background-color:rgb(54, 139, 74);
-            color:white;
+            height:30px;
+            width:40px;
+            border-radius:50%;
+            background-color:rgb(255, 255, 255);
+            color:rgb(89, 128, 89);
             font-size:20px;
             font-weight:bolder;
+            box-shadow: 4px 4px #85c596;
+        }
+        #closebtn:hover{
+        transition: 0.5s;
+        transform: scale(1.2);
         }
         h2{
             margin: 0;
