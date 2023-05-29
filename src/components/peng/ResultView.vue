@@ -123,7 +123,7 @@ export default {
                     let SearchArr = [];
                     console.log(data);
                     SearchArr = data.Shopping_Detail_List;
-                    alert(data.msg);
+                    // alert(data.msg);
                     console.log(SearchArr);
                     this.searchResultArr = SearchArr;
 
@@ -152,7 +152,7 @@ export default {
                     let SearchArr = [];
                     console.log(data);
                     SearchArr = data.Shopping_Detail_List;
-                    alert(data.msg);
+                    // alert(data.msg);
                     console.log(SearchArr);
                     this.searchResultArr = SearchArr;
 
