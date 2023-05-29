@@ -20,7 +20,9 @@ export default {
             startDate: '', // 起始日期
             endDate: '', // 結束日期
             isStartDateInvalid: false, // 是否為無效的起始日期
-            totalPrice: null
+            totalPrice: null,
+            isShow:false,
+            isPrint:false
 
 
 
@@ -95,10 +97,15 @@ export default {
         },
         changeAndSearchPlace() { //產地搜尋
             this.searchTypeBtn = this.searchTypePlace;
+            this.isShow=true;
+            this.isPrint=false;
             this.getPlaceProductInfo();
         },
         changeAndSearchNmae() { //產品搜尋
             this.searchTypeBtn = this.searchTypeProduct;
+            this.isShow=false;
+            this.isPrint=true;
+            // this.isPrint=!this.isPrint;
             this.getProductInfo();
         },
         getDateInfo() {
@@ -263,7 +270,7 @@ export default {
                     </ul>
                 </div>
                 <!-- =========================================================== -->
-                <select name="" id="tool" v-on:change="changeAndSearchPlace">
+                <select v-if="isShow" name="" id="tool" v-on:change="changeAndSearchPlace">
                     <option value="嘉義縣">嘉義縣</option>
                     <option value="新北市">新北市</option>
                     <option value="嘉義市">嘉義市</option>
@@ -280,20 +287,22 @@ export default {
                     <option value="桃園市">桃園市</option>
                     <option value="南投縣">南投縣</option>
                     <option value="高雄市">高雄市</option>
-                    <option value="金門縣">金門縣</option>
+                    <!-- <option value="金門縣">金門縣</option> -->
                     <option value="屏東縣">屏東縣</option>
                     <option value="基隆市">基隆市</option>
-                    <option value="澎湖縣">澎湖縣</option>
+                    <!-- <option value="澎湖縣">澎湖縣</option> -->
                     <option value="彰化縣">彰化縣</option>
-                    <option value="連江縣">連江縣</option>
+                    <!-- <option value="連江縣">連江縣</option> -->
                 </select>
-
+                <!-- v-if="isPrint" -->
                 <!-- ============================================================================ -->
+                <div v-if="isPrint" class="placesearch">
                 <input class="searchBar" type="text" name="" id="searchBar" placeholder="產品名稱關鍵字搜尋"
                     v-model="this.searchData">
                 <button type="button" class="searchReqBtn" @click="getProductInfo">
                     搜尋
                 </button>
+            </div>
             </div>
 
             <!-- 日期範圍搜尋 -->
