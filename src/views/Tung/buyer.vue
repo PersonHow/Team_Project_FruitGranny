@@ -80,10 +80,6 @@ export default{
                     結帳
                 </button>              
 
-                <button class="nav-link" id="nav-goodsInfo-tab" data-bs-toggle="tab" data-bs-target="#nav-goodsInfo" type="button" role="tab" aria-controls="nav-goodsInfo" aria-selected="false">
-                    履歷查詢
-                </button>
-
                 <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false" @click="getOrder">
                     訂單
                 </button>
@@ -98,24 +94,6 @@ export default{
         <div class="sellSystem tab-content" id="nav-tabContent">
             <div class="add tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="sellAddArea">
-
-                    <!-- <div class="input">
-                        <label for="">商品名稱</label>
-                        <input type="text" name="" id="">
-                        <label for="">商品種類</label>
-                        <input type="text" name="" id="">
-                        <label for="">採收日期</label>
-                        <input type="text" name="" id="">
-
-                        <div class="production">
-                            
-                        </div>
-                        <button type="button" class="addBtn" id="addBtn">submit</button>
-                    </div> -->
-
-                    <!-- <div class="ans">
-                    
-                    </div> -->
                     <Recipe />
                 </div>
                 
@@ -203,29 +181,12 @@ export default{
             // border: 1px solid black;
 
             .sellAddArea{
+                width: 100%;
+                height: 32.5rem;
                 display: flex;
-                .input{
-                    width: 20%;
-                    height: 30rem;
-                    // border: 1px solid black;
-                    // border-right: 1px solid white;
-                    position:relative;
-
-                    .production{
-                        margin-top: 10%;
-                    }
-
-                    .addBtn{
-                        position: absolute;
-                        bottom: 0;
-                        right: 0;
-                    }
+                // border: 1px solid black;                
                 }
 
-                .ans{
-                    height: 30rem;
-                    width: 80%;
-                }
             }
         }
             
@@ -252,11 +213,11 @@ export default{
             }
         }
         }
-    }
+    
 
 
     .sellGoods{
-        height: 480px;
+        height: 32.5rem;
         overflow-y: auto;
     }
 
@@ -265,6 +226,11 @@ export default{
         overflow-y: auto;
     }
 
+    .orderformDiv{
+        height: 32.5rem;
+        width: 100%;
+        overflow: auto;
+    }
     
 
 

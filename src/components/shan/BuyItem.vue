@@ -10,7 +10,8 @@ export default {
             singlePrice: null,
             ItemNum: null,
             ItemTotal: null,
-            orderList:JSON.parse(localStorage.getItem(localStorage.getItem("email"))),
+            // orderList:JSON.parse(localStorage.getItem(localStorage.getItem("email"))),
+            orderList:JSON.parse(localStorage.getItem("searchArr")),
             
 
         }
@@ -44,22 +45,22 @@ export default {
 
             <!-- 產品內容區 -->
             <div class="ckeckInfo">
-                    <p>商品名稱： <sapn class="text-primary mx-2"> {{ item.text }}</sapn></p>
+                    <p>商品名稱： <sapn class="text-primary mx-2"> {{ item.itemName }}</sapn></p>
                     
-                    <p>單價：<sapn class="text-primary mx-2"> {{ item.price }}</sapn> </p>
+                    <p>單價：<sapn class="text-primary mx-2"> {{ item.itemPrice }}</sapn> </p>
                     
-                    <p>賣家：<sapn class="text-primary mx-2"> {{ item.seller }}</sapn></p>
+                    <p>賣家：<sapn class="text-primary mx-2"> {{ item.sellAccount }}</sapn></p>
             </div>
 
             <!-- 產品數量 -->
             <div class="BuyInfoNum text-primary">
                 <p>數量</p>
-                <p> {{ item.number }}</p>
+                <p> {{ item.itemNum }}</p>
             </div>
             <!-- 產品總價 -->
             <div class="BuyInfoPrice text-primary">
                 <p>總價</p>
-                <p>  {{ item.total }}</p>
+                <p>  {{ item.itemNum * item.itemPrice }}</p>
             </div>
         </div>
         

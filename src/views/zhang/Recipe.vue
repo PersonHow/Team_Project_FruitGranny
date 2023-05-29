@@ -28,7 +28,13 @@ export default{
       <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
 
         <h1 class="playful" aria-label="Wash your hands">
-          <span aria-hidden="true">C</span><span aria-hidden="true">H</span><span aria-hidden="true">O</span><span aria-hidden="true">O</span><span aria-hidden="true">S</span><span aria-hidden="true">E</span><span aria-hidden="true"> </span>
+          <span aria-hidden="true">C</span>
+          <span aria-hidden="true">H</span>
+          <span aria-hidden="true">O</span>
+          <span aria-hidden="true">O</span>
+          <span aria-hidden="true">S</span>
+          <span aria-hidden="true">E</span>
+          <span aria-hidden="true"> </span>
         </h1>
       <!-- <h2>WELCOME!! 請選擇蔬果類型!!!</h2> -->
       <textt />
@@ -37,9 +43,10 @@ export default{
 </template>
 
 <style lang="scss" scoped>
-
- 
-    
+.chobig{
+  height: 32.5rem;
+  width: 100%;
+  background-color: #9ead9a;
   .choose{
     height: 500px;
     width: 1100px;
@@ -50,19 +57,19 @@ export default{
     // background-color: #E4FFF7;
     $background: #E4FFF7;
 
-    @function textShadow($precision, $size, $color){
-      $value: null;
-      $offset: 0;
-      $length: $size * (1 / $precision) - 1;
+    // @function textShadow($precision, $size, $color){
+    //   $value: null;
+    //   $offset: 0;
+    //   $length: $size * (1 / $precision) - 1;
 
-      @for $i from 0 through $length {
-        $offset: $offset + $precision;
-        $shadow: $offset + px $offset + px $color;
-        $value: append($value, $shadow, comma);
-      }
+    //   @for $i from 0 through $length {
+    //     $offset: $offset + $precision;
+    //     $shadow: $offset + px $offset + px $color;
+    //     $value: append($value, $shadow, comma);
+    //   }
 
-      @return $value;
-    }
+    //   @return $value;
+    // }
 
     .playful span {
       position: relative;
@@ -118,12 +125,12 @@ export default{
       font-weight: normal;
       display: block;
       width: 666px;
-      max-width: 80vw;
-      min-height: 90px;
+      // max-width: 80vw;
+      // min-height: 90px;
       height: auto;
       text-align: center;
       margin: 10rem auto;
-      margin: calc(50vh - 5rem) auto;
+      // margin: calc(50vh - 5rem) auto;
     }
 
     @import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
@@ -158,5 +165,6 @@ export default{
           background-size: 100% 100%;
       }
   }
+}
 }
 </style>

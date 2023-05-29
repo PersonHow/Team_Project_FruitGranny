@@ -353,6 +353,7 @@ export default{
     .form{
         height: 480px;
         overflow-y: auto;
+        background-color: #9ead9a;
         padding: 20px;
         font-family: "Cormorant Garamond", serifc;
         font-weight: bold;
@@ -435,6 +436,7 @@ export default{
     .sellProducts{
         height: 480px;
         overflow-y: auto;
+        background-color: #9ead9a;
         font-family: "Cormorant Garamond", serif;
         font-weight: bold;
         font-size: 24px;

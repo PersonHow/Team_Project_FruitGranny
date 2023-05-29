@@ -6,12 +6,13 @@ export default{
             order_num:JSON.parse(localStorage.getItem("buyerOrder")).orderList,
             order_num_content:JSON.parse(localStorage.getItem("buyerOrder")).contentList,
             getGoods:false,
+            openSelect:false,
         }
     },
     methods:{
         changeCondition(id){
-            window.confirm("有收到貨物了嗎??");
-            if(confirm("有收到貨物了嗎??") == true){
+            
+            if(window.confirm("有收到貨物了嗎??") == true){
             let order_id ={
                 "order_id":id
             }
@@ -35,8 +36,14 @@ export default{
 
             this.getGoods = !this.getGoods;
             console.log(this.getGoods)
+        }else{
+            alert("再考慮一下");
         }
 
+        },
+        openOrClose(item,index){
+            this.openSelect = !this.openSelect
+            console.log(this.openSelect)
         }
     },
     mounted(){
@@ -48,21 +55,22 @@ export default{
 <template>
 <div class="showArea">
     <div class="accordion " id="accordionExample">
-        <div class="accordion-item title" v-for="elements in this.order_num">
+        <div class="accordion-item title" v-for="(elements, index) in this.order_num" >
         <!-- 訂單編號區 -->
         <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + [index]" aria-expanded="true" :aria-controls="'#collapse' + [index]" >
                 <i class="fa-solid fa-truck-fast Bouncing exits bounceOutRight"></i>
                 <h1>訂單編號：{{ elements.order_id }}</h1>
                 <h2 class="condition">訂單狀態：{{elements.order_condition}}</h2>
-                
+                <!-- {{ collapseZero }} -->
+            
             </button>
             <!-- 更改狀態的按鈕 -->
             <button class="checkBtn" type="button" @click="changeCondition(elements.order_id)" :disabled="elements.order_condition === '已完成'">xxx</button>
         </h2>
         
         <!-- 訂單內容區 -->
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" v-for="item in this.order_num_content">
+            <div :id="'collapse' + [index]" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" v-for="item in this.order_num_content">
                 <div class="accordion-body" v-if="elements.order_id.includes(item.num_id.substr(0,5))">
                     <span>編號：{{ item.num_id }}</span>
                     <span>品名：{{ item.item_name }}</span>
@@ -82,7 +90,7 @@ export default{
 <style lang="scss" scoped>
 .showArea{
     width:100%;
-    height: 30rem;
+    height: 32.5rem;
     background-color: white;
     overflow: auto;
 

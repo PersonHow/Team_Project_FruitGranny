@@ -248,7 +248,17 @@ export default {
 <template>
     <div class="search-area">
         <div class="searchbar">
-            <div class="label">
+            <label for="searchBar">商品</label>
+            <input class="searchBar" type="text" name="" id="searchBar" placeholder="關鍵字搜尋"
+                v-model="this.searchData">
+            <button type="button" class="searchReqBtn" @click="getProductInfo">
+                <i class="fa-solid fa-magnifying-glass">搜尋</i>
+            </button>
+            <!-- <button type="button" class="searchReqBtn" @click="">
+                <i class="fa-solid fa-pen-to-square">購物車</i>
+                
+            </button> -->
+        </div>
 
                 <div class="searchIcon">
                     <label for="searchBar"></label>
@@ -316,18 +326,6 @@ export default {
                 <span v-else-if="isStartDateInvalid" class="error-message">查詢30天前生鮮食品為"不合理"</span>
                 <button class="dateSearchBtn" @click="getDateInfo"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
-
-
-
-
-
-        </div>
-
-
-    </div>
-
-
-
 
     <div class="content-layout">
         <div class="background-layout">
@@ -507,7 +505,7 @@ input {
 .searchReqBtn:hover {
     background-color: rgb(253, 253, 253);
     color: rgb(72, 78, 74);
-    scale: 1.3;
+    scale: 1.2;
 }
 
 .searchReqBtn:active {

@@ -3,11 +3,11 @@
 
 export default {
     components: {
-       
+    
     },
     data() {
         return {
-          searchData:null
+        searchData:null
     }},
     methods: {
 
@@ -34,13 +34,13 @@ export default {
 <div class="searchbar">
     {{ searchData }}
 <label for="searchBar">商品搜尋</label>   
-<input class="searchBar" type="text" name="" id="searchBar" placeholder="請關鍵字搜尋或是空白搜尋，回傳全部資料" v-model="searchData">
+<input class="searchBar" type="text" name="" id="searchBar" placeholder="請輸入關鍵字" v-model="searchData">
 <button type="button" class="searchReqBtn" v-on:click="submitDate">
     <i class="fa-solid fa-magnifying-glass">搜尋</i>
 </button>
 </div>
 
-  
+
 </template>
 
 

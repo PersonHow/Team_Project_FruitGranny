@@ -3,7 +3,6 @@
 
 export default {
     components: {
-
     },
     data() {
         return {
@@ -29,7 +28,6 @@ export default {
         tryAdd() {  //加入購物車
             this.searchResult = this.searchResultcode;
             console.log(this.searchResult);
-
             let body = {
                 "product": this.searchResult,
                 "buyerAccount": this.account,
@@ -63,8 +61,8 @@ export default {
                 
         },
         emitPush(){
-          console.log(`AAA`)
-          this.$emit("emitPushAdd")
+            console.log(`AAA`)
+            this.$emit("emitPushAdd")
         }
 
 

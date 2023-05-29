@@ -42,6 +42,9 @@ export default {
       this.dishData.title = this.title;
       this.dishData.needed = data.dishList.needed;
       this.dishData.cooking = data.dishList.cooking;
+    })
+    .catch((error) => {
+      console.log(error);
     });
 },
   },
