@@ -43,17 +43,20 @@ export default{
 </template>
 
 <style lang="scss" scoped>
-
- 
-    
+.chobig{
+  height: 32.5rem;
+  width: 100%;
+  background-color: #9ead9a;
   .choose{
-    height:30rem;
+    // height: 500px;
+    height: 32.5rem;
+    // width: 1100px;
     width: 100%;
-    // margin-top: -137px;
+    margin-top: -150px;
     font-size: 25px;
     display: block;
     justify-content: center;
-    background-color: #E4FFF7;
+    // background-color: #E4FFF7;
     $background: #E4FFF7;
 
     // @function textShadow($precision, $size, $color){
@@ -118,18 +121,18 @@ export default{
     }
 
     h1 {
-      font-size: 65px;
+      font-size: 75px;
       text-transform: uppercase;
       font-family: "Archivo Black", "Archivo", sans-serif;
       font-weight: normal;
       display: block;
       width: 666px;
-      max-width: 80vw;
-      min-height: 90px;
+      // max-width: 80vw;
+      // min-height: 90px;
       height: auto;
       text-align: center;
       margin: 10rem auto;
-      margin: calc(50vh - 5rem) auto;
+      // margin: calc(50vh - 5rem) auto;
     }
 
     @import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
@@ -164,5 +167,6 @@ export default{
           background-size: 100% 100%;
       }
   }
+}
 }
 </style>

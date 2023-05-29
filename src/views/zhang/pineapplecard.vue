@@ -58,6 +58,7 @@ export default{
 </template>
 <style scoped>
 .hui{
+    width: 100%;
     display:flex;
     justify-content:center;
     

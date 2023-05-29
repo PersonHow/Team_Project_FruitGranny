@@ -100,14 +100,12 @@ export default {
             return localStorage.setItem("chartList", JSON.stringify(arr));
         },
         clicked(index) {
-            // console.log(this.searchResultArr);
-            // localStorage.setItem("chartList",JSON.stringify(this.searchResultArr));
             let arr = JSON.parse(localStorage.getItem("searchArr"));
             arr[index].condition = !arr[index].condition;
             console.log(arr[index].condition);
             return localStorage.setItem("searchArr", JSON.stringify(arr));
         },
-        getShoppingCar() {//獲取資料
+        getShoppingCar() {//獲取資料 
             let body = {
                 "buyerAccount": this.account //需要localstorage資料
             }

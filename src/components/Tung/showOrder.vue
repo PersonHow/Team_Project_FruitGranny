@@ -8,15 +8,15 @@ export default{
             user:{
                 "sellerAccount":localStorage.getItem("email"),
             },
-            order_num:[],
-            order_num_content:[],
+            seller_num:[],
+            seller_num_content:[],
         }
     },
     methods:{
         check(id){
             let order_id ={
                 "order_id":id
-            }
+            }   
 
             fetch("http://localhost:8080/shippedOrder",{
                 method:"POST",
@@ -34,10 +34,9 @@ export default{
             .catch(function(error){
                 console.log(error)
             })
-        }
-    },
-    mounted(){
-        fetch("http://localhost:8080/seller_Order",{
+        },
+        showOrder(){
+            fetch("http://localhost:8080/seller_Order",{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -47,22 +46,28 @@ export default{
         .then(function(response){
             return response.json();
         })
-        .then(function(data){
-            // console.log(data);
-            // if(!data === null){
-            localStorage.setItem("show",JSON.stringify(data))
-            // }
+        .then(data =>{
+            // localStorage.setItem("show",JSON.stringify(data))
+            this.seller_num = data.orderList;
+            this.seller_num_content = data.contentList;   
+            console.log(this.seller_num)
         })
         .then(function(error){
             console.log(error);
         })
+        }
+    },
+    mounted(){
 
-        this.order_num = this.showList.orderList;
-        this.order_num_content = this.showList.contentList;
-        console.log(this.order_num)
-        console.log(this.order_num_content)
-        
+    },
+    created(){
+        this.showOrder();
+
+    },
+    updated(){
+        // this.showOrder();
     }
+    
 }
 </script>
 
@@ -73,10 +78,10 @@ export default{
 <div class="showArea">
 
     <div class="accordion " id="accordionExample">
-        <div class="accordion-item title" v-for="elements in this.order_num">
+        <div class="accordion-item title" v-for="(elements,index) in this.seller_num">
         <!-- 訂單編號區 -->
         <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + [index]" aria-expanded="true" :aria-controls="'collapse' + [index]">
                 <i class="fa-solid fa-truck-fast Bouncing exits bounceOutRight"></i>
                 <h1>訂單編號：{{ elements.order_id }}</h1>
                 <h2 class="buyer">買家：{{elements.buyer_account}}</h2>
@@ -84,18 +89,23 @@ export default{
                 
             </button>
             <!-- 更改狀態的按鈕 -->
-            <button class="checkBtn" type="button" @click="check(elements.order_id)">xxx</button>
+            <button class="checkBtn" type="button" @click="check(elements.order_id)">商品出貨</button>
         </h2>
         
         <!-- 訂單內容區 -->
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" v-for="item in this.order_num_content">
+            <div :id="'collapse' + [index]" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" v-for="(item,index) in this.seller_num_content">
                 <div class="accordion-body" v-if="elements.order_id.includes(item.num_id.substr(0,5))">
                     <span>編號：{{ item.num_id }}</span>
                     <span>品名：{{ item.item_name }}</span>
                     <span>數量：{{ item.item_number }}</span>
                     <span>單價：{{ item.item_price }}</span>
                     <span>總價：{{ item.total_price }}</span>
-                    
+
+                    <form class="contentRadio">
+                    <label for="">商品狀態：</label>
+                    <label for=""><input type="radio" name="goods" id="false" checked>未出貨</label>
+                    <label for=""><input type="radio" name="goods" id="true">已出貨</label>
+                    </form>
 
                 </div>
             </div>
@@ -175,7 +185,7 @@ export default{
 
         .accordion-body{
             width:100%;
-            height: 5rem;
+            height: 8rem;
             font-size: 20pt;
         }
         

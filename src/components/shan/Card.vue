@@ -18,9 +18,10 @@ export default {
 
     },
     alertmsg() {
-      
-      // alert("下訂成功!!! \n商品將於三天內出貨，請留意 \n\n (1) 簡訊通知出貨時間  \n (2) 簡訊通知到貨時間 \n (3) 宅急便電話取貨。 \n \n食品為低溫宅配商品，目前為指定18:00送達。  \n如有特殊時間送達需求請下訂24小時內撥電詢問。 \nTel: 06-2345678 (王小姐)");
+        
       // 取得購物車相關資料
+
+      if(window.confirm("有確定下單了嗎?? 資料有無填寫正確") === true){
       let ary = JSON.parse(localStorage.getItem("searchArr"));
       console.log(ary);
 
@@ -55,7 +56,8 @@ export default {
       
       console.log(content);                         // 訂單內容編碼
 
-      
+      // 資料庫應該新增E-mail 欄位供訂單系統判斷，買家維持可以輸入姓名即可
+      // 沒有訂單時間欄位
       let orderObj = {                              // 轉成可以與後端對接的型態
         "order_id":result,                            // 訂單區，填入與資料庫相對應欄位
         "seller_account":sellers,
@@ -106,6 +108,10 @@ export default {
             console.log(error)
         })
 
+        alert("下訂成功!!! \n商品將於三天內出貨，請留意 \n\n (1) 簡訊通知出貨時間  \n (2) 簡訊通知到貨時間 \n (3) 宅急便電話取貨。 \n \n食品為低溫宅配商品，目前為指定18:00送達。  \n如有特殊時間送達需求請下訂24小時內撥電詢問。 \nTel: 06-2345678 (王小姐)");
+      }else{
+        alert("可以再多考慮")
+      }
       
 
     }
@@ -131,7 +137,7 @@ export default {
         <!-- 收件人 -->
         <div class="logistic-detail-input">
           <label for="name"> <i class="fa-solid fa-user"> 收件人</i></label>
-          <input class="name" id="name" type="text" placeholder=" 請輸入領貨人姓名，e.g. 王曉明"
+          <input class="name" id="name" type="text" placeholder=" 請輸入領貨人Email，e.g. zc123@gmail.com"
             onclick="document.getElementById('name').value=''" v-model="this.name">
         </div>
 
@@ -139,6 +145,7 @@ export default {
         <div class="logistic-detail-input">
           <label for="phone"> <i class="fa-solid fa-mobile-screen-button"> 連絡電話</i></label>
           <input class="phone" id="phone" type="number" placeholder=" 請輸入連絡電話 ，e.g. 0912345678" v-model="this.phone">
+          <!-- 需要正規化 -->
         </div>
 
         <!-- 寄送地址 -->
