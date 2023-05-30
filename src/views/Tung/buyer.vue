@@ -80,10 +80,6 @@ export default{
                     結帳
                 </button>              
 
-                <button class="nav-link" id="nav-goodsInfo-tab" data-bs-toggle="tab" data-bs-target="#nav-goodsInfo" type="button" role="tab" aria-controls="nav-goodsInfo" aria-selected="false">
-                    履歷查詢
-                </button>
-
                 <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false" @click="getOrder">
                     訂單
                 </button>
