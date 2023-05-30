@@ -52,11 +52,6 @@ export default{
         updateProduct(index){
             let result = this.searchAllRes[index];
 
-            if (!this.isModified(result)) {
-                // 如果沒有修改任何欄位，則不觸發方法
-                return;
-            }
-
             let productData = {
                     "hs_code": result.hsCode,
                     "name":result.name,
