@@ -6,6 +6,21 @@ export default {
         }
     },
     methods: {
+        gogopower(){
+            let xxx = [{
+                "orderList":[{}],
+                "contentList":[{}]
+            }];
+            localStorage.setItem("buyerOrder", JSON.stringify(xxx));
+        },
+        powergogo(){
+            let yyy =[{
+            "orderList":[{}],
+            "contentList":[{}]
+            }];
+            localStorage.setItem("show", JSON.stringify(yyy));
+        }
+
     },
     mounted() {
         
@@ -54,7 +69,7 @@ export default {
     <div class="chooseArea">
     
         <div class="chooseCard">
-            <RouterLink to="/seller" class="custom-btn btn-5">供應商</RouterLink>
+            <RouterLink to="/seller" class="custom-btn btn-5" @click="powergogo">供應商</RouterLink>
             <div class="pic">
                 <img class="animate flipInY" src="https://t4.ftcdn.net/jpg/04/42/11/53/360_F_442115393_umFt4eV1asDjcvpG4g7hylxuw7nCD8Oo.jpg" alt="seller">
             </div>
@@ -62,7 +77,7 @@ export default {
         </div>
             
         <div class="chooseCard">
-            <RouterLink to="/buyer" class="custom-btn btn-5">消費者</RouterLink>
+            <RouterLink to="/buyer" class="custom-btn btn-5" @click="gogopower">消費者</RouterLink>
             <div class="pic">
                 <img class="animate flipInY" src="https://www.prakati.in/wp-content/uploads/2021/06/Featured-Image-Reusable-Vegetable-Storage-Bags-markus-spiske-unsplash.jpg" alt="buyer">
             </div>

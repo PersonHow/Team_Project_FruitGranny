@@ -4,19 +4,47 @@ export default {
 
     data() {
         return {
-            userName: localStorage.getItem("user_name"),
-            pwd: null,
-            conPwd: null,
+            
             email: localStorage.getItem("email"),
-            phone: localStorage.getItem("phone"),
-            address: localStorage.getItem("address")
+            pwd: localStorage.getItem("password"),
+
+            newName: null,
+            newPhone: null,
+            newAddress: null
         }
+    },
+    created() {
+        this.fetchData();
     },
     methods: {
 
+        fetchData(){
+            let body = {
+                "email": this.email,
+                "password": this.pwd,
+            }
+            fetch("http://localhost:8080/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "Application/json"
+                },
+                body: JSON.stringify(body)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                this.newName = data.member.account;
+                this.newPhone = data.member.phone;
+                this.newAddress = data.member.address;
+
+            })
+            .catch(err => {
+
+            })
+        }
+
     },
     mounted(){
-        
     }
 }
 </script>
@@ -37,7 +65,7 @@ export default {
                     <label for="userName">　</label>
                     <input type="text" 
                     id="userName" 
-                    v-model="userName" 
+                    v-model="newName"
                     readonly>
                 </div>
 
@@ -55,7 +83,7 @@ export default {
                     <label for="phontNumber">　</label>
                     <input type="text" 
                     id="phontNumber" 
-                    v-model="phone"
+                    v-model="newPhone"
                     readonly>
                </div>
             
@@ -64,7 +92,7 @@ export default {
                     <label for="address">　</label>
                     <input type="text" 
                     id="address" 
-                    v-model="address" 
+                    v-model="newAddress" 
                     readonly>
                </div>
 

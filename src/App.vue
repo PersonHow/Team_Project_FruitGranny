@@ -6,7 +6,14 @@ export default {
     components: {
         HeaderView,
         HomeBody
+    },
+    data(){
+        return{
+        }
+    },
+    methods: {
     }
+
   }
 
 </script>

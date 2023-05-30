@@ -68,15 +68,15 @@ export default {
         <div class="searchbar">
        
             <label for="searchBar">商品</label>
-            <input class="searchBar" type="text" name="" id="searchBar" placeholder="關鍵字搜尋"
+            <input class="searchBar" type="text" name="" id="searchBar" placeholder="請輸入關鍵字搜尋"
                 v-model="this.searchData">
             <button type="button" class="searchReqBtn" @click="getProductInfo">
                 <i class="fa-solid fa-magnifying-glass">搜尋</i>
             </button>
-            <button type="button" class="searchReqBtn" @click="">
-                <i class="fa-solid fa-pen-to-square">購物車</i>
+            <!-- <button type="button" class="searchReqBtn" @click="">
+                <i class="fa-solid fa-pen-to-square">購物車</i> -->
                 
-            </button>
+            <!-- </button> -->
         </div>
 
 
@@ -173,7 +173,7 @@ input {
 .searchReqBtn:hover {
     background-color: rgb(253, 253, 253);
     color: rgb(72, 78, 74);
-    scale: 1.3;
+    scale: 1.2;
 }
 
 .searchReqBtn:active {

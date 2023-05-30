@@ -229,9 +229,9 @@ export default {
                     <h2>{{ index + 1 }}</h2>
                     <p> {{ item.img }} </p>
                     <div class="productContent">
-                        <p>商品ID: {{ item.itemId }} </p>
-                        <p>品名: {{ item.itemName }} </p>
-                        <p>賣家: {{ item.sellAccount }}</p>
+                        <p>商品ID： {{ item.itemId }} </p>
+                        <p>品名： {{ item.itemName }} </p>
+                        <p>賣家： {{ item.sellAccount }}</p>
                     </div>
 
 
@@ -250,12 +250,12 @@ export default {
                 </div>
 
                 <div class="price_content">
-                    <p>總價: {{ item.itemNum * item.itemPrice }} </p>
-                    <p>備註: {{ item.discription }} </p>
+                    <p>總價： {{ item.itemNum * item.itemPrice }} </p>
+                    <p>備註： {{ item.discription }} </p>
                 </div>
                 <div class="btn-Area">
                     <button class="button-function" @click="updateData(index)"><i class="fa-solid fa-plus">
-                            更動數量</i></button>
+                            更 動 數 量</i></button>
                     <button class="button-function" @click="deleteDate(index)"><i class="fa-solid fa-x">
                             移除購物車</i></button>
                 </div>
@@ -280,13 +280,11 @@ export default {
         overflow: auto;
         color: white;
         font-size: 2.5vmin;
-        .olArea{
-            width:100%;
-            height: 30rem; 
-            padding: 0;
+        padding: 0 0;
+       
         .item-List {
             border: 2px solid white;
-            background-color: #666;
+            background-color: rgb(52, 68, 57);;
             width: 100%;
             height: 10rem;
             display: flex;
@@ -349,7 +347,7 @@ export default {
                 .button-function {
                     margin: 2px;
                     border-radius: 5px;
-                    font-size: 2.5vmin;
+                    font-size: 2vmin;
                     transition: 0.3s;
 
                     &:hover {
@@ -368,7 +366,7 @@ export default {
         }
 
 
-    }
+    
 
 }
 }
