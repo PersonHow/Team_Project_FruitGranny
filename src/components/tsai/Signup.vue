@@ -9,9 +9,25 @@
                     conPwd: null,
                     email: null,
                     phone: null,
-                    address: null
+                    address: null,
+
+                    cities: ['台北市', '新北市', '桃園市', '台中市', '台南市', '高雄市'],
+                    selectedCity: '',
+                    cAddress: '',
+                    finalAddress: ''
                 }
             },
+            watch: {
+                selectedCity(value) {
+                    this.finalAddress = value + this.cAddress + this.address;
+                },
+                cAddress(value){
+                    this.finalAddress = this.selectedCity + value + this.address;
+                },
+                address(value) {
+                    this.finalAddress = this.selectedCity + this.cAddress + value;
+                }
+                },
             methods: {
 
                 addInfo() {
@@ -22,7 +38,7 @@
                             "confirm_password": this.conPwd,
                             "email": this.email,
                             "phone": this.phone,
-                            "address": this.address
+                            "address": this.finalAddress
                         }]
                     }
                     fetch("http://localhost:8080/sign_up", {
@@ -35,14 +51,42 @@
                     .then(res => res.json())
                     .then(data => {
                         alert(data.message);
+                        if(data.message === "註冊成功"){
+                            this.$router.push('/log-in');
+                }
                     })
                     .catch(err => {
 
                     })
                 }
             },
+            computed: {
+                districts() {
+                    if (this.selectedCity === '台北市') {
+                        return ['中正區', '大同區', '松山區'];
+                    }
+                    else if (this.selectedCity === '新北市') {
+                        return ['板橋區', '新莊區', '永和區'];
+                    }
+                    else if (this.selectedCity === '桃園市') {
+                        return ['桃園區', '中壢區', '平鎮區'];
+                    }
+                    else if (this.selectedCity === '台中市') {
+                        return ['北屯區', '龍井區', '西屯區'];
+                    } 
+                    else if (this.selectedCity === '台南市') {
+                        return ['永康區', '中西區', '北區區'];
+                    } 
+                    else if (this.selectedCity === '高雄市') {
+                        return ['仁武區', '三民區', '鹽程區'];
+                    } 
+                    else {
+                        return [];
+                    }
+                },
+            },
             mounted() {
-
+                this.finalAddress = this.selectedCity + this.cAddress + this.address;
             } 
         }
 </script>
@@ -72,25 +116,35 @@
                <div>
                    <i class="fa-solid fa-unlock-keyhole"></i>
                    <label for="password">　</label>
-                   <input type="password" id="password" placeholder="Password" v-model="pwd">
+                   <input type="password" id="password" placeholder="Password (英數字相加須大於6個字元)" v-model="pwd">
                </div>
 
                <div>
                     <i class="fa-solid fa-lock"></i>
                     <label for="ConfirmPassword">　</label>
-                    <input type="password" id="ConfirmPassword" placeholder="Confirm Password" v-model="conPwd">
+                    <input type="password" id="ConfirmPassword" placeholder="Confirm Password (請輸入相同的密碼)" v-model="conPwd">
                </div>
 
                <div>
                     <i class="fa-solid fa-mobile-screen-button"></i>
                     <label for="phontNumber">　</label>
-                    <input type="text" id="phontNumber" placeholder="Phone Number" v-model="phone">
+                    <input type="text" id="phontNumber" placeholder="Phone Number (台灣手機格式)" v-model="phone">
                </div>
             
                <div>
+                <div class="address-area">
                     <i class="fa-regular fa-address-card"></i>
                     <label for="address">　</label>
+                    <select id="city" v-model="selectedCity" @change="resetAddress">
+                        <option value="">請選擇縣市</option>
+                        <option v-for="city in cities" :value="city">{{ city }}</option>
+                    </select>
+                    <select id="district" v-model="cAddress" :disabled="!selectedCity">
+                        <option value="">請選擇地區</option>
+                        <option v-for="district in districts" :value="district">{{ district }}</option>
+                    </select>
                     <input type="text" id="address" placeholder="Address" v-model="address">
+                </div>
                </div>
 
             </form>
@@ -132,6 +186,35 @@
         p{
             font-size: 10pt;
             margin-bottom: 25px;
+        }
+
+        .address-area{
+            display: flex;
+            justify-content: center;
+
+            i{
+                padding-top: 8px;
+            }
+
+            select{
+                height: 31px;
+                font-size: 15px;
+
+            }
+
+            input{
+                margin-bottom: 20px;
+                height: 40px;
+                width: 47%;
+                border: 0;
+                border-bottom: 2px solid rgba(0,0,0,.1);
+                outline: none;
+
+                &:focus{
+                        border-bottom: 2px solid rgba(81, 80, 80, 0.791); 
+                    }
+
+            }
         }
 
         form{

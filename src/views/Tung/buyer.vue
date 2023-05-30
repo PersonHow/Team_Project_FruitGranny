@@ -78,7 +78,7 @@ export default{
 
                 <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
                     結帳
-                </button>              
+                </button>          
 
                 <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false" @click="getOrder">
                     訂單

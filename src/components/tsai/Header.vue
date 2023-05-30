@@ -3,6 +3,7 @@
     export default {
         components: {
         },
+        // props: ['user_account'],
         data() {
             return {
                 user_name: null,
@@ -21,15 +22,43 @@
                     window.location.reload();
                 }, 100);
                 
+            },
+            // getAccount(newName){
+            //     console.log(newName)
+            //     this.user_account = newName;
+            // },
+            fetchData(){
+                let body = {
+                    "email": localStorage.getItem("email"),
+                    "password": localStorage.getItem("password"),
+                }
+                fetch("http://localhost:8080/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "Application/json"
+                    },
+                    body: JSON.stringify(body)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    console.log("111")
+                    this.user_account = data.member.account;
+                })
+                .catch(err => {
+
+                })
             }
-            // getAccount(user){
-            //     this.user_account = user;
-            // }
+        },
+        updated(){
+            this.fetchData();
         },
         mounted() {
             // get出 localStorage 的 user_name
             this.user_name = localStorage.getItem("user_name");
-        } 
+            // this.fetchData();
+        },
+        
     }
 </script>
 
@@ -57,13 +86,12 @@
 
                 <div v-if="user_name" class="userBtn-area">
 
-                    <p class="user" 
-                    >Hi,　{{ user_name }}　｜
+                    <p class="user"
+                    >Hi,　{{ user_account }}　｜
                 
                     <button type="button" @click="signOut"
                     class="btn"
                     >登出</button>
-
                     </p>
             
                     <RouterLink to="/original-info" class="setInfo  btn btn-outline-secondary">
@@ -130,26 +158,26 @@
         .link{
             padding: 8px;
             text-decoration: none;
-
             
         }
 
         .logoLink{
-            animation: rotation 5s infinite linear;
+                animation: rotation 5s infinite linear;
+                // transition: 2s;
 
-            &:hover{
-                animation: rotation 0s infinite linear;
-            }
+                &:hover{
+                    animation: rotation 0s infinite linear;
+                }
         }
 
-        @keyframes rotation{
-            from{
-                transform:rotate(0deg);
+        @keyframes rotation {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(359deg);
+                }
             }
-            to{
-                transform:rotate(359deg);
-            }
-        }
 
         .wrapper {
             --text-color: #1a1a1a;

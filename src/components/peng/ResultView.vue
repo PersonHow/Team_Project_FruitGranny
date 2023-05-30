@@ -288,10 +288,8 @@ export default {
         overflow: auto;
         color: white;
         font-size: 2.5vmin;
-        .olArea{
-            width:100%;
-            height: 30rem; 
-            padding: 0;
+        padding: 0 0;
+       
         .item-List {
             border: 2px solid white;
             background-color: rgb(52, 68, 57);
@@ -357,7 +355,7 @@ export default {
                 .button-function {
                     margin: 2px;
                     border-radius: 5px;
-                    font-size: 2.5vmin;
+                    font-size: 2vmin;
                     transition: 0.3s;
 
                     &:hover {
@@ -376,7 +374,7 @@ export default {
         }
 
 
-    }
+    
 
 }
 }

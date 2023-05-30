@@ -38,7 +38,7 @@
                     if (data.message === "登入成功! HELLO!") {
                         // 把account設值
                         this.account = data.member.account;
-                        // this.$emit('success', this.account);
+                        this.$emit('newAccount', this.account);
 
                         // 回首頁
                         this.$router.push('/');

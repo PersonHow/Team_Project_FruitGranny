@@ -249,7 +249,7 @@ export default {
     <div class="search-area">
         <div class="searchbar">
             <label for="searchBar">商品</label>
-            <input class="searchBar" type="text" name="" id="searchBar" placeholder="關鍵字搜尋"
+            <input class="searchBar" type="text" name="" id="searchBar" placeholder="請輸入關鍵字搜尋"
                 v-model="this.searchData">
             <button type="button" class="searchReqBtn" @click="getProductInfo">
                 <i class="fa-solid fa-magnifying-glass">搜尋</i>
