@@ -21,15 +21,16 @@ export default{
     },
     methods: {
 
-        
-
         removeProduct(index){
             let result = this.searchAllRes[index];
 
             let productData = {
                 "hs_code": result.hsCode
             };
-            fetch("http://localhost:8080/remove_seller_product", {
+
+
+            if(confirm("確定下架此商品嗎?")){
+                fetch("http://localhost:8080/remove_seller_product", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -45,11 +46,17 @@ export default{
                 .catch(error => {
                     
                 });
+            }
         },
 
         updateProduct(index){
             let result = this.searchAllRes[index];
-            
+
+            if (!this.isModified(result)) {
+                // 如果沒有修改任何欄位，則不觸發方法
+                return;
+            }
+
             let productData = {
                     "hs_code": result.hsCode,
                     "name":result.name,
@@ -63,7 +70,8 @@ export default{
                     "description":result.description            
             }
 
-            fetch("http://localhost:8080/update_product",{
+            if(confirm("確定修改商品嗎?")){
+                fetch("http://localhost:8080/update_product",{
                     method: 'POST',
                     headers:{
                         'Content-Type':'application/json'
@@ -78,11 +86,11 @@ export default{
                 .catch(error =>{
 
                 })
+            }
         },
         
 
         findSellerAllProduct(){
-
             let productData = {
                 "seller_account":this.sellerAccount
             }
@@ -98,7 +106,7 @@ export default{
 
                     this.searchAllRes = data.searchAllRes
                     console.log(this.searchAllRes)
-                    alert(data.message)
+                    // alert(data.message)
                 })
                 
                 .catch(error =>{
@@ -107,14 +115,23 @@ export default{
         },
 
         generateHsCode(){
-            const randomNum = Math.floor(Math.random() * 900000) + 100000;
-            return this.sellerAccount ? randomNum + '-' + randomNum : null;
+            const randomNum1 = Math.floor(Math.random() * 900000) + 100000;
+            const randomNum2 = Math.floor(Math.random() * 90000) + 10000;
+            return this.sellerAccount ? randomNum2+ '-' + randomNum1 : null;
         },
 
         async addProduct(){
             // 產生商品編碼
             this.hs_code = this.generateHsCode();
             console.log(this.hs_code)
+
+            // 檢查商品名稱是否已存在
+            if(this.searchAllRes.some(product => product.name === this.name)){
+                alert("商品已存在")
+                return;
+            }
+            
+
             let productData = {
                 "product_list": [{   
                     "hsCode":this.hs_code,
@@ -141,6 +158,18 @@ export default{
                 .then(res => res.json())                
                 .then(data => {
                     alert(data.message)
+                    // alert(JSON.stringify(data.product_list[0].name))
+                    // console.log(data.product_list[0])
+                    // 新增成功清除欄位資料
+                    this.name = null;
+                    this.type = null;
+                    this.place = null;
+                    this.number = null;
+                    this.date = null;
+                    this.price = null;
+                    this.description  = null;
+
+
                 })
                 
                 .catch(error =>{
@@ -178,7 +207,7 @@ export default{
                     商品上架
                 </button>
 
-                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                <button @click="findSellerAllProduct" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
                     我的商品
                 </button>
 
@@ -232,7 +261,7 @@ export default{
                     <div class="date">
                         <label for="">採收日期</label>
                         <p></p>
-                        <input placeholder="yyyy-mm-dd" type="text" v-model="date">
+                        <input placeholder="yyyy-mm-dd" type="date" class="form-control" id="date" name="date" v-model="date">
                     </div>
                     <div class="price">
                         <label for="">產品價格</label>
@@ -254,41 +283,41 @@ export default{
                 <div class="sellProducts">
                     <div class="seller_account">
                         <div class="search">
-                            <label for="">賣家帳號</label>
+                            <!-- <label for="">賣家帳號</label>
                             <p></p>
                             <input type="text" v-model="sellerAccount" readonly>
                             <div class="btn">
                                 <button type="button" @click="findSellerAllProduct">搜尋</button>
-                            </div>
+                            </div> -->
                         </div>
                        
                         <!-- 搜尋結果 -->
                         <div class="result" >
                             <ul v-for="(result, index) in searchAllRes" :key="result.hsCode">
                                 <!-- 多筆渲染 -->
-                                <li>商品編碼：<input type="text" v-model="result.hsCode"></li>
+                                <li>商品編碼<p></p><input type="text" v-model="result.hsCode"></li>
                                 <p></p>
-                                <li>商品名稱：<input type="text" v-model="result.name" ></li>
+                                <li>商品名稱<p></p><input type="text" v-model="result.name" ></li>
                                 <p></p>
-                                <li>商品種類：
+                                <li>商品種類<p></p>
                                     <select v-model="result.type">
                                         <option v-for="option in typeOptions" :value="option">{{ option }}</option>
                                     </select>
                                 </li>
                                 <p></p>
-                                <li>原生產地：
+                                <li>原生產地<p></p>
                                     <select v-model="result.place">
                                         <option v-for="option in placeOptions" :value="option">{{ option }}</option>
                                     </select>
                                 </li>
                                 <p></p>
-                                <li>採收日期：<input type="text" v-model="result.date"></li>
+                                <li>採收日期<p></p><input type="date" class="form-control" id="date" name="date" style="width: 290px; height: 36px;" v-model="result.date"></li>
                                 <p></p>
-                                <li>產品價格：<input type="text" v-model="result.price"></li>
+                                <li>產品價格<p></p><input type="text" v-model="result.price"></li>
                                 <p></p>
-                                <li>產品數量：<input type="text" v-model="result.number"></li>                            
+                                <li>產品數量<p></p><input type="text" v-model="result.number"></li>                            
                                 <p></p>
-                                <li>備註說明：<input type="text" v-model="result.description"></li>
+                                <li>備註說明<p></p><input type="text" v-model="result.description"></li>
                                 <div class="btn">
                                     <button type="button" @click="updateProduct(index)">修改此商品資訊</button>
                                     <button type="button" @click="removeProduct(index)">下架商品</button>
@@ -298,8 +327,6 @@ export default{
                         </div>
                     </div>
                 </div>
-                
-
             </div>
         <!-- 賣家訂單 -->
             <div class="order tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -408,6 +435,10 @@ export default{
 
         .date{
             padding: 10px;
+            input{
+                width: 290px;
+                height: 36px;
+            }
         }
 
         .price{
@@ -447,6 +478,10 @@ export default{
             input{
                 cursor: default;
             }
+            
+            
+            
+
 
             .btn{
                 border: none;
@@ -462,6 +497,12 @@ export default{
 
         .result{
             padding: 10px;
+            
+            select{
+                width: 298px;
+                height: 42px;
+            }
+
 
             .btn{
                 border: none;
