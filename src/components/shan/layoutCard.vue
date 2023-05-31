@@ -31,8 +31,7 @@ export default {
             let body = {
                 "product": this.searchResult,
                 "buyerAccount": this.account,
-                "number":this.addNum
-                // "buyerAccount":"A325" //需要localstorage
+                "number":this.addNum,
             }
             fetch("http://localhost:8080/add_shopping_car", {
                 method: "POST",
@@ -47,17 +46,14 @@ export default {
                     return response.json()
                 })
                 .then(data => {
-
-
                     console.log(data);
                     this.searchResultArr = data;
                     alert(data.msg);
                     console.log(this.searchResultArr);
-                    this. emitPush();//啟動layout
+                    //啟動layout
+                    this.emitPush();
 
                 })
-
-
                 
         },
         emitPush(){
@@ -69,11 +65,11 @@ export default {
     },
     // 生命週期}
     mounted() {
-        // this.fn();
+
+    },
+    created(){
         // 從 Localstorage 取得值並代入到 帳號
         this.account = localStorage.getItem('email');
-
-
     }
 }
 
@@ -105,7 +101,7 @@ export default {
                 </div>
 
                 <div class="changeNumandAdd">
-                    <label for="addNum">需要加入的數量</label>
+                    <label for="addNum">需求數量</label>
                     <input class="addNum" type="number" v-model="addNum">
                     <button type="button" class="addCartBTN" @click="tryAdd">
                         <i class="fa-solid fa-basket-shopping">加入購物車</i>
@@ -122,17 +118,17 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-    overflow-y: auto;
+    // overflow-y: auto;
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items:flex-start;
     background-repeat: no-repeat;
     background-size: cover;
-    margin: 10px;
+    margin: 5px;
     border-radius: 5px;
-    width: 35vw;
-    height: 10vw;
+    width: 36vw;
+    height: 11vw;
     background: #ffffff;
     border: 2px solid #454141;
 
@@ -184,24 +180,28 @@ export default {
 }
 
 .item-content {
+    width: 25%;
+    height: 100%;
     flex-direction: column;
     display: flex;
     justify-content: center;
     margin: 8px;
     // border:1px solid #454141;
-    padding: 5px;
+    // padding: 5px;
 
 }
 
 .changeNumandAdd {
+    height: 80%;
+    width: 25%;
     padding: 0 5px;
-    border: 2px solid #454141;
+    // border: 2px solid #454141;
     border-radius: 5px;
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
+    margin-top: 15px;
 
     .addNum {
         margin: 10px 0;

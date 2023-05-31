@@ -1,4 +1,5 @@
 <script>
+import { RouterLink, RouterView } from 'vue-router';
 import BuyItem from "./BuyItem.vue"
 import Total from "./Total.vue"
 export default {
@@ -11,6 +12,7 @@ export default {
         name:"",        // 與收件人欄位連接
         phone:"",       // 與收件人電話欄位連接
         address:"",      // 與寄件地址欄位連接
+        Email:localStorage.getItem("email"),
     }
   },
   methods: {
@@ -22,7 +24,7 @@ export default {
       // 取得購物車相關資料
 
       if(window.confirm("有確定下單了嗎?? 資料有無填寫正確") === true){
-      let ary = JSON.parse(localStorage.getItem("searchArr"));
+      let ary = JSON.parse(localStorage.getItem(localStorage.getItem("email")));
       console.log(ary);
 
       
@@ -61,11 +63,12 @@ export default {
       let orderObj = {                              // 轉成可以與後端對接的型態
         "order_id":result,                            // 訂單區，填入與資料庫相對應欄位
         "seller_account":sellers,
-        "buyer_account":this.name,
+        "buyer":this.name,
+        "buyer_account":this.Email,
         "buyer_phone":this.phone,
         "sent_address":this.address,
         "content":content,
-        "order_condition":"未出貨",
+        "item_condition":"未出貨",
       }
 
       let contentArr = [];                          // 訂單內容區，填入與資料庫相對應欄位
@@ -121,6 +124,15 @@ export default {
     // this.fn();
 
 
+  },
+  created(){
+    let ary = [{}];
+    if(JSON.parse(localStorage.getItem("searchArr")) === null){
+      localStorage.setItem("searchArr", JSON.stringify(ary))
+    }
+  },
+  updated(){
+    // this.alertmsg();
   }
 }
 
@@ -137,7 +149,7 @@ export default {
         <!-- 收件人 -->
         <div class="logistic-detail-input">
           <label for="name"> <i class="fa-solid fa-user"> 收件人</i></label>
-          <input class="name" id="name" type="text" placeholder=" 請輸入領貨人Email，e.g. zc123@gmail.com"
+          <input class="name" id="name" type="text" placeholder=" 請輸入領貨人Email，e.g. 董人豪"
             onclick="document.getElementById('name').value=''" v-model="this.name">
         </div>
 
@@ -153,10 +165,17 @@ export default {
           <label for="adress"> <i class="fa-solid fa-map-location-dot"> 寄送地址</i> </label>
           <input class="adress" id="adress" type="text" placeholder=" 請輸入寄送地址(須提供郵遞區號)，e.g. 704-台南市北區 林森路三段" v-model="this.address">
         </div>
+        
       </div>
 
       <!-- 結帳按鈕 -->
       <div class="bottom">
+        <RouterLink to='/buyer' class="link">
+          <button type="button" class="requestCheckBtn">
+            <i class="fa-regular fa-money-bill-1"> Back</i>
+          </button>
+        </RouterLink>
+          
           <button type="button" class="requestCheckBtn" v-on:click="alertmsg()">
             <i class="fa-regular fa-money-bill-1"> 商品結帳</i>
           </button>
@@ -298,7 +317,7 @@ export default {
     }
 
     .bottom {
-  width: 10vw;
+  width: 20w;
   // border: 1px solid black;
   display: flex;
   justify-content: space-between;

@@ -10,7 +10,6 @@ export default {
         return {
             searchData: "",
 
-
         }
     },
     methods: {
@@ -19,7 +18,6 @@ export default {
     // 生命週期}
     mounted() {
         // this.fn();
-
 
     }
 }
@@ -33,7 +31,6 @@ export default {
 <template>
     <div class="background">
         <!-- <SearchBar/> -->
-
         <layoutView v-bind:searchResultArrChild="searchResultArr" />
     </div>
 </template>
@@ -45,9 +42,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    // width: 100vw;
+    width: 100%;
     height: 100vh;
     background: #9ead9a;
+    overflow: auto;
 
 }
 </style>

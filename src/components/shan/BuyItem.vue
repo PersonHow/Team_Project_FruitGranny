@@ -10,8 +10,8 @@ export default {
             singlePrice: null,
             ItemNum: null,
             ItemTotal: null,
-            // orderList:JSON.parse(localStorage.getItem(localStorage.getItem("email"))),
-            orderList:JSON.parse(localStorage.getItem("searchArr")),
+            orderList:JSON.parse(localStorage.getItem(localStorage.getItem("email"))),
+            // orderList:"",
             
 
         }
@@ -23,25 +23,30 @@ export default {
     },
     // 生命週期
     mounted() {
-        // this.fn();
-
-
+    },
+    updated(){
+        // this.orderList;
+    },
+    created(){
+        if(!JSON.parse(localStorage.getItem("searchArr")) == null){
+            this.orderList = (JSON.parse(localStorage.getItem("searchArr")));
+        }
+        // console.log(this.orderList)
     }
 }
-
 
 
 </script>
 
 <template>
     <div class="item-area">
-        <!-- <button type="button" class="btnn" @click="price">xxx</button> -->
-        <li v-for="(item, index) in this.orderList" :key="index" class="item-List">
+        <!-- <button type="button" class="btnn" @click="price" :key="index">xxx</button> -->
+        <li v-for="(item, index) in this.orderList"  class="item-List">
         <div class="item-area-detail">
             <!-- 圖片區 -->
-            <div class="photoExhibit">
+            <!-- <div class="photoExhibit">
                 <img src="" alt="" class="xxxImg">
-            </div>
+            </div> -->
 
             <!-- 產品內容區 -->
             <div class="ckeckInfo">

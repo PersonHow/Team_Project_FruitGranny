@@ -5,7 +5,7 @@ export default {
     },
     data() {
         return {
-            orderList:JSON.parse(localStorage.getItem("searchArr")),  // 取出與該帳號的訂單資訊
+            orderList:JSON.parse(localStorage.getItem(localStorage.getItem("email"))),  // 取出與該帳號的訂單資訊
             TotalPrice: 0,                                                              // 宣告整數型態的容器
         }
     },

@@ -72,6 +72,11 @@ const router = createRouter({
       name:'MapView',
       component:() => import('../views/shan/map.vue')
     },
+    {
+      path:'/CheckOut',
+      name:'Checkout',
+      component:() => import('../views/shan/Checkout.vue')
+    }
   ]
 
 })
