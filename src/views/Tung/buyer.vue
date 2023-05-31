@@ -1,5 +1,6 @@
 <script>
-import HeaderView from '../../components/peng/Header.vue'
+import { RouterLink, RouterView } from 'vue-router';
+import HeaderView from '../../components/peng/Header.vue';
 import ResultView from "../../components/peng/ResultView.vue";
 import Purchase from "../../components/peng/Purchase.vue";
 import Recipe from "../zhang/Recipe.vue";
@@ -60,29 +61,33 @@ export default{
 <div class="bar">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <!-- 生產履歷(佩珊) -->
                 <button class="nav-link active" id="nav-trace-tab" data-bs-toggle="tab" data-bs-target="#nav-trace" type="button" role="tab" aria-controls="nav-trace" aria-selected="false">
                     生產履歷
                 </button>
 
+                <!-- 食譜 (曉惠)-->
                 <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                     食譜
                 </button>
-
+                
+                <!-- 商品查詢(雨欣、佩珊) -->
                 <button class="nav-link" id="nav-goodsInfo-tab" data-bs-toggle="tab" data-bs-target="#nav-goodsInfo" type="button" role="tab" aria-controls="nav-goodsInfo" aria-selected="false">
                     商品查詢
                 </button>
 
-                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
-                    購物車
-                </button>
-
+                <!-- 結帳(人豪)
+                <RouterLink to="/CheckOut" class="link">
                 <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
                     結帳
-                </button>          
+                </button>    
+                </RouterLink> -->
 
+                <!-- 訂單(人豪) -->
                 <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false" @click="getOrder">
                     訂單
                 </button>
+                
             </div>
         </nav>
     </div>
@@ -99,23 +104,15 @@ export default{
                 
             </div>
 
-            <!-- 購物車 -->
-            <div class="products tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <div class="sellProducts">
-                    <HeaderView />
-                    <ResultView />
-                </div>
-                
-
-            </div>
+            <!-- </div> -->
             <!-- 結帳 -->
-            <div class="order tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <!-- <div class="order tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div class="sellOrder">
                     <Checkout />
                 </div>
             
 
-            </div>
+            </div> -->
             <!-- 商品查詢 -->
             <div class="goods tab-pane fade" id="nav-goodsInfo" role="tabpanel" aria-labelledby="nav-goodsInfo-tab">
                 <div class="sellGoods">
@@ -126,7 +123,7 @@ export default{
             </div>    
             
             <!-- 生產履歷 -->
-            <div class="goods tab-pane fade show active" id="nav-trace" role="tabpanel" aria-labelledby="nav-trace-tab">
+            <div class="trace tab-pane fade show active" id="nav-trace" role="tabpanel" aria-labelledby="nav-trace-tab">
                 <div class="traceFind">
                     <div class="trace"> 
                         <MapView />
@@ -134,7 +131,7 @@ export default{
                     </div>
                 </div>
             </div>  
-            </div>
+            
             <!-- 訂單 -->
             <div class="orderform tab-pane fade" id="nav-orderformInfo" role="tabpanel" aria-labelledby="nav-orderformInfo-tab">
                 <div class="orderformDiv">
@@ -144,7 +141,7 @@ export default{
             </div>
         </div>
         
-
+    </div>
 <!-- content尾巴 -->
 </div>
 
@@ -188,15 +185,6 @@ export default{
                 }
 
             }
-        }
-            
-        .products{
-            width: 100%;
-            height:  32.5rem;
-            // .sellProducts{
-            //     width: 100%;
-            //     height: 30rem;
-            // }
         }
 
         .order{

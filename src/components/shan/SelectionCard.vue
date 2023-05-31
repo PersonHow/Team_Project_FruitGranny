@@ -23,8 +23,6 @@ export default {
 
     methods: {
         intilization() {
-
-
             this.selectionNum = this.selectNumber;
             console.log(this.selectNumber)
             console.log(this.selectionNum)

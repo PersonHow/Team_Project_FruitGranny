@@ -24,18 +24,10 @@ export default {
             isShow:false,
             isPrint:false
 
-
-
-
-
-
-
         }
     },
 
-
     methods: {
-
         getProductInfo() {
             let body = { //產品名稱
                 "name": this.searchData
@@ -56,10 +48,6 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.searchResultArr = data.product_list;
-
-                    // console.log(this.searchResultArr);
-
-
                 })
         },
         getPlaceProductInfo() {
@@ -84,14 +72,8 @@ export default {
                     return response.json()
                 })
                 .then(data => {
-
-
-
                     console.log(data);
                     this.searchResultArr = data.searchAllRes;
-
-
-
 
                 })
         },
@@ -115,7 +97,6 @@ export default {
                 alert('Warning!!! 你提供的日期不符合規定')
             }
 
-
             let body = { //產品名稱
                 "firstDay": this.startDate,
                 "endDay": this.endDate
@@ -135,22 +116,11 @@ export default {
                 })
                 .then(data => {
 
-
-
                     console.log(data);
                     this.searchResultArr = data.product_list;
                     alert(data.message)
 
-
-
-
                 })
-
-
-
-
-
-
 
         },
         getShoppingCar() {//獲取購物車資料
@@ -192,9 +162,10 @@ export default {
                     }
                     console.log(totoalCollection);
                     this.totalPrice = totoalCollection;
-                    // console.log(SearchArr);
-                    this.chartResultArr = SearchArr; //要呈現的清單表不能刪
-                    // console.log(this.chartResultArr);
+                    //要呈現的清單表不能刪
+                    this.chartResultArr = SearchArr;
+                    localStorage.setItem((localStorage.getItem("email")), JSON.stringify(this.chartResultArr));
+                    console.log(this.chartResultArr);
                 })
         },
         getemit() {  //加入購物車要刷新右邊購物車  
@@ -204,12 +175,13 @@ export default {
             console.log(`ASD`)
             this.getShoppingCar();
         },
-
-
-
-
-
-
+        goCheckOut(){
+            if(window.confirm("確認前往結帳頁面嗎?")=== true){
+                // this.$router.push('/Checkout');
+                this.$router.push('/Checkout')
+            }else{
+            }
+        }
 
     }, watch: {
         startDate(newStartDate) {
@@ -247,6 +219,7 @@ export default {
 
 <template>
     <div class="search-area">
+        <!-- 上方的條件區 -->
         <div class="searchbar">
             <label for="searchBar">商品</label>
             <input class="searchBar" type="text" name="" id="searchBar" placeholder="請輸入關鍵字搜尋"
@@ -258,7 +231,6 @@ export default {
                 <i class="fa-solid fa-pen-to-square">購物車</i>
                 
             </button> -->
-        </div>
 
                 <div class="searchIcon">
                     <label for="searchBar"></label>
@@ -268,18 +240,8 @@ export default {
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         {{ searchTypeBtn }}
-
-
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" type="button" v-on:click="changeAndSearchPlace">{{ searchTypePlace
-                        }}</button></li>
-                        <li><button class="dropdown-item" type="button" v-on:click="changeAndSearchNmae">{{
-                            searchTypeProduct }}</button></li>
-                        <!-- <li><button class="dropdown-item" type="button">Something else here</button></li> -->
-                    </ul>
-                </div>
-                <!-- =========================================================== -->
+                    <!-- =========================================================== -->
                 <select v-if="isShow" name="" id="tool" v-on:change="changeAndSearchPlace">
                     <option value="嘉義縣">嘉義縣</option>
                     <option value="新北市">新北市</option>
@@ -304,20 +266,26 @@ export default {
                     <option value="彰化縣">彰化縣</option>
                     <!-- <option value="連江縣">連江縣</option> -->
                 </select>
-                <!-- v-if="isPrint" -->
-                <!-- ============================================================================ -->
-                <div v-if="isPrint" class="placesearch">
-                <input class="searchBar" type="text" name="" id="searchBar" placeholder="產品名稱關鍵字搜尋"
-                    v-model="this.searchData">
-                <button type="button" class="searchReqBtn" @click="getProductInfo">
-                    搜尋
-                </button>
-            </div>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" type="button" v-on:click="changeAndSearchPlace">{{ searchTypePlace
+                        }}</button></li>
+                        <li><button class="dropdown-item" type="button" v-on:click="changeAndSearchNmae">{{
+                            searchTypeProduct }}</button></li>
+                        
+                    </ul>
+                </div>  
+            
+            <!-- ============================================================================ -->
+            <div v-if="this.isPrint" class="placesearch">
+                    <input class="searchBar" type="text" name="" id="searchBar" placeholder="產品名稱關鍵字搜尋"
+                        v-model="this.searchData">
+                    <button type="button" class="searchReqBtn" @click="getProductInfo">
+                        搜尋
+                    </button>
             </div>
 
             <!-- 日期範圍搜尋 -->
             <div class="datesearch">
-
                 <label for="dateFrom">產品日期範圍(起)</label>
                 <input type="date" class="form-control" id="dateFrom" name="date" v-model="startDate">
                 <label for="dateFrom">產品日期範圍(訖)</label>
@@ -326,31 +294,42 @@ export default {
                 <span v-else-if="isStartDateInvalid" class="error-message">查詢30天前生鮮食品為"不合理"</span>
                 <button class="dateSearchBtn" @click="getDateInfo"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
+        <!-- searchbar 尾巴 -->
+        </div>
+    <!-- search-Area尾巴 -->
+    </div>
 
+            
+
+            <!-- 下方的功能區 -->
     <div class="content-layout">
+        <!-- 左邊的功能區 -->
         <div class="background-layout">
 
             <layoutCardView v-for="(item, index) in searchResultArr" v-bind:searchResultcode="item.hsCode"
                 v-bind:selleraccount="item.sellerAccount" v-bind:date="item.date" v-bind:description="item.description"
                 v-bind:name="item.name" v-bind:number="item.number" v-bind:place="item.place" v-bind:price="item.price"
                 v-bind:type="item.type" v-on:emitPushAdd="getemit" />
-            <!-- @click="setShoppingList()" -->
         </div>
+
+        <!-- 右邊的功能區 -->
         <div class="right-shoppingCart">
 
+            <!-- 購物車區 -->
             <div class="upper-dtail">
                 <h5 class="buyerTitle">買家已選清單</h5>
                 <selectionView v-for="(item, index) in chartResultArr" v-bind:selectShopppingCode="item.shoppingNumber"
                     v-bind:selectId="item.itemId" v-bind:selectName="item.itemName" v-bind:selectNumber="item.itemNum"
                     v-bind:selectPrice="item.itemPrice" v-bind:selectStock="item.stock" v-on:emitPushModi="getSelectemit" />
             </div>
+            <!-- 結帳區 -->
             <div class="bottom-total">
                 <div class="price-total">
                     <h4>購物車總金額:</h4>
                     <h4 class="text-danger">{{ this.totalPrice }}</h4>
                 </div>
                 <div >
-                    <button class="checkbtn" type="button">前往結帳</button>
+                    <button class="checkbtn" type="button" @click="goCheckOut">前往結帳</button>
                 </div>
             </div>
 
@@ -360,14 +339,26 @@ export default {
 
 
 <style lang="scss" scoped>
-.buyerTitle{
-    text-align: center;
-}
-.content-layout {
-    display: flex
-}
 
-.right-shoppingCart {
+.content-layout {
+    display: flex;
+
+    .background-layout {
+        flex-wrap: wrap;
+        flex-direction: column;
+        display: flex;
+        justify-content: left;
+        align-items: start;
+
+        border-radius: 5px;
+        width: 37vw;
+        height: 80vh;
+        background: #ffffff;
+        overflow-y: auto;
+        margin-right: 3vw;                                      
+    }
+
+    .right-shoppingCart {
     flex-direction: column;
     display: flex;
     // justify-content: center;
@@ -379,6 +370,8 @@ export default {
         background: #ffffff;
         border-radius: 5px;
         overflow-y: auto;
+
+        
     }
 
     .bottom-total {
@@ -394,22 +387,6 @@ export default {
     }
 
 }
-
-.background-layout {
-    flex-wrap: wrap;
-    flex-direction: column;
-    display: flex;
-    justify-content: left;
-    align-items: start;
-
-    border-radius: 5px;
-    width: 37vw;
-    height: 80vh;
-    background: #ffffff;
-    overflow-y: auto;
-    margin-right: 3vw;
-
-
 }
 
 select {
@@ -418,7 +395,10 @@ select {
 }
 
 .search-area {
-
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
     margin-bottom: 10px;
 }
 
@@ -427,8 +407,8 @@ select {
 }
 
 .searchbar {
-    width: 75vw;
-    height: 3.5vw;
+    width: 90%;
+    height: 3.5rem;
     background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-evenly;

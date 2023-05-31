@@ -1,4 +1,6 @@
 <script>
+import { Alert } from 'bootstrap';
+
 export default{
     data(){
         return{
@@ -10,6 +12,7 @@ export default{
             },
             seller_num:[],
             seller_num_content:[],
+            radio:false,
         }
     },
     methods:{
@@ -30,6 +33,7 @@ export default{
             })
             .then(function(data){
                 console.log(data);
+                alert(data.message);
             })
             .catch(function(error){
                 console.log(error)
@@ -47,7 +51,6 @@ export default{
             return response.json();
         })
         .then(data =>{
-            // localStorage.setItem("show",JSON.stringify(data))
             this.seller_num = data.orderList;
             this.seller_num_content = data.contentList;   
             console.log(this.seller_num)
@@ -55,6 +58,58 @@ export default{
         .then(function(error){
             console.log(error);
         })
+        },
+        chageCondition(id){
+            let num_id ={
+                "num_id":id
+            }
+            console.log(num_id)
+            fetch("http://localhost:8080/shippedItem",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(num_id)
+            })
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                console.log(data);
+                alert(data.message);
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+
+        },
+        conditionBack(id){
+            let num_id = {
+                "num_id":id
+            }
+            fetch("http://localhost:8080/callBackItem", {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(num_id)
+            })
+            .then(response =>{
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                alert(data.message);
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+        },
+        test(id){
+            console.log(id)
+            this.radio = !this.radio;
+            console.log(this.radio)
+
         }
     },
     mounted(){
@@ -65,7 +120,7 @@ export default{
 
     },
     updated(){
-        // this.showOrder();
+        this.showOrder();    
     }
     
 }
@@ -84,16 +139,20 @@ export default{
             <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + [index]" aria-expanded="true" :aria-controls="'collapse' + [index]">
                 <i class="fa-solid fa-truck-fast Bouncing exits bounceOutRight"></i>
                 <h1>訂單編號：{{ elements.order_id }}</h1>
-                <h2 class="buyer">買家：{{elements.buyer_account}}</h2>
-                <h2 class="condition">訂單狀態：{{elements.order_condition}}</h2>
+                <div class="buyerData">
+                    <h4 class="buyer">收件人：{{elements.buyer}} & 下單帳號：{{elements.buyer_account}}</h4>
+                    <h4 class="adress">送件地址：{{elements.sent_address}}</h4>
+                </div>  
+                <h3 class="condition">訂單狀態：{{elements.order_condition}}</h3>
+                
                 
             </button>
             <!-- 更改狀態的按鈕 -->
-            <button class="checkBtn" type="button" @click="check(elements.order_id)">商品出貨</button>
+            <button class="checkBtn" type="button" @click="check(elements.order_id)">出貨</button>
         </h2>
         
         <!-- 訂單內容區 -->
-            <div :id="'collapse' + [index]" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" v-for="(item,index) in this.seller_num_content">
+            <div :id="'collapse' + [index]" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" v-for="item in this.seller_num_content">
                 <div class="accordion-body" v-if="elements.order_id.includes(item.num_id.substr(0,5))">
                     <span>編號：{{ item.num_id }}</span>
                     <span>品名：{{ item.item_name }}</span>
@@ -102,9 +161,11 @@ export default{
                     <span>總價：{{ item.total_price }}</span>
 
                     <form class="contentRadio">
-                    <label for="">商品狀態：</label>
-                    <label for=""><input type="radio" name="goods" id="false" checked>未出貨</label>
-                    <label for=""><input type="radio" name="goods" id="true">已出貨</label>
+                    <span>商品狀態：{{ item.item_condition }}</span>
+                    <input type="radio" id="radioitem True" :value="true" name="option" @change="chageCondition(item.num_id)">
+                    <label for="itemTrue">已出貨</label>
+                    <input type="radio" id="radioitem False" :value="false" name="option" checked @change="conditionBack(item.num_id)">
+                    <label for="itemFalse">未出貨</label>
                     </form>
 
                 </div>
@@ -129,17 +190,13 @@ export default{
         width: 100%;
         height: auto;
         border: 1px solid white;
-        // display: inline-block;
-        // position: relative;
-        // font-weight: 500;
-        // font-size: 100px;
         color: transparent;
         animation: hue 3s linear infinite;
         background-image: linear-gradient(to right bottom, rgb(255,0,0), rgb(255,128,0), rgb(255,255,0), rgb(0,255,0), rgb(0,255,128), rgb(0,255,255), rgb(0,128,255), rgb(0,0,255), rgb(128,0,255), rgb(255,0,255), rgb(255,0,128));
         -webkit-background-clip: text;
 
             i{
-            animation-duration: 50s;
+            animation-duration: 5s;
             animation-iteration-count: 1;
             font-size: 25pt;            
             } 
@@ -150,7 +207,6 @@ export default{
         .accordion-button{
             width: 90%;
             position: relative;
-            // border: 0;
             h1 {
                 margin: 0 0;
                 color: white;
@@ -161,26 +217,45 @@ export default{
                 padding: 15px;
             }
 
-            .buyer{
-                position: absolute;
-                left: 30% ;
+            .buyerData{
+                display: block;
+                width: 50%;
+                margin-left: 2vw;
+                // border: 1px solid black;
+                .buyer{
+                    
+                }
+                .adress{
+                }
             }
             .condition{
                 position: absolute;
-                right: 5%;
+                right: 3%;
                 margin-left: 20px;
             }
 
             
         }
         .checkBtn{
-            width: 10%;
+            width: 8%;
+            font-size: 15pt;
+            background-color: white;
+            border: 0.1px solid black;
+            box-shadow: 1px 1px 1px ;
+            border-radius: 20pt;
         }
     }
         
         span{
             padding: 50px;
             
+        }
+
+        .sumbitBtn{
+            font-size: 15pt;
+            background-color: white;
+            border: 0.1px solid black;
+            border-radius: 5pt;
         }
 
         .accordion-body{
