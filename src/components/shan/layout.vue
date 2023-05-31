@@ -221,20 +221,6 @@ export default {
     <div class="search-area">
         <!-- 上方的條件區 -->
         <div class="searchbar">
-            <label for="searchBar">商品</label>
-            <input class="searchBar" type="text" name="" id="searchBar" placeholder="請輸入關鍵字搜尋"
-                v-model="this.searchData">
-            <button type="button" class="searchReqBtn" @click="getProductInfo">
-                <i class="fa-solid fa-magnifying-glass">搜尋</i>
-            </button>
-            <!-- <button type="button" class="searchReqBtn" @click="">
-                <i class="fa-solid fa-pen-to-square">購物車</i>
-                
-            </button> -->
-
-                <div class="searchIcon">
-                    <label for="searchBar"></label>
-                </div>
                 <!-- =============================================== -->
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"

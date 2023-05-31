@@ -27,30 +27,18 @@ export default{
         buyerOrder,
     },
     methods:{
-        getOrder(){
-            fetch("http://localhost:8080/buyer_Order",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(this.user)
-        })
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            localStorage.setItem("buyerOrder",JSON.stringify(data))
-        })
-        .then(function(error){
-            console.log(error);
-        })
-        }
     },
     mounted() {
         if (localStorage.getItem("email") === null) {
             alert("請先登入")
             this.$router.push('/log-in');
         }
+    },
+    created(){
+        
+    },
+    updated(){
+        
     }
 }
 </script>
@@ -76,15 +64,8 @@ export default{
                     商品查詢
                 </button>
 
-                <!-- 結帳(人豪)
-                <RouterLink to="/CheckOut" class="link">
-                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
-                    結帳
-                </button>    
-                </RouterLink> -->
-
                 <!-- 訂單(人豪) -->
-                <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false" @click="getOrder">
+                <button class="nav-link" id="nav-orderform-tab" data-bs-toggle="tab" data-bs-target="#nav-orderformInfo" type="button" role="tab" aria-controls="nav-orderformInfo" aria-selected="false" >
                     訂單
                 </button>
                 
@@ -104,15 +85,6 @@ export default{
                 
             </div>
 
-            <!-- </div> -->
-            <!-- 結帳 -->
-            <!-- <div class="order tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <div class="sellOrder">
-                    <Checkout />
-                </div>
-            
-
-            </div> -->
             <!-- 商品查詢 -->
             <div class="goods tab-pane fade" id="nav-goodsInfo" role="tabpanel" aria-labelledby="nav-goodsInfo-tab">
                 <div class="sellGoods">
@@ -127,7 +99,6 @@ export default{
                 <div class="traceFind">
                     <div class="trace"> 
                         <MapView />
-                        <!-- <Recipe /> -->
                     </div>
                 </div>
             </div>  
