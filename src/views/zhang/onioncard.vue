@@ -16,7 +16,7 @@ export default{
             cardData:[
                 {
                     title:"培根蔥捲",
-                    img:"../../../public/zhang/Img/南瓜濃湯.png"
+                    img:"../../../public/zhang/Img/培根蔥捲.png"
                     
                 },
                 {

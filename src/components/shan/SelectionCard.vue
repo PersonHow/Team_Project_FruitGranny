@@ -131,7 +131,7 @@ export default {
                     <div class="content-arae">
                         <div class="nameItem">
                             <p>庫存數量：</p>
-                            <p class="text-danger"> {{ selectStock }} </p>
+                            <p class="text-danger"> {{ selectStock - selectNumber }} </p>
                         </div>
                         <p>已選數量： {{ selectNumber }} </p>
                     </div>

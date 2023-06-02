@@ -278,8 +278,6 @@ export default{
             <div class="products tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="sellProducts">
                     <div class="seller_account">
-                        <!-- <div class="search">
-                        </div> -->
                         <!-- 搜尋結果 -->
                         <div class="result" >
                             <ul v-for="(result, index) in searchAllRes" :key="result.hsCode">

@@ -11,7 +11,6 @@
             }
         },
         methods: {
-
             signOut(){
                 // 清除localStorage裡的資料
                 localStorage.clear();
@@ -23,10 +22,6 @@
                 }, 100);
                 
             },
-            // getAccount(newName){
-            //     console.log(newName)
-            //     this.user_account = newName;
-            // },
             fetchData(){
                 let body = {
                     "email": localStorage.getItem("email"),
@@ -41,8 +36,8 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
-                    console.log("111")
+                    // console.log(data)
+                    // console.log("111")
                     this.user_account = data.member.account;
                 })
                 .catch(err => {

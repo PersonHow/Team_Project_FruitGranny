@@ -4,11 +4,18 @@ export default {
 
     data() {
         return {
+            // 註冊相關資訊
+            // 使用者名稱
             userName: null,
+            // 使用者密碼
             pwd: null,
+            // 確認密碼
             conPwd: null,
+            // Email
             email: null,
+            // 手機號碼
             phone: null,
+            // 地址
             address: '',
             autocomplete: 'off',
 
@@ -50,7 +57,7 @@ export default {
             })
             .then(res => res.json())
             .then(data => {
-                alert(data.message);
+                alert(data.message);                                                                
                 if(data.message === "修改成功"){
                     // localStorage.setItem("user_name", data.member.account);
                     this.$router.push('/original-info');
@@ -115,11 +122,11 @@ export default {
             <form class="email-area">
                 <div>
                     <i class="fa-solid fa-at"></i>
-                   <label for="email">　</label>
-                   <input type="text" id="email" v-model="email" 
-                   readonly>
-               </div>
-               
+                    <label for="email">　</label>
+                    <input type="text" id="email" v-model="email" 
+                    readonly>
+                </div>
+            
             </form>
             <hr>
             <!-- 手動輸入區域 -->
@@ -130,25 +137,25 @@ export default {
                     <input type="text" id="userName" placeholder="User Name" v-model="userName" :autocomplete="autocomplete">
                 </div>
                 
-               <div>
-                   <i class="fa-solid fa-unlock-keyhole"></i>
-                   <label for="password">　</label>
-                   <input type="password" id="password" placeholder="Password (英數字相加須大於6個字元)" v-model="pwd">
-               </div>
+                <div>
+                    <i class="fa-solid fa-unlock-keyhole"></i>
+                    <label for="password">　</label>
+                    <input type="password" id="password" placeholder="Password (英數字相加須大於6個字元)" v-model="pwd">
+                </div>
 
-               <div>
+                <div>
                     <i class="fa-solid fa-lock"></i>
                     <label for="ConfirmPassword">　</label>
                     <input type="password" id="ConfirmPassword" placeholder="Confirm Password (請輸入相同的密碼)" v-model="conPwd">
-               </div>
+                </div>
 
-               <div>
+                <div>
                     <i class="fa-solid fa-mobile-screen-button"></i>
                     <label for="phontNumber">　</label>
                     <input type="text" id="phontNumber" placeholder="Phone Number (台灣手機格式)" v-model="phone" :autocomplete="autocomplete">
-               </div>
+                </div>
 
-               <div>
+                <div>
                 <div class="address-area">
                     <i class="fa-regular fa-address-card"></i>
                     <label for="address">　</label>
@@ -164,14 +171,8 @@ export default {
                     v-model="address"
                     :autocomplete="autocomplete">
                 </div>
-               </div>
+                </div>
             
-               <!-- <div>
-                    <i class="fa-regular fa-address-card"></i>
-                    <label for="address">　</label>
-                    <input type="text" id="address" placeholder="Address" 
-                    v-model="address" :autocomplete="autocomplete">
-               </div> -->
 
             </form>
 

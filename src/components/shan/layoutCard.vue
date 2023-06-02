@@ -24,8 +24,8 @@ export default {
 
     ],
     methods: {
-
-        tryAdd() {  //加入購物車
+        //加入購物車
+        tryAdd() {  
             this.searchResult = this.searchResultcode;
             console.log(this.searchResult);
             let body = {
@@ -60,15 +60,13 @@ export default {
             console.log(`AAA`)
             this.$emit("emitPushAdd")
         }
-
-
     },
-    // 生命週期}
+    // 生命週期
     mounted() {
 
     },
     created(){
-        // 從 Localstorage 取得值並代入到 帳號
+        // 從 Localstorage 取得值並代入到帳號
         this.account = localStorage.getItem('email');
     }
 }
@@ -88,7 +86,7 @@ export default {
 
                 <div class="item-content">
                     <p>產品名稱： {{ name }} </p>
-                    <p>產品數量： {{ number }} </p>
+                    <p>產品數量： {{ number - addNum }} </p>
                 </div>
                 <div class="item-content">
                     <p>產品分類：{{ type }}</p>
