@@ -2,9 +2,11 @@
 export default{
     data(){
         return{
-            buyerOrderList:JSON.parse(localStorage.getItem("buyerOrder")),
-            order_num:JSON.parse(localStorage.getItem("buyerOrder")).orderList,
-            order_num_content:JSON.parse(localStorage.getItem("buyerOrder")).contentList,
+            user:{
+                "buyerAccount":localStorage.getItem("email"),
+            },
+            order_num:[],
+            order_num_content:[],
             getGoods:false,
             openSelect:false,
         }
@@ -29,6 +31,7 @@ export default{
             })
             .then(function(data){
                 console.log(data);
+                alert("感謝您");
             })
             .catch(function(error){
                 console.log(error)
@@ -41,12 +44,37 @@ export default{
         }
 
         },
-        openOrClose(item,index){
-            this.openSelect = !this.openSelect
-            console.log(this.openSelect)
+        getOrder(){
+            fetch("http://localhost:8080/buyer_Order",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(this.user)
+        })
+        .then(function(response){
+            return response.json();
+        })
+        .then(data =>{
+            let ary = [];
+            ary = data;
+            this.order_num = ary.orderList;
+            this.order_num_content = ary.contentList;
+        })
+        .then(function(error){
+            console.log(error);
+        })
         }
     },
     mounted(){
+    },
+    created(){
+        this.user;
+        this.getOrder();
+    },
+    updated(){
+        // this.getOrder();
+        // this.changeCondition();
     }
     }
 
@@ -61,12 +89,13 @@ export default{
             <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + [index]" aria-expanded="true" :aria-controls="'#collapse' + [index]" >
                 <i class="fa-solid fa-truck-fast Bouncing exits bounceOutRight"></i>
                 <h1>訂單編號：{{ elements.order_id }}</h1>
-                <h2 class="condition">訂單狀態：{{elements.order_condition}}</h2>
-                <!-- {{ collapseZero }} -->
+                <h3 class="condition">訂單狀態：{{elements.order_condition}}</h3>
+                <h3 class="address">送件地址：{{elements.sent_address}}</h3>
+
             
             </button>
             <!-- 更改狀態的按鈕 -->
-            <button class="checkBtn" type="button" @click="changeCondition(elements.order_id)" :disabled="elements.order_condition === '已完成'">xxx</button>
+            <button class="checkBtn" type="button" @click="changeCondition(elements.order_id)" :disabled="elements.order_condition === '已完成'">確認收到貨</button>
         </h2>
         
         <!-- 訂單內容區 -->
@@ -77,8 +106,10 @@ export default{
                     <span>數量：{{ item.item_number }}</span>
                     <span>單價：{{ item.item_price }}</span>
                     <span>總價：{{ item.total_price }}</span>
-                    
-
+                    <form action="" class="detailData">
+                        <span>賣家：{{ item.seller_account }}</span>
+                        <span>出貨狀況:{{item.item_condition}}</span>
+                    </form>
                 </div>
             </div>
         </div>
@@ -96,12 +127,8 @@ export default{
 
     .title{
         width: 100%;
-        height: auto;
+        height: 60vh;
         border: 1px solid white;
-        // display: inline-block;
-        // position: relative;
-        // font-weight: 500;
-        // font-size: 100px;
         color: transparent;
         animation: hue 3s linear infinite;
         background-image: linear-gradient(to right bottom, rgb(255,0,0), rgb(255,128,0), rgb(255,255,0), rgb(0,255,0), rgb(0,255,128), rgb(0,255,255), rgb(0,128,255), rgb(0,0,255), rgb(128,0,255), rgb(255,0,255), rgb(255,0,128));
@@ -129,10 +156,8 @@ export default{
                 font-size: 23px;
                 padding: 15px;
             }
-
-            .showd{
-                opacity: 0.5;
-                z-index: -1;
+            .address{
+                margin-left: 20px;
             }
             .condition{
                 position: absolute;
@@ -143,7 +168,18 @@ export default{
             
         }
         .checkBtn{
-            width: 10%;
+            margin-left: 10px;
+            width: 6%;
+            font-size: 15pt;
+            border-radius: 50pt;
+            border: 0;
+            // box-shadow: 3pt 3pt 3pt #71c9c9 ;
+            background-color: #71c9c9;
+
+            &:hover{
+                background-color:#5a5858;
+                color: white;
+            }
         }
     }
         
@@ -178,8 +214,8 @@ export default{
                 animation: hue 1.5s linear infinite;
                 background-image: linear-gradient(to right bottom, rgb(255,0,0), rgb(255,128,0), rgb(255,255,0), rgb(0,255,0), rgb(0,255,128), rgb(0,255,255), rgb(0,128,255), rgb(0,0,255), rgb(128,0,255), rgb(255,0,255), rgb(255,0,128));
                 -webkit-background-clip: text;
-                }
+
+    }
     }
 }
-
-</style>
+</style>    

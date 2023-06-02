@@ -1,6 +1,4 @@
 <script>
-import { Alert } from 'bootstrap';
-
 export default{
     data(){
         return{

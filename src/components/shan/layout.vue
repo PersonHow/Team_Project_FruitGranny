@@ -17,9 +17,12 @@ export default {
             searchTypePlace: "產地搜尋",
             searchTypeProduct: "產品搜尋",
             cityValue: null,
-            startDate: '', // 起始日期
-            endDate: '', // 結束日期
-            isStartDateInvalid: false, // 是否為無效的起始日期
+            // 起始日期
+            startDate: '',
+            // 結束日期 
+            endDate: '', 
+            // 是否為無效的起始日期
+            isStartDateInvalid: false, 
             totalPrice: null,
             isShow:false,
             isPrint:false
@@ -55,7 +58,8 @@ export default {
             let getCityName = tool.value;
             console.log(getCityName);
 
-            let body = { //產品名稱
+            //產品名稱
+            let body = { 
                 "place": getCityName
             }
 
@@ -77,17 +81,18 @@ export default {
 
                 })
         },
-        changeAndSearchPlace() { //產地搜尋
+        //產地搜尋
+        changeAndSearchPlace() { 
             this.searchTypeBtn = this.searchTypePlace;
             this.isShow=true;
             this.isPrint=false;
             this.getPlaceProductInfo();
         },
-        changeAndSearchNmae() { //產品搜尋
+        //產品搜尋
+        changeAndSearchNmae() { 
             this.searchTypeBtn = this.searchTypeProduct;
             this.isShow=false;
             this.isPrint=true;
-            // this.isPrint=!this.isPrint;
             this.getProductInfo();
         },
         getDateInfo() {
@@ -96,8 +101,8 @@ export default {
             if (this.startDate > this.endDate || this.isStartDateInvalid === true) {
                 alert('Warning!!! 你提供的日期不符合規定')
             }
-
-            let body = { //產品名稱
+            //產品名稱
+            let body = { 
                 "firstDay": this.startDate,
                 "endDay": this.endDate
             }
@@ -123,9 +128,11 @@ export default {
                 })
 
         },
-        getShoppingCar() {//獲取購物車資料
+        //獲取購物車資料
+        getShoppingCar() {
             let body = {
-                "buyerAccount": localStorage.getItem('email') //需要localstorage資料
+                //需要localstorage資料
+                "buyerAccount": localStorage.getItem('email') 
             }
             fetch("http://localhost:8080/get_shopping_data", {
                 method: "POST",
@@ -144,7 +151,6 @@ export default {
                     let priceArr = [];
                     let SearchArr = [];
                     console.log(data);
-                    // alert(data.msg);
                     SearchArr = data.Shopping_Detail_List;
                     for (let i = 0; i < SearchArr.length; i++) {
                         let singleTotal;
@@ -177,7 +183,6 @@ export default {
         },
         goCheckOut(){
             if(window.confirm("確認前往結帳頁面嗎?")=== true){
-                // this.$router.push('/Checkout');
                 this.$router.push('/Checkout')
             }else{
             }
@@ -186,7 +191,8 @@ export default {
     }, watch: {
         startDate(newStartDate) {
             const maxAllowedDate = new Date();
-            maxAllowedDate.setDate(maxAllowedDate.getDate() - 30); // 取得 30 天前的日期
+            // 取得 30 天前的日期
+            maxAllowedDate.setDate(maxAllowedDate.getDate() - 30); 
 
             if (new Date(newStartDate) < maxAllowedDate) {
                 this.isStartDateInvalid = true;
@@ -196,10 +202,7 @@ export default {
         }
     },
 
-
-
-
-    // 生命週期}
+    // 生命週期
     mounted() {
         const today = new Date();
         const year = today.getFullYear();
@@ -207,12 +210,9 @@ export default {
         const day = String(today.getDate()).padStart(2, '0');
         this.startDate = `${year}-${month}-${day}`;
         this.endDate = `${year}-${month}-${day}`;
-
         this.getShoppingCar();
     }
 }
-
-
 
 </script>
 
@@ -221,20 +221,6 @@ export default {
     <div class="search-area">
         <!-- 上方的條件區 -->
         <div class="searchbar">
-            <label for="searchBar">商品</label>
-            <input class="searchBar" type="text" name="" id="searchBar" placeholder="請輸入關鍵字搜尋"
-                v-model="this.searchData">
-            <button type="button" class="searchReqBtn" @click="getProductInfo">
-                <i class="fa-solid fa-magnifying-glass">搜尋</i>
-            </button>
-            <!-- <button type="button" class="searchReqBtn" @click="">
-                <i class="fa-solid fa-pen-to-square">購物車</i>
-                
-            </button> -->
-
-                <div class="searchIcon">
-                    <label for="searchBar"></label>
-                </div>
                 <!-- =============================================== -->
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
@@ -259,11 +245,11 @@ export default {
                     <option value="桃園市">桃園市</option>
                     <option value="南投縣">南投縣</option>
                     <option value="高雄市">高雄市</option>
-                    <!-- <option value="金門縣">金門縣</option> -->
                     <option value="屏東縣">屏東縣</option>
                     <option value="基隆市">基隆市</option>
-                    <!-- <option value="澎湖縣">澎湖縣</option> -->
                     <option value="彰化縣">彰化縣</option>
+                    <!-- <option value="澎湖縣">澎湖縣</option> -->
+                    <!-- <option value="金門縣">金門縣</option> -->
                     <!-- <option value="連江縣">連江縣</option> -->
                 </select>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -292,7 +278,9 @@ export default {
                 <input type="date" class="form-control" id="dateUtil" name="date" v-model="endDate">
                 <span v-if="endDate < startDate" class="error-message">起訖日期順序"不合理"</span>
                 <span v-else-if="isStartDateInvalid" class="error-message">查詢30天前生鮮食品為"不合理"</span>
-                <button class="dateSearchBtn" @click="getDateInfo"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="dateSearchBtn" @click="getDateInfo">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
             </div>
         <!-- searchbar 尾巴 -->
         </div>
@@ -306,7 +294,7 @@ export default {
         <!-- 左邊的功能區 -->
         <div class="background-layout">
 
-            <layoutCardView v-for="(item, index) in searchResultArr" v-bind:searchResultcode="item.hsCode"
+            <layoutCardView v-for="item in searchResultArr" v-bind:searchResultcode="item.hsCode"
                 v-bind:selleraccount="item.sellerAccount" v-bind:date="item.date" v-bind:description="item.description"
                 v-bind:name="item.name" v-bind:number="item.number" v-bind:place="item.place" v-bind:price="item.price"
                 v-bind:type="item.type" v-on:emitPushAdd="getemit" />
@@ -318,7 +306,7 @@ export default {
             <!-- 購物車區 -->
             <div class="upper-dtail">
                 <h5 class="buyerTitle">買家已選清單</h5>
-                <selectionView v-for="(item, index) in chartResultArr" v-bind:selectShopppingCode="item.shoppingNumber"
+                <selectionView v-for="item in chartResultArr" v-bind:selectShopppingCode="item.shoppingNumber"
                     v-bind:selectId="item.itemId" v-bind:selectName="item.itemName" v-bind:selectNumber="item.itemNum"
                     v-bind:selectPrice="item.itemPrice" v-bind:selectStock="item.stock" v-on:emitPushModi="getSelectemit" />
             </div>

@@ -219,11 +219,7 @@ export default{
         <!-- 賣家上架系統 -->
             <div class="add tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <form @submit.prevent="addProduct" class="form">
-                    <!-- <div class="hs_code">
-                        <label for="">商品編碼</label>
-                        <p></p>
-                        <input placeholder="新增成功會自動生成" type="text" :value="hs_code" readonly>
-                    </div> -->
+                    <div class="item">
                     <div class="seller_account">
                         <label for="">賣家帳號</label>
                         <p></p>
@@ -241,6 +237,8 @@ export default{
                             <option v-for="option in typeOptions" :value="option">{{ option }}</option>
                         </select>
                     </div>
+                    </div>
+                    <div class="item">
                     <div class="place">
                         <label for="">原生產地</label>
                         <p></p>
@@ -258,6 +256,8 @@ export default{
                         <p></p>
                         <input placeholder="yyyy-mm-dd" type="date" class="form-control" id="date" name="date" v-model="date">
                     </div>
+                    </div>
+                    <div class="item">
                     <div class="price">
                         <label for="">產品價格</label>
                         <p></p>
@@ -271,26 +271,19 @@ export default{
                     <div class="addBtn">
                         <button type="sumbit">上架商品</button>
                     </div>
+                    </div>
                 </form>
             </div>
         <!-- 賣家已上架商品 -->
             <div class="products tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="sellProducts">
                     <div class="seller_account">
-                        <div class="search">
-                            <!-- <label for="">賣家帳號</label>
-                            <p></p>
-                            <input type="text" v-model="sellerAccount" readonly>
-                            <div class="btn">
-                                <button type="button" @click="findSellerAllProduct">搜尋</button>
-                            </div> -->
-                        </div>
-                       
                         <!-- 搜尋結果 -->
                         <div class="result" >
                             <ul v-for="(result, index) in searchAllRes" :key="result.hsCode">
+                                <div class="resultUl">
                                 <!-- 多筆渲染 -->
-                                <li>商品編碼<p></p><input type="text" v-model="result.hsCode"></li>
+                                <li>商品編碼：{{result.hsCode}}</li>
                                 <p></p>
                                 <li>商品名稱<p></p><input type="text" v-model="result.name" ></li>
                                 <p></p>
@@ -317,8 +310,10 @@ export default{
                                     <button type="button" @click="updateProduct(index)">修改此商品資訊</button>
                                     <button type="button" @click="removeProduct(index)">下架商品</button>
                                 </div>
-                                <hr>
+                                <!-- <hr> -->
+                            </div>
                             </ul> 
+                            <!-- result 結尾 -->
                         </div>
                     </div>
                 </div>
@@ -327,18 +322,9 @@ export default{
             <div class="order tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div class="sellOrder">
                     <showOrder />
-                
                 </div>
-            
-
             </div>
         </div>
-    <!-- 賣家訂單 -->
-    <div class="order tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-        <div class="sellOrder">
-            My order
-        </div>
-    </div>
 </div>
 
     
@@ -375,12 +361,17 @@ export default{
     .form{
         height: 480px;
         overflow-y: auto;
+        display: flex;
         background-color: #9ead9a;
         padding: 20px;
         font-family: "Cormorant Garamond", serifc;
         font-weight: bold;
         font-size: 24px;
 
+        .item{
+            width: 30%;
+            height:100% ;
+        }
         input{
             margin-bottom: 30px;
         }
@@ -445,14 +436,20 @@ export default{
         }
 
         .addBtn{
-            margin-top: 10px;
+            margin-top: 30px;
             padding-left: 95px;
             border: none;
+            
             button{
                 border: none;
                 border-radius: 4px;
                 padding: 4px;
+                transition: 0.5s;
 
+                &:hover{
+                background-color: #1f4d22;
+                color: white;
+            }
             }
 
         }
@@ -492,12 +489,22 @@ export default{
 
         .result{
             padding: 10px;
-            
+            display: flex;
+            overflow-x: auto;
+
+            .resultUl{
+                border: 2pt solid rgb(11, 74, 11);
+                border-radius: 5pt;
+                padding:5px
+            }
             select{
                 width: 298px;
                 height: 42px;
             }
 
+            ul{
+                list-style: none;
+            }
 
             .btn{
                 border: none;
