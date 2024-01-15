@@ -7,7 +7,8 @@
         data() {
             return {
                 user_name: null,
-                user_account: null
+                user_account: null,
+                permissions:null,
             }
         },
         methods: {
@@ -52,6 +53,7 @@
             // get出 localStorage 的 user_name
             this.user_name = localStorage.getItem("user_name");
             // this.fetchData();
+            this.permissions = localStorage.getItem("permissions");
         },
         
     }
@@ -89,8 +91,16 @@
                     >登出</button>
                     </p>
             
-                    <RouterLink to="/original-info" class="setInfo  btn btn-outline-secondary">
+                    <div class="setInfoArea" v-if="this.permissions == 1">
+                        <RouterLink to="/personInfo" class="setInfo  btn btn-outline-secondary" >
                     <i class="fa-solid fa-user-pen"></i>　個人資料</RouterLink>
+                    </div>
+                    
+                    <div class="managerArea" v-if="this.permissions == 0">
+                        <RouterLink to="/manager" class="manager btn btn-outline-secondary">
+                            <i class="fa-solid fa-people-roof">　會員管理</i></RouterLink>
+                        
+                    </div>
                 </div>
 
                 <div v-else>
@@ -317,7 +327,11 @@
                     margin-bottom: -30px;
                     text-decoration: none;
                     font-size: 14px;
-
+                }
+                .manager{
+                    margin-bottom: -30px;
+                    text-decoration: none;
+                    font-size: 14px;
                 }
                 .btn{
                     height: 40px;

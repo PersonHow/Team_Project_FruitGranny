@@ -11,6 +11,7 @@ export default {
     data() {
         return {
             searchResultArr: [],
+            // 購物車清單
             chartResultArr: [],
             searchData: null,
             searchTypeBtn: "搜尋分類",
@@ -20,12 +21,12 @@ export default {
             // 起始日期
             startDate: '',
             // 結束日期 
-            endDate: '', 
+            endDate: '',
             // 是否為無效的起始日期
-            isStartDateInvalid: false, 
+            isStartDateInvalid: false,
             totalPrice: null,
-            isShow:false,
-            isPrint:false
+            isShow: false,
+            isPrint: false
 
         }
     },
@@ -51,6 +52,7 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.searchResultArr = data.product_list;
+                    // console.log(this.searchResultArr)
                 })
         },
         getPlaceProductInfo() {
@@ -59,7 +61,7 @@ export default {
             console.log(getCityName);
 
             //產品名稱
-            let body = { 
+            let body = {
                 "place": getCityName
             }
 
@@ -78,21 +80,22 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.searchResultArr = data.searchAllRes;
-
+                    console.log(this.searchResultArr)
                 })
         },
         //產地搜尋
-        changeAndSearchPlace() { 
+        changeAndSearchPlace() {
+
             this.searchTypeBtn = this.searchTypePlace;
-            this.isShow=true;
-            this.isPrint=false;
+            this.isShow = true;
+            this.isPrint = false;
             this.getPlaceProductInfo();
         },
         //產品搜尋
-        changeAndSearchNmae() { 
+        changeAndSearchNmae() {
             this.searchTypeBtn = this.searchTypeProduct;
-            this.isShow=false;
-            this.isPrint=true;
+            this.isShow = false;
+            this.isPrint = true;
             this.getProductInfo();
         },
         getDateInfo() {
@@ -102,7 +105,7 @@ export default {
                 alert('Warning!!! 你提供的日期不符合規定')
             }
             //產品名稱
-            let body = { 
+            let body = {
                 "firstDay": this.startDate,
                 "endDay": this.endDate
             }
@@ -132,7 +135,7 @@ export default {
         getShoppingCar() {
             let body = {
                 //需要localstorage資料
-                "buyerAccount": localStorage.getItem('email') 
+                "buyerAccount": localStorage.getItem('email')
             }
             fetch("http://localhost:8080/get_shopping_data", {
                 method: "POST",
@@ -152,13 +155,17 @@ export default {
                     let SearchArr = [];
                     console.log(data);
                     SearchArr = data.Shopping_Detail_List;
-                    for (let i = 0; i < SearchArr.length; i++) {
-                        let singleTotal;
-                        let singalPrice = data.Shopping_Detail_List[i].itemPrice;
-                        let singleNum = data.Shopping_Detail_List[i].itemNum;
-                        singleTotal = singalPrice * singleNum
-                        priceArr.push(singleTotal);
+                    if (!SearchArr == []) {
+                        console.log(SearchArr)
+                        for (let i = 0; i < SearchArr.length; i++) {
+                            let singleTotal;
+                            let singalPrice = data.Shopping_Detail_List[i].itemPrice;
+                            let singleNum = data.Shopping_Detail_List[i].itemNum;
+                            singleTotal = singalPrice * singleNum
+                            priceArr.push(singleTotal);
+                        }
                     }
+
 
                     console.log(priceArr);
                     let totoalCollection = 0;
@@ -171,6 +178,7 @@ export default {
                     //要呈現的清單表不能刪
                     this.chartResultArr = SearchArr;
                     localStorage.setItem((localStorage.getItem("email")), JSON.stringify(this.chartResultArr));
+                    // 購物車清單
                     console.log(this.chartResultArr);
                 })
         },
@@ -181,39 +189,47 @@ export default {
             console.log(`ASD`)
             this.getShoppingCar();
         },
-        goCheckOut(){
-            if(window.confirm("確認前往結帳頁面嗎?")=== true){
-                this.$router.push('/Checkout')
-            }else{
-            }
-        }
+        goCheckOut() {
+            if (!this.chartResultArr == "") {
 
-    }, watch: {
-        startDate(newStartDate) {
-            const maxAllowedDate = new Date();
-            // 取得 30 天前的日期
-            maxAllowedDate.setDate(maxAllowedDate.getDate() - 30); 
-
-            if (new Date(newStartDate) < maxAllowedDate) {
-                this.isStartDateInvalid = true;
+                if (window.confirm("確認前往結帳頁面嗎?") === true) {
+                    this.$router.push('/Checkout')
+                } else {
+                    alert("應該好好思考一番")
+                }
             } else {
-                this.isStartDateInvalid = false;
+                alert("購物車為空不能結帳");
             }
-        }
-    },
 
-    // 生命週期
-    mounted() {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        this.startDate = `${year}-${month}-${day}`;
-        this.endDate = `${year}-${month}-${day}`;
-        this.getShoppingCar();
+        }, watch: {
+            startDate(newStartDate) {
+                const maxAllowedDate = new Date();
+                // 取得 30 天前的日期
+                maxAllowedDate.setDate(maxAllowedDate.getDate() - 30);
+
+                if (new Date(newStartDate) < maxAllowedDate) {
+                    this.isStartDateInvalid = true;
+                } else {
+                    this.isStartDateInvalid = false;
+                }
+            }
+        },
+
+        // 生命週期
+        mounted() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            this.startDate = `${year}-${month}-${day}`;
+            this.endDate = `${year}-${month}-${day}`;
+            this.getShoppingCar();
+        },
+        updated() {
+            // this.getShoppingCar();
+        }
     }
 }
-
 </script>
 
 
@@ -221,13 +237,13 @@ export default {
     <div class="search-area">
         <!-- 上方的條件區 -->
         <div class="searchbar">
-                <!-- =============================================== -->
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ searchTypeBtn }}
-                    </button>
-                    <!-- =========================================================== -->
+            <!-- =============================================== -->
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{ searchTypeBtn }}
+                </button>
+                <!-- =========================================================== -->
                 <select v-if="isShow" name="" id="tool" v-on:change="changeAndSearchPlace">
                     <option value="嘉義縣">嘉義縣</option>
                     <option value="新北市">新北市</option>
@@ -252,22 +268,22 @@ export default {
                     <!-- <option value="金門縣">金門縣</option> -->
                     <!-- <option value="連江縣">連江縣</option> -->
                 </select>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" type="button" v-on:click="changeAndSearchPlace">{{ searchTypePlace
-                        }}</button></li>
-                        <li><button class="dropdown-item" type="button" v-on:click="changeAndSearchNmae">{{
-                            searchTypeProduct }}</button></li>
-                        
-                    </ul>
-                </div>  
-            
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <li><button class="dropdown-item" type="button" v-on:click="changeAndSearchPlace">{{ searchTypePlace
+                    }}</button></li>
+                    <li><button class="dropdown-item" type="button" v-on:click="changeAndSearchNmae">{{
+                        searchTypeProduct }}</button></li>
+
+                </ul>
+            </div>
+
             <!-- ============================================================================ -->
             <div v-if="this.isPrint" class="placesearch">
-                    <input class="searchBar" type="text" name="" id="searchBar" placeholder="產品名稱關鍵字搜尋"
-                        v-model="this.searchData">
-                    <button type="button" class="searchReqBtn" @click="getProductInfo">
-                        搜尋
-                    </button>
+                <input class="searchBar" type="text" name="" id="searchBar" placeholder="產品名稱關鍵字搜尋"
+                    v-model="this.searchData">
+                <button type="button" class="searchReqBtn" @click="getProductInfo">
+                    搜尋
+                </button>
             </div>
 
             <!-- 日期範圍搜尋 -->
@@ -282,14 +298,14 @@ export default {
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
-        <!-- searchbar 尾巴 -->
+            <!-- searchbar 尾巴 -->
         </div>
-    <!-- search-Area尾巴 -->
+        <!-- search-Area尾巴 -->
     </div>
 
-            
 
-            <!-- 下方的功能區 -->
+
+    <!-- 下方的功能區 -->
     <div class="content-layout">
         <!-- 左邊的功能區 -->
         <div class="background-layout">
@@ -316,7 +332,7 @@ export default {
                     <h4>購物車總金額:</h4>
                     <h4 class="text-danger">{{ this.totalPrice }}</h4>
                 </div>
-                <div >
+                <div>
                     <button class="checkbtn" type="button" @click="goCheckOut">前往結帳</button>
                 </div>
             </div>
@@ -327,7 +343,6 @@ export default {
 
 
 <style lang="scss" scoped>
-
 .content-layout {
     display: flex;
 
@@ -343,38 +358,38 @@ export default {
         height: 80vh;
         background: #ffffff;
         overflow-y: auto;
-        margin-right: 3vw;                                      
+        margin-right: 3vw;
     }
 
     .right-shoppingCart {
-    flex-direction: column;
-    display: flex;
-    // justify-content: center;
-    align-items: center;
-
-    .upper-dtail {
-        width: 35vw;
-        height: 45vh;
-        background: #ffffff;
-        border-radius: 5px;
-        overflow-y: auto;
-
-        
-    }
-
-    .bottom-total {
-        width: 35vw;
-        height: 30vh;
-        background: #ffffff;
-        border-radius: 5px;
-        margin-top: 30px;
         flex-direction: column;
         display: flex;
-        justify-content: center;
+        // justify-content: center;
         align-items: center;
-    }
 
-}
+        .upper-dtail {
+            width: 35vw;
+            height: 45vh;
+            background: #ffffff;
+            border-radius: 5px;
+            overflow-y: auto;
+
+
+        }
+
+        .bottom-total {
+            width: 35vw;
+            height: 30vh;
+            background: #ffffff;
+            border-radius: 5px;
+            margin-top: 30px;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
 }
 
 select {
@@ -509,24 +524,28 @@ input {
 .dateSearchBtn:active {
     scale: 0.6;
 }
-.price-total{
+
+.price-total {
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.checkbtn{
+
+.checkbtn {
     background: #273229;
     color: #ffffff;
     border-radius: 5px;
     transition: 0.6s;
 
 }
-.checkbtn:hover{
+
+.checkbtn:hover {
     background: #ffffff;
     color: #273229;
 }
-.checkbtn:active{
-   scale: 0.7;
+
+.checkbtn:active {
+    scale: 0.7;
 }
 </style>

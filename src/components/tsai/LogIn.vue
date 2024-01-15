@@ -34,6 +34,8 @@
                     localStorage.setItem("user_name", data.member.account);
                     localStorage.setItem("phone", data.member.phone);
                     localStorage.setItem("address", data.member.address);
+                    localStorage.setItem("permissions",data.member.permissions);
+                    
 
                     if (data.message === "登入成功! HELLO!") {
                         // 把account設值

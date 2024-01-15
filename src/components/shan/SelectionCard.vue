@@ -1,10 +1,6 @@
-
 <script>
-
-
 export default {
     components: {
-
 
     },
     data() {
@@ -27,7 +23,8 @@ export default {
             console.log(this.selectNumber)
             console.log(this.selectionNum)
         },
-        updateData() { //modify
+        //modify
+        updateData() { 
             let body = {
                 "shoppingCode": this.selectShopppingCode,
                 "product": this.selectId,
@@ -61,8 +58,8 @@ export default {
         deleteDate() {
 
             let body = {
-                "shoppingCode":this.selectShopppingCode,
-                "buyerAccount":localStorage.getItem('email')
+                "shoppingCode": this.selectShopppingCode,
+                "buyerAccount": localStorage.getItem('email')
                 // "buyerAccount": "A124" //localstorage
             }
             fetch("http://localhost:8080/delete_data", {

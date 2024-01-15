@@ -1,108 +1,100 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router';
+import setInfos from '../tsai/SetInfo.vue';
 export default {
-
+    components: {
+        setInfos
+    },
     data() {
         return {
-            
-            email: localStorage.getItem("email"),
-            pwd: localStorage.getItem("password"),
-
-            newName: null,
-            newPhone: null,
-            newAddress: null
         }
     },
+    props:[
+        "Name",
+        "Phone",
+        "Address",
+        "email",
+    ],
     created() {
-        this.fetchData();
+        
     },
     methods: {
 
-        fetchData(){
-            let body = {
-                "email": this.email,
-                "password": this.pwd,
-            }
-            fetch("http://localhost:8080/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "Application/json"
-                },
-                body: JSON.stringify(body)
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                this.newName = data.member.account;
-                this.newPhone = data.member.phone;
-                this.newAddress = data.member.address;
+        // fetchData() {
+        //     let body = {
+        //         "email": this.email,
+        //         "password": this.pwd,
+        //     }
+        //     fetch("http://localhost:8080/login", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "Application/json"
+        //         },
+        //         body: JSON.stringify(body)
+        //     })
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             console.log(data)
+        //             this.newName = data.member.account;
+        //             this.newPhone = data.member.phone;
+        //             this.newAddress = data.member.address;
 
-            })
-            .catch(err => {
+        //         })
+        //         .catch(err => {
 
-            })
-        }
+        //         })
+        // },
 
     },
-    mounted(){
+    mounted() {
     }
 }
 </script>
 
 
 <template>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <div class="setInfo-box">
 
         <div class="set-info">
             <h1>個人資料</h1>
-            
+
             <!-- 個人資料區域 -->
             <form class="info-area">
                 <div>
                     <i class="fa-regular fa-user"></i>
                     <label for="userName">　</label>
-                    <input type="text" 
-                    id="userName" 
-                    v-model="newName"
-                    readonly>
+                    <input type="text" id="userName" :value="Name" @input="$emit('update:Name', $event.target.value)" readonly>
                 </div>
 
                 <div>
                     <i class="fa-solid fa-at"></i>
                     <label for="email">　</label>
-                    <input type="text" 
-                    id="email" 
-                    v-model="email" 
-                    readonly>
+                    <input type="text" id="email" :value="email" @input="$emit('update:email', $event.target.value)" readonly>
                 </div>
 
-               <div>
+                <div>
                     <i class="fa-solid fa-mobile-screen-button"></i>
                     <label for="phontNumber">　</label>
-                    <input type="text" 
-                    id="phontNumber" 
-                    v-model="newPhone"
-                    readonly>
-               </div>
-            
-               <div>
+                    <input type="text" id="phontNumber" :value="Phone" @input="$emit('update:Phone', $event.target.value)" readonly>
+                </div>
+
+                <div>
                     <i class="fa-regular fa-address-card"></i>
                     <label for="address">　</label>
-                    <input type="text" 
-                    id="address" 
-                    v-model="newAddress" 
-                    readonly>
-               </div>
+                    <input type="text" id="address" :value="Address" @input="$emit('update:Address', $event.target.value)" readonly>
+                </div>
 
             </form>
 
             <!-- 前往修改個人資料按鈕 -->
-            <RouterLink to="/set-info">
-            <button type="button" class="setBtn">個人資料變更
-            <i class="fa-solid fa-arrow-right"></i>
-            </button></RouterLink>
+                <button type="button" class="setBtn" @click="$emit('goSet')">個人資料變更
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
 
             <h2 class="message">
                 <RouterLink to="/">
@@ -114,75 +106,74 @@ export default {
             </h2>
         </div>
     </div>
-
 </template>
 
 
 <style lang="scss" scoped>
-    .setInfo-box{
-        width: 700px;
+.setInfo-box {
+    width: 700px;
 
-        .set-info{
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 20px;
-            color: #444;
+    .set-info {
+        text-align: center;
+        padding: 30px;
+        background: white;
+        border-radius: 20px;
+        color: #444;
 
-            h1{
+        h1 {
             font-size: 28pt;
             font-weight: normal;
             margin: 30px 0 55px 0;
+        }
+
+        p {
+            font-size: 11pt;
+            margin-bottom: 25px;
+        }
+
+        .info-area {
+
+            input {
+                margin-top: 30px;
+                height: 40px;
+                width: 60%;
+                border: 0;
+                border-bottom: 2px solid rgba(0, 0, 0, .1);
+                outline: none;
+                cursor: default;
+            }
+        }
+
+        .setBtn {
+            margin: 60px auto 50px auto;
+            padding: 12px 35px;
+            border-radius: 20px;
+            border: none;
+            background: #333;
+            color: white;
+            transition: 0.3s;
+
+            &:hover {
+                background: #555;
             }
 
-            p{
-                font-size: 11pt;
-                margin-bottom: 25px;
+            &:active {
+                scale: 0.95;
             }
+        }
 
-            .info-area{
+        .message {
+            font-size: 10px;
+            text-align: right;
+            color: rgba(47, 54, 64, 1.0);
 
-                input{
-                    margin-top: 30px;
-                    height: 40px;
-                    width: 60%;
-                    border: 0;
-                    border-bottom: 2px solid rgba(0,0,0,.1);
-                    outline: none;
-                    cursor: default;
-                }
-            }
-
-            .setBtn{
-                margin: 60px auto 50px auto;
-                padding: 12px 35px;
-                border-radius: 20px;
-                border: none;
-                background: #333;
-                color: white;
-                transition: 0.3s;
-
-                &:hover{
-                    background: #555;
-                }
-
-                &:active{
-                    scale: 0.95;
-                }
-            }
-
-            .message{
-                font-size: 10px;
-                text-align: right;
-                color: rgba(47, 54, 64, 1.0);
-
-                .homeBtn{
-                    border: 1px solid #999;
-                    border-radius: 5px;
-                    padding: 5px 10px;
-                    background-color: #fff;
-                }
+            .homeBtn {
+                border: 1px solid #999;
+                border-radius: 5px;
+                padding: 5px 10px;
+                background-color: #fff;
             }
         }
     }
+}
 </style>

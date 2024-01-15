@@ -6,20 +6,20 @@ export default{
     },
     data() {
         return {
-        hs_code:null,
-        sellerAccount:null,
-        name:null,
-        type:null,
-        place:null,
-        number:null,
-        date:null,
-        price:null,
-        description:null,
+        hs_code:"",
+        sellerAccount:"",
+        name:"",
+        type:"",
+        place:"",
+        number:"",
+        date:"",
+        price:"",
+        description:"",
         
         searchAllRes:[],
         }
     },
-    methods: {
+    methods:{
 
         removeProduct(index){
             let result = this.searchAllRes[index];
@@ -156,13 +156,13 @@ export default{
                     // alert(JSON.stringify(data.product_list[0].name))
                     // console.log(data.product_list[0])
                     // 新增成功清除欄位資料
-                    this.name = null;
-                    this.type = null;
-                    this.place = null;
-                    this.number = null;
-                    this.date = null;
-                    this.price = null;
-                    this.description  = null;
+                    // this.name = this.name;
+                    // this.type = this.type;
+                    // this.place = this.place;
+                    // this.number = this.number;
+                    // this.date = ;
+                    // this.price = null;
+                    // this.description  = null;
 
 
                 })
@@ -266,7 +266,7 @@ export default{
                     <div class="description">
                         <label for="">備註說明</label>
                         <p></p>
-                        <input type="text" v-model="description">
+                        <input type="text" v-model="description" placeholder="品種名稱或品種特色">
                     </div>
                     <div class="addBtn">
                         <button type="sumbit">上架商品</button>
